@@ -1,0 +1,77 @@
+<mat-sidenav-container
+  class="sidenav-container"
+  *ngIf="router.url !== '/login'"
+>
+  <mat-sidenav mode="side" [(opened)]="opened" #sidenav class="sidenav">
+    <div class="logo-container">
+      <img src="assets/img/logo-new.png" alt="logo" />
+    </div>
+
+    <ul>
+      <li [routerLink]="['/']"><mat-icon>fact_check</mat-icon>Dashboard</li>
+      <li [routerLink]="['/users']"><mat-icon>groups</mat-icon>Clients</li>
+      <!-- <li [routerLink]="['/news']"><mat-icon>feed</mat-icon>News</li>
+      <li [routerLink]="['/info']"><mat-icon>info</mat-icon>Help</li>
+
+      <li [routerLink]="['/legal']"><mat-icon>policy</mat-icon>Legal Notice</li> -->
+      <li (click)="logout()"><mat-icon>logout</mat-icon>Logout</li>
+    </ul>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <div>
+          <mat-icon class="menu-icon" (click)="sidenav.toggle()">menu</mat-icon>
+          <h2>Multi Tenant App</h2>
+        </div>
+        <div>
+          <!-- <h2>{{ time }}, {{ usersService.currentlyLoggedInUserName }}!</h2> -->
+          {{ date | date:'EEEE | d MMMM | y' }}
+        </div>
+        <div class="notifications-container">
+          <!-- <button
+            mat-fab
+            matTooltip="App Info"
+            style="background-color: transparent; box-shadow: none"
+            [routerLink]="['/info']"
+          >
+            <mat-icon>info</mat-icon>
+          </button> -->
+          <img
+            src="assets/img/icon_person.png"
+            alt="person-icon"
+            (click)="userMenuOpen = !userMenuOpen"
+          />
+          <div class="color-dot"></div>
+          <div class="userinfo-wrapper" *ngIf="userMenuOpen">
+            <h2>{{ usersService.currentlyLoggedInUserName }}</h2>
+            <div (click)="logout()"><mat-icon>logout</mat-icon>Logout</div>
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div
+      class="router-container"
+      [ngStyle]="{
+        'background-color':
+          router.url == '/dashboard' || router.url == '/'
+            ? '#f5f5f5'
+            : 'unset'
+      }"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div *ngIf="router.url == '/login'">
+  <app-login></app-login>
+</div>
+
+<div class="screensize-alert">
+  <h1>
+    This is a desktop application. Please change your device or enlarge browser
+    window.
+  </h1>
+</div>
