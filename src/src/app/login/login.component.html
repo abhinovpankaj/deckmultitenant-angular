@@ -1,0 +1,100 @@
+<div class="overlay">
+  <div class="login-header-container">
+    <img src="assets/img/logo-new-white.png" alt="logo" />
+    <!-- <div *ngIf="!signupMode">
+     <p class="login-signup-prompt">No account yet?</p>
+      <button mat-raised-button class="signup-btn btn" (click)="signupMode = true">
+        Sign Up
+      </button>
+    </div> -->
+    <div
+      *ngIf="signupMode && !signUpSuccess"
+      (click)="signupMode = false"
+      class="signup-header-container"
+    >
+      <mat-icon>arrow_back_ios</mat-icon>
+      <p class="login-signup-prompt">Back to Login</p>
+    </div>
+  </div>
+  <div class="login-container" *ngIf="!signupMode">
+    <h1>Login</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your Email</mat-label>
+      <input matInput [(ngModel)]="email" />
+      <button mat-icon-button matSuffix tabIndex="-1">
+        <mat-icon>email</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [(ngModel)]="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+        tabIndex="-1"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="login-button-wrapper">
+      <button mat-raised-button class="login-btn btn" (click)="logIn()">
+        Log in
+      </button>
+      <!-- <button mat-raised-button (click)="guestLogin()" class="btn">Guest Login</button> -->
+    </div>
+  </div>
+  <div class="login-container" *ngIf="signupMode && !signUpSuccess">
+    <h1>Sign Up</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your Username</mat-label>
+      <input matInput [(ngModel)]="userName" />
+      <button mat-icon-button matSuffix tabIndex="-1">
+        <mat-icon>person</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your Email</mat-label>
+      <input matInput [(ngModel)]="email" />
+      <button mat-icon-button matSuffix tabIndex="-1">
+        <mat-icon>email</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your Password</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [(ngModel)]="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+        tabIndex="-1"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- <div class="login-button-wrapper">
+      <button mat-raised-button class="login-btn" (click)="signUp()">
+        Create Account
+      </button>
+    </div> -->
+  </div>
+  <!-- <div class="signup-success-container" *ngIf="signUpSuccess">
+    <h1>Welcome on Board</h1>
+    <div>
+      <h2>Signup successful!</h2>
+      <mat-icon>check_box</mat-icon>
+    </div>
+  </div> -->
+</div>

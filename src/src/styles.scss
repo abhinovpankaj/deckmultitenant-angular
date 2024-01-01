@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/flatpickr/dist/flatpickr.css';
+@import 'node_modules/@ngneat/hot-toast/src/styles/styles.css';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.custom-modalbox {
+  max-height: 90% !important;
+  width: 70% !important;
+  overflow-y: auto !important;
+
+  .mat-mdc-dialog-surface {
+    padding: 1rem 1rem 2rem 1rem !important;
+  }
+}
+
+.notepad-box {
+  min-width: 40% !important;
+}
+
+
+.cal-month-view .cal-day-badge {
+  background-color: #29abe2 !important;
+}
+

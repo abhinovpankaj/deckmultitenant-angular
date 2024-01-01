@@ -1,0 +1,132 @@
+<h1 mat-dialog-title class="mat-dialog-title">Add new Tenant</h1>
+<div mat-dialog-content class="mat-dialog-content">
+  <div>
+    <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="data.firstname" />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" [(ngModel)]="data.lastname" />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Birthday</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="data.birthday" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div class="checkboxes">
+        <mat-checkbox
+          class="example-margin"
+          color="primary"
+          [(ngModel)]="data.male"
+          (click)="toggleMale()"
+          >Male</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          color="primary"
+          [(ngModel)]="data.female"
+          (click)="toggleFemale()"
+          >Female</mat-checkbox
+        >
+      </div>
+    </div> -->
+    <div class="input-row adress">
+      <mat-form-field appearance="outline">
+        <mat-label>Company Description</mat-label>
+        <input matInput placeholder="Company Description" [(ngModel)]="data.adress" />
+        <mat-icon matSuffix>business</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- <div class="input-row mail">
+      <mat-form-field appearance="outline">
+        <mat-label>E-Mail</mat-label>
+        <input
+          matInput
+          placeholder="E-Mail"
+          [(ngModel)]="data.email"
+        />
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+    </div> -->
+
+    <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed Disk Space</mat-label>
+        <input
+          type="number"
+          matInput
+          placeholder="Allowed Disk Space"
+          [(ngModel)]="data.zipcode"
+        /> 
+        <mat-icon matSuffix>storage</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Validity</mat-label>
+        <input matInput placeholder="Validity" [(ngModel)]="data.city" />
+        <mat-icon matSuffix>calendar_today</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed Users</mat-label>
+        <input
+          type="number"
+          matInput
+          placeholder="Allowed Users"
+          [(ngModel)]="data.zipcode"
+        /> 
+        <mat-icon matSuffix>group</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Expenses</mat-label>
+        <input matInput placeholder="Expenses" [(ngModel)]="data.city" />
+        <mat-icon matSuffix>payment</mat-icon>
+      </mat-form-field>
+    </div>
+    <!-- <div class="input-row company">
+      <mat-form-field appearance="outline">
+        <mat-label>Affiliated Company</mat-label>
+        <input
+          matInput
+          placeholder="Company"
+          [(ngModel)]="data.company"
+        />
+        <mat-icon matSuffix>location_city</mat-icon>
+      </mat-form-field>
+    </div> -->
+    <div class="input-row company">
+      <mat-form-field appearance="outline">
+        <mat-label>Company Website</mat-label>
+        <input
+          matInput
+          placeholder="Company"
+          [(ngModel)]="data.website"
+        />
+        <mat-icon matSuffix>language</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="input-row filerow">
+      <label for="file" class="filepicker-label">      <mat-icon class="upload-file-icon">upload_file</mat-icon>
+         Select a file</label>
+         <p>{{customImage ? customImage.name : "If desired upload custom client avatar (.jpg or .png Format)"}} <mat-icon *ngIf="customImage" (click)="resetCustomImage()" class="reset-file-icon">delete</mat-icon>
+         </p>
+      <input type="file" (change)="onFileSelected($event)" id="file" class="file">
+    </div>
+  </div>
+</div> 
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="submitData()">Ok</button>
+</div>
