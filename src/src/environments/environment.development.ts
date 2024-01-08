@@ -6,4 +6,7 @@ export const environment = {
     apiKey: 'AIzaSyDKVPTpnAX75p-B_x44himCbIqyKPKoHDM',
     authDomain: 'crm-system-f7e71.firebaseapp.com',
     messagingSenderId: '22549615948',
-  },};
+  },
+
+  apiUrl: 'http://localhost:3000/api',
+};

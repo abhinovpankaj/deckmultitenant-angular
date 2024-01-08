@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UsersService } from '../users.service';
-import { addDoc, updateDoc } from 'firebase/firestore';
 import { HotToastService } from '@ngneat/hot-toast';
+import { TenantsService } from '../tenants.service';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -11,26 +10,24 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class DialogAddUserComponent {
   data = {
-    firstname: '',
-    lastname: '',
-    birthday: null,
-    male: true,
-    female: false,
-    zipcode: '',
-    adress: '',
-    city: '',
-    email: '',
+    name: '',
+    companyDescription: '',
+    expenses: '',
+    validity: '',
+    allowedUsersCount: '',
     id: '',
-    company: '',
+    allowedDiskSpace: '',
     website: '',
-    projects: {},
   };
 
-  customImage: File | null;
+  firstname: String = '';
+  lastname: String = '';
+
+  // customImage: File | null;
 
   constructor(
     private dialog: MatDialog,
-    private usersService: UsersService,
+    private tenantsService: TenantsService,
     private toast: HotToastService
   ) {}
 
@@ -40,16 +37,15 @@ export class DialogAddUserComponent {
 
   async submitData() {
     if (this.formValidator()) {
-      const docRef = await addDoc(this.usersService.collection, this.data);
-
-      let id = docRef.id;
-
-      await updateDoc(docRef, { id: id });
-
-      if (this.customImage) {
-        await this.usersService.uploadImage(this.customImage, id);
-      }
-
+      this.tenantsService.addTenant(this.data).subscribe(
+        (response) =>{
+          console.log(response);
+        },
+        
+        (error) =>{
+          console.log(error);
+        }
+      );
       this.dialog.closeAll();
     } else {
       this.toast.error(
@@ -58,32 +54,24 @@ export class DialogAddUserComponent {
     }
   }
 
-  toggleMale() {
-    this.data.male = true;
-    this.data.female = false;
-  }
 
-  toggleFemale() {
-    this.data.male = false;
-    this.data.female = true;
-  }
+  // onFileSelected(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     this.customImage = file;
+  //   }
+  // }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.customImage = file;
-    }
-  }
-
-  resetCustomImage() {
-    this.customImage = null;
-  }
+  // resetCustomImage() {
+  //   this.customImage = null;
+  // }
 
   formValidator() {
     let valid = true;
     let data = this.data as any;
+    this.data.name = `${this.firstname} ${this.lastname}`;
     for (const key in this.data) {
-      if (key === 'male' || key === 'female' || key === 'id') {
+      if (key === 'id') {
         continue;
       }
       if (data[key] === '' || !data[key]) {
