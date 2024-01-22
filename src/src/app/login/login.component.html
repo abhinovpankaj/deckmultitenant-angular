@@ -19,10 +19,10 @@
   <div class="login-container" *ngIf="!signupMode">
     <h1>Login</h1>
     <mat-form-field appearance="outline">
-      <mat-label>Enter your Email</mat-label>
-      <input matInput [(ngModel)]="email" />
+      <mat-label>Enter your Username</mat-label>
+      <input matInput [(ngModel)]="username" />
       <button mat-icon-button matSuffix tabIndex="-1">
-        <mat-icon>email</mat-icon>
+        <mat-icon>perm_identity</mat-icon>
       </button>
     </mat-form-field>
     <mat-form-field appearance="outline">
@@ -60,10 +60,10 @@
       </button>
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Enter your Email</mat-label>
-      <input matInput [(ngModel)]="email" />
+      <mat-label>Enter your Username</mat-label>
+      <input matInput [(ngModel)]="username" />
       <button mat-icon-button matSuffix tabIndex="-1">
-        <mat-icon>email</mat-icon>
+        <mat-icon>profile</mat-icon>
       </button>
     </mat-form-field>
     <mat-form-field appearance="outline">

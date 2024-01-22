@@ -63,6 +63,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { DialogWalkthroughComponent } from './dialog-walkthrough/dialog-walkthrough.component';
 import { TenantsService } from './tenants.service';
+import { LoginService } from './login.service';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,7 @@ import { TenantsService } from './tenants.service';
     provideStorage(() => getStorage()),
     FontAwesomeModule,
   ],
-  providers: [UsersService, TenantsService],
+  providers: [UsersService, TenantsService, LoginService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
