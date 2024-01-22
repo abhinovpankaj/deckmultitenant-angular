@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/crm-app",
+            "outputPath": "dist/deckmultitenant",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "crm-app:build:production"
+              "browserTarget": "deckmultitenant:build:production"
             },
             "development": {
-              "browserTarget": "crm-app:build:development"
+              "browserTarget": "deckmultitenant:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "crm-app:build"
+            "browserTarget": "deckmultitenant:build"
           }
         },
         "test": {
@@ -110,15 +110,7 @@
             "scripts": []
           }
         },
-        "deploy": {
-          "builder": "@angular/fire:deploy",
-          "options": {
-            "prerender": false,
-            "ssr": false,
-            "browserTarget": "crm-app:build:production",
-            "firebaseProject": "crm-system-f7e71",
-            "firebaseHostingSite": "crm-system-f7e71"
-          }
+        
         }
       }
     }
