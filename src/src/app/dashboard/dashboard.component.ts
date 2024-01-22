@@ -13,6 +13,7 @@ import { DialogNotepadComponent } from '../dialog-notepad/dialog-notepad.compone
 import { NewsService } from '../news.service';
 import { DialogWalkthroughComponent } from '../dialog-walkthrough/dialog-walkthrough.component';
 import { HotToastService } from '@ngneat/hot-toast';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,7 +43,8 @@ export class DashboardComponent implements OnInit {
     public usersService: UsersService,
     private dialog: MatDialog,
     public newsService: NewsService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    public loginService: LoginService
   ) {
     this.notes$ = this.usersService.notes;
     this.notes$.subscribe((notes) => {

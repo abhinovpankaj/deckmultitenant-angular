@@ -61,6 +61,9 @@ export class LoginComponent {
       
       this.loginService.login({username: this.username, password: this.password}).subscribe(
         (result)=>{
+          const authData = { id: result._id, name: result.username };
+          this.loginService.currentlyLoggedInUsername = result.username;
+          localStorage.setItem('authToken', JSON.stringify(authData));
           localStorage.setItem('authorization', result.token);
           // const user = result.user;
           this.router.navigateByUrl('/dashboard');
@@ -75,8 +78,8 @@ export class LoginComponent {
       // await signInWithEmailAndPassword(this.auth, this.email, this.password);
       // const user = this.auth.currentUser;
       // if (user) {
-      //   const authData = { id: user.uid, name: user.displayName };
-      //   localStorage.setItem('authToken', JSON.stringify(authData));
+        // const authData = { id: user.uid, name: user.displayName };
+        // localStorage.setItem('authToken', JSON.stringify(authData));
       //   this.usersService.connectToDatabase(user.uid, user.displayName || '');
       //   this.router.navigateByUrl('/dashboard');
       // }

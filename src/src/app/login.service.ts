@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class LoginService {
-
+  currentlyLoggedInUsername: string;
   constructor(private httpClient: HttpClient) {}
 
   login(data: any): Observable<any> {
