@@ -7,6 +7,7 @@ import {
   updateProfile,
 } from '@angular/fire/auth';
 import { UsersService } from '../users.service';
+import { LoginService } from '../login.service';
 import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
@@ -16,7 +17,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class LoginComponent {
   hide: boolean = true;
-  email: string;
+  username: string;
   password: string;
   userName: string;
   signupMode: boolean = false;
@@ -32,6 +33,7 @@ export class LoginComponent {
     public router: Router,
     private auth: Auth,
     private usersService: UsersService,
+    private loginService: LoginService,
     private toast: HotToastService
   ) {}
 
@@ -56,18 +58,31 @@ export class LoginComponent {
    */
   async logIn() {
     try {
-      if(this.email === 'admin' && this.password === 'admin'){
-        this.router.navigateByUrl('/dashboard');
-      } else{
-      await signInWithEmailAndPassword(this.auth, this.email, this.password);
-      const user = this.auth.currentUser;
-      if (user) {
-        const authData = { id: user.uid, name: user.displayName };
-        localStorage.setItem('authToken', JSON.stringify(authData));
-        this.usersService.connectToDatabase(user.uid, user.displayName || '');
-        this.router.navigateByUrl('/dashboard');
-      }
-    }
+      
+      this.loginService.login({username: this.username, password: this.password}).subscribe(
+        (result)=>{
+          const authData = { id: result._id, name: result.username };
+          this.loginService.currentlyLoggedInUsername = result.username;
+          localStorage.setItem('authToken', JSON.stringify(authData));
+          localStorage.setItem('authorization', result.token);
+          // const user = result.user;
+          this.router.navigateByUrl('/dashboard');
+        },
+
+        (error)=>{
+          console.log(error);
+          this.toast.error((error as any).toString());
+        }
+      );
+      
+      // await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      // const user = this.auth.currentUser;
+      // if (user) {
+        // const authData = { id: user.uid, name: user.displayName };
+        // localStorage.setItem('authToken', JSON.stringify(authData));
+      //   this.usersService.connectToDatabase(user.uid, user.displayName || '');
+      //   this.router.navigateByUrl('/dashboard');
+      // }
     } catch (error) {
       this.toast.error((error as any).toString());
     }
@@ -78,25 +93,25 @@ export class LoginComponent {
    * updates the user's profile with the entered username, connects to the database,
    * and navigates to the dashboard.
    */
-  async signUp() {
-    try {
-      const credential = await createUserWithEmailAndPassword(
-        this.auth,
-        this.email,
-        this.password
-      );
-      const user = credential.user;
-      if (user) {
-        this.signUpSuccess = true;
-        await updateProfile(user, { displayName: this.userName });
-        setTimeout(() => {
-          this.usersService.addNotesDocument(this.auth.currentUser?.uid || '');
-          this.usersService.addEventsDocument(this.auth.currentUser?.uid || '');
-          this.logIn();
-        });
-      }
-    } catch (error) {
-      this.toast.error((error as any).toString());
-    }
-  }
+  // async signUp() {
+  //   try {
+  //     const credential = await createUserWithEmailAndPassword(
+  //       this.auth,
+  //       this.email,
+  //       this.password
+  //     );
+  //     const user = credential.user;
+  //     if (user) {
+  //       this.signUpSuccess = true;
+  //       await updateProfile(user, { displayName: this.userName });
+  //       setTimeout(() => {
+  //         this.usersService.addNotesDocument(this.auth.currentUser?.uid || '');
+  //         this.usersService.addEventsDocument(this.auth.currentUser?.uid || '');
+  //         this.logIn();
+  //       });
+  //     }
+  //   } catch (error) {
+  //     this.toast.error((error as any).toString());
+  //   }
+  // }
 }

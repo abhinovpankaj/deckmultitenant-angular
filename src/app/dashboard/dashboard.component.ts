@@ -13,6 +13,7 @@ import { DialogNotepadComponent } from '../dialog-notepad/dialog-notepad.compone
 import { NewsService } from '../news.service';
 import { DialogWalkthroughComponent } from '../dialog-walkthrough/dialog-walkthrough.component';
 import { HotToastService } from '@ngneat/hot-toast';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,9 +24,9 @@ export class DashboardComponent implements OnInit {
   @ViewChildren('widget') widgetElements: QueryList<ElementRef>;
 
   time: string;
-  cityName: string;
-  temperature: number;
-  weatherIcon: number;
+  // cityName: string;
+  // temperature: number;
+  // weatherIcon: number;
   notes$: Observable<any>;
   notes: Array<any>;
   events$: Observable<any>;
@@ -42,7 +43,8 @@ export class DashboardComponent implements OnInit {
     public usersService: UsersService,
     private dialog: MatDialog,
     public newsService: NewsService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    public loginService: LoginService
   ) {
     this.notes$ = this.usersService.notes;
     this.notes$.subscribe((notes) => {
@@ -66,9 +68,9 @@ export class DashboardComponent implements OnInit {
    * Get gelocation, current date/time & current weather to then be displayed within dashboard widgets.
    */
   ngOnInit() {
-    this.getCurrentHour();
-    this.getCurrentWeather();
-    this.checkTutorial();
+    // this.getCurrentHour();
+    // this.getCurrentWeather();
+    // this.checkTutorial();
   }
 
   /**
@@ -107,9 +109,9 @@ export class DashboardComponent implements OnInit {
   async getCurrentWeather() {
     let cachedWeather = localStorage.getItem('weather');
     if (cachedWeather) {
-      this.temperature = JSON.parse(cachedWeather).temperature;
-      this.cityName = JSON.parse(cachedWeather).cityName;
-      this.weatherIcon = JSON.parse(cachedWeather).weatherIcon;
+      // this.temperature = JSON.parse(cachedWeather).temperature;
+      // this.cityName = JSON.parse(cachedWeather).cityName;
+      // this.weatherIcon = JSON.parse(cachedWeather).weatherIcon;
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -130,19 +132,19 @@ export class DashboardComponent implements OnInit {
     let locationUrl = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=x6YRAVajQSGgAIVNUX20e8lbKyOwot7A&q=${position.coords.latitude}%2C${position.coords.longitude}`;
     let locationResponse = await fetch(locationUrl);
     let locationData = await locationResponse.json();
-    this.cityName = locationData.LocalizedName;
+    // this.cityName = locationData.LocalizedName;
 
     let weatherUrl = `https://dataservice.accuweather.com/currentconditions/v1/${locationData.Key}?apikey=x6YRAVajQSGgAIVNUX20e8lbKyOwot7A`;
     let weatherResponse = await fetch(weatherUrl);
     let weatherData = await weatherResponse.json();
-    this.temperature = weatherData[0].Temperature.Metric.Value;
-    this.weatherIcon = weatherData[0].WeatherIcon;
+    // this.temperature = weatherData[0].Temperature.Metric.Value;
+    // this.weatherIcon = weatherData[0].WeatherIcon;
 
     // Store data in local storage
     const dataToCache = {
-      cityName: this.cityName,
-      temperature: this.temperature,
-      weatherIcon: this.weatherIcon,
+      // cityName: this.cityName,
+      // temperature: this.temperature,
+      // weatherIcon: this.weatherIcon,
     };
     localStorage.setItem('weather', JSON.stringify(dataToCache));
   }
