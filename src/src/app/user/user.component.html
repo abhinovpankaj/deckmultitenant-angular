@@ -74,7 +74,6 @@
       <input
         matInput
         type="search"
-        (input)="searchUser()"
         [(ngModel)]="searchText"
       />
     </mat-form-field>
@@ -85,8 +84,9 @@
   <table class="user-table">
     <tr>
       <th>No.</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
+      <!-- <th>Firstname</th>
+      <th>Lastname</th> -->
+      <th>Name</th>
       <th>Company Description</th>
       <th>Allowed Disk Space</th>
       <th>Validity</th>
@@ -98,22 +98,22 @@
     </tr>
     <tr
       class="data-row"
-      *ngFor="let user of users$ | async; let i = index"
+      *ngFor="let user of users$; let i = index"
       #dataRow
     >
       <td>{{ i + 1 }}</td>
-      <td>{{ user.firstname }}</td>
-      <td>{{ user.lastname }}</td>
-      <td>{{ user.female ? "female" : "male" }}</td>
-      <td>{{ user.birthday.toDate().toISOString().split("T")[0] }}</td>
-      <td class="send-mail" (click)="sendMail(user.email)">
-        {{ user.email }} <mat-icon>send</mat-icon>
+      <td>{{ user.name }}</td>
+      <!-- <td>{{ user.lastname }}</td> -->
+      <td>{{ user.companyDescription}}</td>
+      <!-- <td>{{ user.birthday.toDate().toISOString().split("T")[0] }}</td> -->
+      <td class="send-mail">
+        {{ user.allowedDiskSpace }}
       </td>
-      <td>{{ user.adress }}</td>
-      <td>{{ user.zipcode }}</td>
-      <td>{{ user.city }}</td>
-      <td>{{ user.company }}</td>
-      <td (click)="showUserDetail(user.id)" class="details-hover">Details</td>
+      <td>{{ user.validity }}</td>
+      <td>{{ user.allowedUsersCount }}</td>
+      <td>{{ user.expenses }}</td>
+      <td>{{ user.website }}</td>
+      <!-- <td (click)="showUserDetail(user.id)" class="details-hover">Details</td> -->
     </tr>
   </table>
 </mat-card>
@@ -127,5 +127,5 @@
 </button>
 
 <div class="stats-container">
-  <h3>Number of tenants: {{ (users$ | async)?.length }}</h3>
+  <h3>Number of tenants: {{ users$?.length }}</h3>
 </div>

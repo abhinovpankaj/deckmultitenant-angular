@@ -77,5 +77,9 @@
 </div> 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="submitData()">Ok</button>
+  <!-- <button mat-button (click)="submitData()">Ok</button> -->
+  <button mat-button [disabled]="isSaving" (click)="submitData()">
+    <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
+    <span *ngIf="!isSaving">Ok</span>
+   </button>
 </div>

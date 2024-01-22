@@ -14,4 +14,8 @@ export class TenantsService {
   addTenant(data: Tenant): Observable<any> {
     return this.httpClient.post<any>(`${environment.apiUrl}/tenants/add`, data);
   }
+
+  getAllTenants(): Observable<any> {
+    return this.httpClient.get<any>(`${environment.apiUrl}/tenants/alltenants`);
+  }
 }

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TenantsService } from '../tenants.service';
 
 @Component({
   selector: 'app-user',
@@ -12,7 +13,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
-  users$: Observable<any>;
+  users$: any | null[];
   searchText: string;
   numberOfClients: number = 0;
   companyInput: boolean = false;
@@ -29,9 +30,18 @@ export class UserComponent {
   constructor(
     public usersService: UsersService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private tenantsService: TenantsService
   ) {
-    this.users$ = this.usersService.users;
+    this.tenantsService.getAllTenants().subscribe(
+      (res)=>{
+        this.users$ = res.Tenants;
+        console.log(res);
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
   }
 
   /**
@@ -49,26 +59,33 @@ export class UserComponent {
     const dialogRef = this.dialog.open(DialogAddUserComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      this.usersService.getAll();
+      this.tenantsService.getAllTenants().subscribe(
+        (res)=>{
+          this.users$ = res.Tenants;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
     });
   }
 
   /**
    * Function to search individual user
    */
-  searchUser() {
-    this.users$ = this.users$.pipe(
-      map((users: any[]) =>
-        users.filter(
-          (user) =>
-            user.firstname
-              .toLowerCase()
-              .includes(this.searchText.toLowerCase()) ||
-            user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
-        )
-      )
-    );
-  }
+  // searchUser() {
+  //   this.users$ = this.users$.pipe(
+  //     map((users: any[]) =>
+  //       users.filter(
+  //         (user) =>
+  //           user.firstname
+  //             .toLowerCase()
+  //             .includes(this.searchText.toLowerCase()) ||
+  //           user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
+  //       )
+  //     )
+  //   );
+  // }
 
   sendMail(mail: string) {
     window.location.href = `mailto:${mail}`;
@@ -107,20 +124,20 @@ export class UserComponent {
         paramType = 'gender';
       }
 
-      this.users$ = this.users$.pipe(
-        map((users: any[]) =>
-          users.filter((user) =>
-            user[`${paramType}`]
-              .toLowerCase()
-              .includes(this.queryParam.toLowerCase())
-          )
-        )
-      );
+      // this.users$ = this.users$.pipe(
+      //   map((users: any[]) =>
+      //     users.filter((user) =>
+      //       user[`${paramType}`]
+      //         .toLowerCase()
+      //         .includes(this.queryParam.toLowerCase())
+      //     )
+      //   )
+      // );
     }
   }
 
   resetFilter() {
-    this.users$ = this.usersService.users;
+    // this.users$ = this.tenantsService.getAllTenants();
     this.queryParam = '';
   }
 }

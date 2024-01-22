@@ -22,6 +22,7 @@ export class DialogAddUserComponent {
 
   firstname: String = '';
   lastname: String = '';
+  isSaving: boolean = false;
 
   // customImage: File | null;
 
@@ -37,16 +38,20 @@ export class DialogAddUserComponent {
 
   async submitData() {
     if (this.formValidator()) {
+      this.isSaving = true;
       this.tenantsService.addTenant(this.data).subscribe(
         (response) =>{
           console.log(response);
+          this.isSaving = false;
+          this.dialog.closeAll();
         },
         
         (error) =>{
           console.log(error);
+          this.isSaving = false;
+          alert('Adding tenant failed!');
         }
       );
-      this.dialog.closeAll();
     } else {
       this.toast.error(
         'Please complete form with valid data! All fields need to contain a value.'
