@@ -7,6 +7,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -103,6 +104,7 @@ import { LoginService } from './login.service';
     MatIconModule,
     MatSidenavModule,
     MatButtonModule,
+    MatSelectModule,
     MatTooltipModule,
     MatDialogModule,
     MatCheckboxModule,
