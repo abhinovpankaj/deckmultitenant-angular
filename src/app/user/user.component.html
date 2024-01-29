@@ -1,5 +1,8 @@
 <div class="searchbar-container">
   <h1>Tenant Overview</h1>
+  <div class="stats-container">
+    <h3>Number of tenants: {{ users$?.length }}</h3>
+  </div>
 
   <div class="search-items-wrapper">
     <mat-card-content class="modified-mc-content">
@@ -113,6 +116,10 @@
       <td>{{ user.allowedUsersCount }}</td>
       <td>{{ user.expenses }}</td>
       <td>{{ user.website }}</td>
+      <td><button>
+        <a (click)="openEditDialog()">Edit</a>
+      </button></td>
+
       <!-- <td (click)="showUserDetail(user.id)" class="details-hover">Details</td> -->
     </tr>
   </table>
@@ -126,6 +133,3 @@
   <mat-icon>add</mat-icon>
 </button>
 
-<div class="stats-container">
-  <h3>Number of tenants: {{ users$?.length }}</h3>
-</div>

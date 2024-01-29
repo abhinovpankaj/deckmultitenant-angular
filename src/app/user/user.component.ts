@@ -6,6 +6,7 @@ import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.compo
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TenantsService } from '../tenants.service';
+import { DialogEditDataComponent } from '../dialog-edit-data/dialog-edit-data.component';
 
 @Component({
   selector: 'app-user',
@@ -55,6 +56,21 @@ export class UserComponent {
   /**
    * Open Add New Client Dialog
    */
+  openEditDialog() {
+    const dialogRef = this.dialog.open(DialogEditDataComponent, {});
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.tenantsService.getAllTenants().subscribe(
+        (res)=>{
+          this.users$ = res.Tenants;
+        },
+        (err)=>{
+          console.log(err);
+        }
+      )
+    });
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(DialogAddUserComponent, {});
 
