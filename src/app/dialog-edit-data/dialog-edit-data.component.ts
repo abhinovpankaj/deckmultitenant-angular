@@ -1,8 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsersService } from '../users.service';
-import { doc, updateDoc } from 'firebase/firestore';
-import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { HotToastService } from '@ngneat/hot-toast';
+import { TenantsService } from '../tenants.service';
 
 @Component({
   selector: 'app-dialog-edit-data',
@@ -10,41 +9,86 @@ import { Location } from '@angular/common';
   styleUrls: ['./dialog-edit-data.component.scss'],
 })
 export class DialogEditDataComponent {
-  url: any;
+  data = {
+    name: '',
+    companyDescription: '',
+    expenses: '',
+    validity: '',
+    allowedUsersCount: '',
+    id: '',
+    allowedDiskSpace: '',
+    website: '',
+    iconHeader: '',
+    iconFooter: '',
+    accountName: '',
+    connectionString: ''
+  };
+
+  firstname: String = '';
+  lastname: String = '';
+  isSaving: boolean = false;
+  isDisabled: boolean = true;
+
+  // customImage: File | null;
 
   constructor(
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private usersService: UsersService,
-    private location: Location
-  ) {
-    this.url = this.location.path().split('/')[2];
-  }
+    private tenantsService: TenantsService,
+    private toast: HotToastService
+  ) {}
 
-  closeDialog() {
+  onNoClick() {
     this.dialog.closeAll();
   }
 
-  async updateData() {
-    if (this.data.data.birthday) {
-      this.data.data.birthday.toLocaleDateString();
+  async submitData() {
+    if (this.formValidator()) {
+      this.isSaving = true;
+      this.tenantsService.addTenant(this.data).subscribe(
+        (response) =>{
+          console.log(response);
+          this.isSaving = false;
+          this.dialog.closeAll();
+        },
+        
+        (error) =>{
+          console.log(error);
+          this.isSaving = false;
+          alert('Adding tenant failed!');
+        }
+      );
+    } else {
+      this.toast.error(
+        'Please complete form with valid data! All fields need to contain a value.'
+      );
     }
-    let docRef = doc(this.usersService.collection, this.url);
-    await updateDoc(docRef, this.data.data);
-    this.dialog.closeAll();
   }
 
-  trackByFn(index: any, item: any) {
-    return index;
-  }
 
-  toggleMale() {
-    this.data.data.male = true;
-    this.data.data.female = false;
-  }
+  // onFileSelected(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     this.customImage = file;
+  //   }
+  // }
 
-  toggleFemale() {
-    this.data.data.male = false;
-    this.data.data.female = true;
+  // resetCustomImage() {
+  //   this.customImage = null;
+  // }
+
+  formValidator() {
+    let valid = true;
+    let data = this.data as any;
+    this.data.name = `${this.firstname} ${this.lastname}`;
+    for (const key in this.data) {
+      if (key === 'id') {
+        continue;
+      }
+      if (data[key] === '' || !data[key]) {
+        valid = false;
+        break;
+      }
+    }
+    return valid;
   }
 }
