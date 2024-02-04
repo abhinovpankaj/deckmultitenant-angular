@@ -1,96 +1,6 @@
-<h1 mat-dialog-title class="mat-dialog-title">Add new Tenant</h1>
+<h1 mat-dialog-title class="mat-dialog-title">Edit Tenant</h1>
 <div mat-dialog-content class="mat-dialog-content">
   <div>
-    <div class="input-row">
-      <mat-form-field appearance="outline">
-        <mat-label>First Name</mat-label>
-        <input matInput placeholder="First Name" [(ngModel)]="firstname" [disabled]="isDisabled" />
-        <mat-icon matSuffix>perm_identity</mat-icon>
-      </mat-form-field>
-      
-      <mat-form-field appearance="outline">
-        <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Last Name" [(ngModel)]="lastname" [disabled]="isDisabled" />
-        <mat-icon matSuffix>perm_identity</mat-icon>
-      </mat-form-field>
-      
-    </div>
-    <div class="adress">
-      <mat-form-field appearance="outline">
-        <mat-label>Company Description</mat-label>
-        <input matInput placeholder="Company Description" [(ngModel)]="data.companyDescription" />
-        <mat-icon matSuffix>business</mat-icon>
-      </mat-form-field>
-    </div>
-    <div class="input-row">
-      <mat-form-field appearance="outline">
-        <mat-label>Allowed Disk Space</mat-label>
-        <input
-          type="number"
-          matInput
-          placeholder="Allowed Disk Space"
-          [(ngModel)]="data.allowedDiskSpace"
-        /> 
-        <mat-icon matSuffix>storage</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Validity</mat-label>
-        <input matInput placeholder="Validity" [(ngModel)]="data.validity" />
-        <mat-icon matSuffix>calendar_today</mat-icon>
-      </mat-form-field>
-    </div>
-
-    <div class="input-row">
-      <mat-form-field appearance="outline">
-        <mat-label>Allowed Users</mat-label>
-        <input
-          type="number"
-          matInput
-          placeholder="Allowed Users"
-          [(ngModel)]="data.allowedUsersCount"
-        /> 
-        <mat-icon matSuffix>group</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Expenses</mat-label>
-        <input matInput placeholder="Expenses" [(ngModel)]="data.expenses" />
-        <mat-icon matSuffix>payment</mat-icon>
-      </mat-form-field>
-    </div>
-    <div class="input-row company">
-      <mat-form-field appearance="outline">
-        <mat-label>Company Website</mat-label>
-        <input
-          matInput
-          placeholder="Company"
-          [(ngModel)]="data.website"
-        />
-        <mat-icon matSuffix>language</mat-icon>
-      </mat-form-field>
-    </div>
-    <!-- <div class="input-row filerow">
-      <label for="file" class="filepicker-label">      <mat-icon class="upload-file-icon">upload_file</mat-icon>
-         Select a file</label>
-         <p>{{customImage ? customImage.name : "If desired upload custom client avatar (.jpg or .png Format)"}} <mat-icon *ngIf="customImage" (click)="resetCustomImage()" class="reset-file-icon">delete</mat-icon>
-         </p>
-      <input type="file" (change)="onFileSelected($event)" id="file" class="file">
-    </div> -->
-    <div>
-      <div>
-        <span>Icon details</span>
-      </div>
-      <mat-form-field appearance="outline">
-        <mat-label>Icon header</mat-label>
-        <input matInput placeholder="Icon header" [(ngModel)]="data.iconHeader" />
-        <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Icon footer</mat-label>
-        <input matInput placeholder="Icon footer" [(ngModel)]="data.iconFooter" />
-        <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
-      </mat-form-field>
-    </div>
-
     <div>
       <div>
         <span>Azure storage details</span>
@@ -106,26 +16,42 @@
       </div>
       <mat-form-field appearance="outline">
         <mat-label>Account Name</mat-label>
-        <input matInput placeholder="Account Name" [(ngModel)]="data.accountName" />
+        <input matInput placeholder="Account Name" [(ngModel)]="data.accountName" [disabled] ="isDisabled" />
         <mat-icon matSuffix>perm_identity</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Connection string</mat-label>
-        <input
-          matInput
-          placeholder="Connection String"
-          [(ngModel)]="data.connectionString"
-        />
+        <input matInput placeholder="Connection String" [(ngModel)]="data.connectionString" [disabled] ="isDisabled" />
         <mat-icon matSuffix>language</mat-icon>
       </mat-form-field>
     </div>
   </div>
-</div> 
+</div>
+
+<div class="icon-section">
+  <div>
+    <span>Icon details</span>
+  </div>
+  <h6>Icon header</h6>
+  <input type="file" id="docpicker"
+    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    placeholder="Icon header" [(ngModel)]="data.iconHeader" />
+
+  <!-- <input matInput placeholder="Icon header" [(ngModel)]="data.iconHeader" /> -->
+  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+  <h6>Icon footer</h6>
+  <!-- <input matInput placeholder="Icon footer" [(ngModel)]="data.iconFooter" /> -->
+  <input type="file" id="docpicker"
+    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    placeholder="Icon footer" [(ngModel)]="data.iconFooter" />
+  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
+</div>
+
 <div mat-dialog-actions>
+  <!-- <button mat-button>Ok</button> -->
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button>Ok</button>
-  <!-- <button mat-button [disabled]="isSaving" (click)="submitData()">
+  <button mat-button [disabled]="isSaving" (click)="submitData()">
     <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
     <span *ngIf="!isSaving">Ok</span>
-   </button> -->
+  </button>
 </div>

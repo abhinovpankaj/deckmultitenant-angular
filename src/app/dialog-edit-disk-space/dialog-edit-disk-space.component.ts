@@ -3,13 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { TenantsService } from '../tenants.service';
 
-
 @Component({
-  selector: 'app-dialog-edit-data',
-  templateUrl: './dialog-edit-data.component.html',
-  styleUrls: ['./dialog-edit-data.component.scss'],
+  selector: 'app-dialog-edit-disk-space',
+  templateUrl: './dialog-edit-disk-space.component.html',
+  styleUrls: ['./dialog-edit-disk-space.component.scss']
 })
-export class DialogEditDataComponent {
+export class DialogEditDiskSpaceComponent {
   data = {
     name: '',
     companyDescription: '',
@@ -31,7 +30,7 @@ export class DialogEditDataComponent {
   isDisabled: boolean = true;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditDataComponent>,
+    public dialogRef: MatDialogRef<DialogEditDiskSpaceComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private tenantsService: TenantsService,
     private toast: HotToastService
@@ -48,23 +47,19 @@ export class DialogEditDataComponent {
     if (this.formValidator()) {
       this.isSaving = true;
 
-      // Prepare the icon data
-      const iconsData = {
-        header: this.data.iconHeader /* Set the desired header icon data */,
-        footer: this.data.iconFooter/* Set the desired footer icon data */,
-      };
+      // Call the API for adding disk space
+      const diskSpace = this.data.allowedDiskSpace/* Set the desired disk space value */
 
-      // Call the API for updating or adding icons for a tenant
-      this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
+      this.tenantsService.addDiskSpace(this.data.id, diskSpace).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;
-          this.dialogRef.close(); // Close the dialog after a successful update
+          this.dialogRef.close(); // Close the dialog after a successful addition
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to update or add icons for the tenant!');
+          alert('Failed to add disk space!');
         }
       );
     } else {

@@ -3,13 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { TenantsService } from '../tenants.service';
 
-
 @Component({
-  selector: 'app-dialog-edit-data',
-  templateUrl: './dialog-edit-data.component.html',
-  styleUrls: ['./dialog-edit-data.component.scss'],
+  selector: 'app-dialog-edit-expenses',
+  templateUrl: './dialog-edit-expenses.component.html',
+  styleUrls: ['./dialog-edit-expenses.component.scss']
 })
-export class DialogEditDataComponent {
+export class DialogEditExpensesComponent {
   data = {
     name: '',
     companyDescription: '',
@@ -31,7 +30,7 @@ export class DialogEditDataComponent {
   isDisabled: boolean = true;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditDataComponent>,
+    public dialogRef: MatDialogRef<DialogEditExpensesComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private tenantsService: TenantsService,
     private toast: HotToastService
@@ -48,14 +47,10 @@ export class DialogEditDataComponent {
     if (this.formValidator()) {
       this.isSaving = true;
 
-      // Prepare the icon data
-      const iconsData = {
-        header: this.data.iconHeader /* Set the desired header icon data */,
-        footer: this.data.iconFooter/* Set the desired footer icon data */,
-      };
+      // Call the API for updating tenant expenses
+      const expense = this.data.expenses
 
-      // Call the API for updating or adding icons for a tenant
-      this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
+      this.tenantsService.updateExpenses(this.data.id, expense).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;
@@ -64,7 +59,7 @@ export class DialogEditDataComponent {
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to update or add icons for the tenant!');
+          alert('Failed to update tenant expenses!');
         }
       );
     } else {

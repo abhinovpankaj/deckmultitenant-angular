@@ -5,3 +5,29 @@
 mat-form-field {
     margin-right: 1rem;
 }
+
+/* Add your own styles here */
+.icon-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .icon-section div {
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .icon-section h6 {
+    margin-top: 10px;
+  }
+  
+  input[type="file"] {
+    margin-bottom: 10px;
+  }
+  
+  .icon-section span {
+    font-weight: bold;
+  }
+  

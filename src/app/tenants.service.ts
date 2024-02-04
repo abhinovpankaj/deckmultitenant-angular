@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TenantsService {
   options: any;
+
   constructor(private httpClient: HttpClient) {
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('authorization')!
@@ -24,5 +25,79 @@ export class TenantsService {
 
   getAllTenants(): Observable<any> {
     return this.httpClient.get<any>(`${environment.apiUrl}/tenants/alltenants`, this.options);
+  }
+
+  getTenantById(tenantId: string): Observable<any> {
+    return this.httpClient.get<any>(`${environment.apiUrl}/tenants/${tenantId}`, this.options);
+  }
+
+  editTenant(tenantId: string, updatedData: Partial<Tenant>): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}`;
+    return this.httpClient.put<any>(url, updatedData, this.options);
+  }
+
+  deleteTenantPermanently(tenantId: string): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}`;
+    return this.httpClient.delete<any>(url, this.options);
+  }
+
+  toggleAccessForTenant(tenantId: string, state: boolean): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/toggletenantstatus/${state ? 1 : 0}`;
+    return this.httpClient.post<any>(url, {}, this.options);
+  }
+
+  updateValidityDate(tenantId: string, endDate: any): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/updatevaliditydate`;
+    return this.httpClient.post<any>(url, endDate, this.options);
+  }
+
+  addDiskSpace(tenantId: string, diskspace: any): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/adddiskspace/${diskspace}`;
+    return this.httpClient.post<any>(url, {}, this.options);
+  }
+
+  increaseTenantUsers(tenantId: string, count: any): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/increasetenantusers/${count}`;
+    return this.httpClient.post<any>(url, {}, this.options);
+  }
+
+  upsertIcons(tenantId: string, iconsData: any): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/upserticons`;
+    return this.httpClient.post<any>(url, iconsData, this.options);
+  }
+
+  updateStorageDataDetails(tenantId: string, azureStorageDetails: any): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/updatestoragedatadetails`;
+    return this.httpClient.post<any>(url, azureStorageDetails, this.options);
+  }
+
+  updateLogo(tenantId: string, url: any): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/updatelogo`;
+    return this.httpClient.post<any>(apiUrl, { url }, this.options);
+  }
+
+  updateWebsite(tenantId: string, website: any): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/updatewebsite`;
+    return this.httpClient.post<any>(apiUrl, { website }, this.options);
+  }
+
+  updateExpenses(tenantId: string, expense: any): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/updateexpenses`;
+    return this.httpClient.post<any>(apiUrl, { expense }, this.options);
+  }
+
+  addUsedDiskSpace(tenantId: string, space: any): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/addusedspace`;
+    return this.httpClient.post<any>(apiUrl, { space }, this.options);
+  }
+
+  getDiskWarning(tenantId: string): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/diskwarning`;
+    return this.httpClient.get<any>(apiUrl, this.options);
+  }
+
+  registerAdmin(tenantId: string, adminDetails: any): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/registerAdmin`;
+    return this.httpClient.post<any>(apiUrl, adminDetails, this.options);
   }
 }

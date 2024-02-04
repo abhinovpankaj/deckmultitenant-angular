@@ -1,8 +1,15 @@
+import { Tenant } from './../models/tenant';
 import { Component } from '@angular/core';
 import { UsersService } from '../users.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUserComponent } from '../dialog-add-user/dialog-add-user.component';
+import { DialogEditDescriptionComponent } from '../dialog-edit-description/dialog-edit-description.component';
+import { DialogEditDiskSpaceComponent } from '../dialog-edit-disk-space/dialog-edit-disk-space.component';
+import { DialogEditValidityComponent } from '../dialog-edit-validity/dialog-edit-validity.component';
+import { DialogEditAllowedUserComponent } from '../dialog-edit-allowed-user/dialog-edit-allowed-user.component';
+import { DialogEditExpensesComponent } from '../dialog-edit-expenses/dialog-edit-expenses.component';
+import { DialogEditWebsiteComponent } from '../dialog-edit-website/dialog-edit-website.component';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TenantsService } from '../tenants.service';
@@ -56,19 +63,229 @@ export class UserComponent {
   /**
    * Open Add New Client Dialog
    */
-  openEditDialog() {
-    const dialogRef = this.dialog.open(DialogEditDataComponent, {});
+  // openEditDialog() {
+  //   const dialogRef = this.dialog.open(DialogEditDataComponent, {});
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.tenantsService.getAllTenants().subscribe(
-        (res)=>{
-          this.users$ = res.Tenants;
-        },
-        (err)=>{
-          console.log(err);
-        }
-      )
-    });
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.tenantsService.getAllTenants().subscribe(
+  //       (res)=>{
+  //         this.users$ = res.Tenants;
+  //       },
+  //       (err)=>{
+  //         console.log(err);
+  //       }
+  //     )
+  //   });
+  // }
+
+  openEditDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditDataComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  openEditDesDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditDescriptionComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  openEditDiskSpDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditDiskSpaceComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  openEditValDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditValidityComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
+  openEditUserDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditAllowedUserComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
+  openEditExpDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditExpensesComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  openEditWebDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditWebsiteComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   openDialog() {
