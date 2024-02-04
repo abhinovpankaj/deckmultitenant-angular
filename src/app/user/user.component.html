@@ -107,17 +107,29 @@
       <td>{{ i + 1 }}</td>
       <td>{{ user.name }}</td>
       <!-- <td>{{ user.lastname }}</td> -->
-      <td>{{ user.companyDescription}}</td>
+        
+        <td>{{ user.companyDescription}} 
+          <a (click)="openEditDesDialog(user._id)">Edit</a>
+        </td>
       <!-- <td>{{ user.birthday.toDate().toISOString().split("T")[0] }}</td> -->
       <td class="send-mail">
         {{ user.allowedDiskSpace }}
+        <a (click)="openEditDiskSpDialog(user._id)">Edit</a>
       </td>
-      <td>{{ user.validity }}</td>
-      <td>{{ user.allowedUsersCount }}</td>
-      <td>{{ user.expenses }}</td>
-      <td>{{ user.website }}</td>
+      <td>{{ user.validity }}
+        <a (click)="openEditValDialog(user._id)">Edit</a>
+      </td>
+      <td>{{ user.allowedUsersCount }}
+        <a (click)="openEditUserDialog(user._id)">Edit</a>
+      </td>
+      <td>{{ user.expenses }}
+        <a (click)="openEditExpDialog(user._id)">Edit</a>
+      </td>
+      <td>{{ user.website }}
+        <a (click)="openEditWebDialog(user._id)">Edit</a>
+      </td>
       <td><button>
-        <a (click)="openEditDialog()">Edit</a>
+        <a (click)="openEditDialog(user._id)">Edit</a>
       </button></td>
 
       <!-- <td (click)="showUserDetail(user.id)" class="details-hover">Details</td> -->

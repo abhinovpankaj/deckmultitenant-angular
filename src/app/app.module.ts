@@ -65,6 +65,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DialogWalkthroughComponent } from './dialog-walkthrough/dialog-walkthrough.component';
 import { TenantsService } from './tenants.service';
 import { LoginService } from './login.service';
+import { DialogEditDescriptionComponent } from './dialog-edit-description/dialog-edit-description.component';
+import { DialogEditDiskSpaceComponent } from './dialog-edit-disk-space/dialog-edit-disk-space.component';
+import { DialogEditValidityComponent } from './dialog-edit-validity/dialog-edit-validity.component';
+import { DialogEditAllowedUserComponent } from './dialog-edit-allowed-user/dialog-edit-allowed-user.component';
+import { DialogEditExpensesComponent } from './dialog-edit-expenses/dialog-edit-expenses.component';
+import { DialogEditWebsiteComponent } from './dialog-edit-website/dialog-edit-website.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +92,12 @@ import { LoginService } from './login.service';
     // NewsComponent,
     // LegalNoticeComponent,
     DialogWalkthroughComponent,
+    DialogEditDescriptionComponent,
+    DialogEditDiskSpaceComponent,
+    DialogEditValidityComponent,
+    DialogEditAllowedUserComponent,
+    DialogEditExpensesComponent,
+    DialogEditWebsiteComponent,
   ],
   imports: [
     BrowserModule,

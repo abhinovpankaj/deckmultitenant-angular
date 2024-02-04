@@ -3,13 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { TenantsService } from '../tenants.service';
 
-
 @Component({
-  selector: 'app-dialog-edit-data',
-  templateUrl: './dialog-edit-data.component.html',
-  styleUrls: ['./dialog-edit-data.component.scss'],
+  selector: 'app-dialog-edit-description',
+  templateUrl: './dialog-edit-description.component.html',
+  styleUrls: ['./dialog-edit-description.component.scss']
 })
-export class DialogEditDataComponent {
+export class DialogEditDescriptionComponent {
   data = {
     name: '',
     companyDescription: '',
@@ -31,7 +30,7 @@ export class DialogEditDataComponent {
   isDisabled: boolean = true;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditDataComponent>,
+    public dialogRef: MatDialogRef<DialogEditDescriptionComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private tenantsService: TenantsService,
     private toast: HotToastService
@@ -47,34 +46,35 @@ export class DialogEditDataComponent {
   async submitData() {
     if (this.formValidator()) {
       this.isSaving = true;
-
-      // Prepare the icon data
-      const iconsData = {
-        header: this.data.iconHeader /* Set the desired header icon data */,
-        footer: this.data.iconFooter/* Set the desired footer icon data */,
+  
+      // Prepare the data to be sent to the server
+      const updateData = {
+        name: this.data.name,
+        companyDescription: this.data.companyDescription
+        // Add other properties as needed based on your API
       };
-
-      // Call the API for updating or adding icons for a tenant
-      this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
+  
+      // Call the editTenant method for updating an existing tenant
+      this.tenantsService.editTenant(this.data.id, updateData).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;
-          this.dialogRef.close(); // Close the dialog after a successful update
+          this.dialogRef.close(); // Close the dialog after successful edit
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to update or add icons for the tenant!');
+          alert('Editing tenant failed!');
         }
       );
     } else {
       this.toast.error('Please complete the form with valid data!');
     }
   }
+  
 
   formValidator() {
     let valid = true;
-
     return valid;
   }
 }

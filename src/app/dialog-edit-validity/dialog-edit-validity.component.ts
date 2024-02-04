@@ -3,13 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { TenantsService } from '../tenants.service';
 
-
 @Component({
-  selector: 'app-dialog-edit-data',
-  templateUrl: './dialog-edit-data.component.html',
-  styleUrls: ['./dialog-edit-data.component.scss'],
+  selector: 'app-dialog-edit-validity',
+  templateUrl: './dialog-edit-validity.component.html',
+  styleUrls: ['./dialog-edit-validity.component.scss']
 })
-export class DialogEditDataComponent {
+export class DialogEditValidityComponent {
   data = {
     name: '',
     companyDescription: '',
@@ -31,7 +30,7 @@ export class DialogEditDataComponent {
   isDisabled: boolean = true;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditDataComponent>,
+    public dialogRef: MatDialogRef<DialogEditValidityComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private tenantsService: TenantsService,
     private toast: HotToastService
@@ -48,14 +47,10 @@ export class DialogEditDataComponent {
     if (this.formValidator()) {
       this.isSaving = true;
 
-      // Prepare the icon data
-      const iconsData = {
-        header: this.data.iconHeader /* Set the desired header icon data */,
-        footer: this.data.iconFooter/* Set the desired footer icon data */,
-      };
+      // Call the API for updating tenant validity date
+      const endDate = this.data.validity;
 
-      // Call the API for updating or adding icons for a tenant
-      this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
+      this.tenantsService.updateValidityDate(this.data.id, endDate).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;
@@ -64,7 +59,7 @@ export class DialogEditDataComponent {
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to update or add icons for the tenant!');
+          alert('Failed to update tenant validity date!');
         }
       );
     } else {

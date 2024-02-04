@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="mat-dialog-title">Edit Tenant</h1>
+<div mat-dialog-content class="mat-dialog-content">
+  <div>
+    <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Expenses</mat-label>
+        <input matInput placeholder="Expenses" [(ngModel)]="data.expenses" />
+        <mat-icon matSuffix>payment</mat-icon>
+      </mat-form-field>
+    </div>
+
+</div> 
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <!-- <button mat-button>Ok</button> -->
+  <button mat-button [disabled]="isSaving" (click)="submitData()">
+    <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
+    <span *ngIf="!isSaving">Ok</span>
+   </button>
+</div>
