@@ -18,6 +18,7 @@ export class DialogAddUserComponent {
     id: '',
     allowedDiskSpace: '',
     website: '',
+    endDate: '',
   };
 
   firstname: String = '';
@@ -29,8 +30,16 @@ export class DialogAddUserComponent {
   constructor(
     private dialog: MatDialog,
     private tenantsService: TenantsService,
-    private toast: HotToastService
+    private toast: HotToastService,
   ) {}
+
+  // formatEndDate(): string {
+  //   const year = this.data.endDate.getFullYear();
+  //   const month = (this.data.endDate.getMonth() + 1).toString().padStart(2, '0');
+  //   const day = this.data.endDate.getDate().toString().padStart(2, '0');
+
+  //   return `${year}-${month}-${day}`;
+  // }
 
   onNoClick() {
     this.dialog.closeAll();
@@ -73,17 +82,18 @@ export class DialogAddUserComponent {
 
   formValidator() {
     let valid = true;
-    let data = this.data as any;
-    this.data.name = `${this.firstname} ${this.lastname}`;
-    for (const key in this.data) {
-      if (key === 'id') {
-        continue;
-      }
-      if (data[key] === '' || !data[key]) {
-        valid = false;
-        break;
-      }
-    }
+    let data = this.data;
+    // this.data.endDate.toISOString()
+    console.log(this.data)
+    // for (const key in this.data) {
+    //   if (key === 'id') {
+    //     continue;
+    //   }
+    //   if (data[key] === '' || !data[key]) {
+    //     valid = false;
+    //     break;
+    //   }
+    // }
     return valid;
   }
 }

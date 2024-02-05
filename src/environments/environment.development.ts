@@ -8,5 +8,5 @@ export const environment = {
     messagingSenderId: '22549615948',
   },
 
-  apiUrl: 'https://deckmultitenantwebservices.azurewebsites.net/api-docs/',
+  apiUrl: 'https://deckmultitenantwebservices.azurewebsites.net/api',
 };
