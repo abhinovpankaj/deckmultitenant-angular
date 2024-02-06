@@ -1,15 +1,10 @@
 <h1 mat-dialog-title class="mat-dialog-title">Add new Tenant</h1>
 <div mat-dialog-content class="mat-dialog-content">
   <div>
-    <div class="input-row">
+    <div>
       <mat-form-field appearance="outline">
-        <mat-label>First Name</mat-label>
-        <input matInput placeholder="First Name" [(ngModel)]="firstname" />
-        <mat-icon matSuffix>perm_identity</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Last Name" [(ngModel)]="lastname" />
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="data.name" />
         <mat-icon matSuffix>perm_identity</mat-icon>
       </mat-form-field>
     </div>
@@ -31,11 +26,11 @@
         /> 
         <mat-icon matSuffix>storage</mat-icon>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Validity</mat-label>
         <input matInput placeholder="Validity" [(ngModel)]="data.validity" />
         <mat-icon matSuffix>calendar_today</mat-icon>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
 
     <div class="input-row">
@@ -75,6 +70,14 @@
     </div> -->
   </div>
 </div> 
+
+<div>
+
+  <h6>Validity</h6>
+  <input type="date" [(ngModel)]="data.endDate" />
+  <!-- <mat-icon matSuffix>calendar_today</mat-icon> -->
+</div>
+
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
   <!-- <button mat-button (click)="submitData()">Ok</button> -->

@@ -198,3 +198,9 @@ td a
 .modified-mc-content mat-chip {
   height: auto;
 }
+
+button.mat-icon-button {
+  background-color: transparent;
+  color: #000; /* Set the color you prefer */
+  border: none;
+}

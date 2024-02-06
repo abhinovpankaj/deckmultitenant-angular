@@ -10,6 +10,7 @@ import { DialogEditValidityComponent } from '../dialog-edit-validity/dialog-edit
 import { DialogEditAllowedUserComponent } from '../dialog-edit-allowed-user/dialog-edit-allowed-user.component';
 import { DialogEditExpensesComponent } from '../dialog-edit-expenses/dialog-edit-expenses.component';
 import { DialogEditWebsiteComponent } from '../dialog-edit-website/dialog-edit-website.component';
+import { AdminSignupComponent } from '../admin-signup/admin-signup.component';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TenantsService } from '../tenants.service';
@@ -77,6 +78,36 @@ export class UserComponent {
   //     )
   //   });
   // }
+
+  openAdminDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(AdminSignupComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+  
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 
   openEditDialog(tenantId: string) {
     // Fetch the existing data for the selected tenant using tenantId

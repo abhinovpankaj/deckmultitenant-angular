@@ -1,0 +1,50 @@
+
+  <h1 mat-dialog-title class="mat-dialog-title">Add new Tenant</h1>
+
+  <div mat-dialog-content class="mat-dialog-content">
+    <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="adminData.first_name" required />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="adminData.last_name" required />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+    </div>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="First Name" [(ngModel)]="adminData.username" required />
+      <mat-icon matSuffix>perm_identity</mat-icon>
+    </mat-form-field>
+
+    <div class="input-row">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="adminData.email" required />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="adminData.password" required />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <!-- <button mat-button (click)="submitData()">Ok</button> -->
+    <button mat-button [disabled]="isSaving" (click)="submitForm()">
+      <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
+      <span *ngIf="!isSaving">Ok</span>
+     </button>
+  </div>
