@@ -128,9 +128,23 @@
       <td>{{ user.website }}
         <a (click)="openEditWebDialog(user._id)">Edit</a>
       </td>
-      <td><button>
+      <!-- <td><button>
         <a (click)="openEditDialog(user._id)">Edit</a>
       </button></td>
+      <td><button>
+        <a (click)="openAdminDialog(user._id)">Admin</a>
+      </button></td> -->
+
+      <td>
+        <mat-menu #editMenu="matMenu">
+          <button mat-menu-item (click)="openEditDialog(user._id)">Edit</button>
+          <button mat-menu-item (click)="openAdminDialog(user._id)">Admin</button>
+        </mat-menu>
+      
+        <button mat-icon-button [matMenuTriggerFor]="editMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </td>
 
       <!-- <td (click)="showUserDetail(user.id)" class="details-hover">Details</td> -->
     </tr>

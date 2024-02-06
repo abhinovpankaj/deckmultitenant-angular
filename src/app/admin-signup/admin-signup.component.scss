@@ -1,0 +1,105 @@
+.mat-dialog-title {
+  margin: 0;
+}
+
+.mat-dialog-content {
+  padding: 1rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  mat-form-field {
+    width: 50%;
+  }
+}
+
+.input-row.adress {
+  mat-form-field {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+.input-row.mail, .input-row.company {
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.input-row.filerow {
+    align-items: center;
+
+    p {
+        margin: 0;
+        margin-left: .5rem;
+    }
+}
+
+.checkboxes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+  padding-bottom: 22px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+// input[type="number"] {
+//   -moz-appearance: textfield;
+// }
+
+.upload-file-icon {
+  cursor: pointer;
+  transition: 225ms all ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+
+
+.file {
+  visibility: hidden;
+  width: 0;
+}
+
+.filepicker-label {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background: #3f4b6c; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: 225ms all ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+}
+
+  mat-icon {
+    color: white;
+    margin-right: .5rem;
+  }
+}
+
+.reset-file-icon {
+  margin-bottom: -7px;
+  color: #d74949;
+  transition: 225ms all ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
