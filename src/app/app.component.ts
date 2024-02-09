@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { UsersService } from './users.service';
 import { Auth } from '@angular/fire/auth';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,13 @@ export class AppComponent implements OnInit {
   opened: boolean = true;
   userMenuOpen: boolean = false;
   date: Date = new Date();
+  storedUsername: string | null = null;
 
-  constructor(public router: Router, public usersService: UsersService) {}
+  constructor(
+    public router: Router,
+    public usersService: UsersService,
+    private loginService: LoginService
+  ) {}
 
   async ngOnInit() {
     const authToken = localStorage.getItem('authToken');
@@ -27,9 +33,19 @@ export class AppComponent implements OnInit {
     //     const authData = JSON.parse(authToken);
     //     this.usersService.connectToDatabase(authData.id, authData.name);
     //   }
-    // } else {
-    //   this.router.navigateByUrl('/login');
-    // }
+    if(!authToken) {
+      this.router.navigateByUrl('/login');
+    }
+    const storedUsername = localStorage.getItem('loggedInUsername');
+
+    if (storedUsername) {
+      // If available, set it to the component property
+      this.storedUsername = storedUsername;
+    } else {
+      // Otherwise, get it from the service and store it
+      this.storedUsername = this.loginService.currentlyLoggedInUsername;
+      localStorage.setItem('loggedInUsername', this.storedUsername);
+    }
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

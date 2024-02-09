@@ -82,9 +82,9 @@ export class DialogAddUserComponent {
 
   formValidator() {
     let valid = true;
-    let data = this.data;
+    // let data = this.data;
     // this.data.endDate.toISOString()
-    console.log(this.data)
+    // console.log(this.data)
     // for (const key in this.data) {
     //   if (key === 'id') {
     //     continue;

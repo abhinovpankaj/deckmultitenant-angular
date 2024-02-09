@@ -61,22 +61,15 @@
         <mat-icon matSuffix>language</mat-icon>
       </mat-form-field>
     </div>
-    <!-- <div class="input-row filerow">
-      <label for="file" class="filepicker-label">      <mat-icon class="upload-file-icon">upload_file</mat-icon>
-         Select a file</label>
-         <p>{{customImage ? customImage.name : "If desired upload custom client avatar (.jpg or .png Format)"}} <mat-icon *ngIf="customImage" (click)="resetCustomImage()" class="reset-file-icon">delete</mat-icon>
-         </p>
-      <input type="file" (change)="onFileSelected($event)" id="file" class="file">
-    </div> -->
+
+    <div class="validty-field">
+      <h3>Validity</h3>
+      <input type="date" [(ngModel)]="data.endDate" />
+      <!-- <mat-icon matSuffix>calendar_today</mat-icon> -->
+    </div>
+
   </div>
 </div> 
-
-<div>
-
-  <h6>Validity</h6>
-  <input type="date" [(ngModel)]="data.endDate" />
-  <!-- <mat-icon matSuffix>calendar_today</mat-icon> -->
-</div>
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>

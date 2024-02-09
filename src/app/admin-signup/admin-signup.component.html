@@ -25,16 +25,28 @@
 
     <div class="input-row">
 
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput placeholder="First Name" [(ngModel)]="adminData.email" required />
         <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field> -->
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="pat@example.com" [(ngModel)]="adminData.email" required>
       </mat-form-field>
   
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput placeholder="First Name" [(ngModel)]="adminData.password" required />
         <mat-icon matSuffix>perm_identity</mat-icon>
+      </mat-form-field> -->
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="adminData.password" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
     </div>
 

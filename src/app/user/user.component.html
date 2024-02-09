@@ -5,7 +5,7 @@
   </div>
 
   <div class="search-items-wrapper">
-    <mat-card-content class="modified-mc-content">
+    <!-- <mat-card-content class="modified-mc-content">
       <mat-expansion-panel id="filter-form">
         <mat-expansion-panel-header>
           <mat-icon>filter_list</mat-icon> Filter Tenants
@@ -66,7 +66,7 @@
           <button (click)="resetFilter()">Reset Filter</button>
         </div>
       </mat-expansion-panel>
-    </mat-card-content>
+    </mat-card-content> -->
 
     <mat-form-field
       appearance="outline"
@@ -95,7 +95,7 @@
       <th>Validity</th>
       <th>Allowed Users</th>
       <!-- <th>Zip Code</th> -->
-      <th>Expenses</th>
+      <!-- <th>Expenses</th> -->
       <th>Website</th>
       <th></th>
     </tr>
@@ -109,24 +109,24 @@
       <!-- <td>{{ user.lastname }}</td> -->
         
         <td>{{ user.companyDescription}} 
-          <a (click)="openEditDesDialog(user._id)">Edit</a>
+          <a class="edit-link" (click)="openEditDesDialog(user._id)">Edit</a>
         </td>
       <!-- <td>{{ user.birthday.toDate().toISOString().split("T")[0] }}</td> -->
       <td class="send-mail">
         {{ user.allowedDiskSpace }}
-        <a (click)="openEditDiskSpDialog(user._id)">Edit</a>
+        <a class="edit-link" (click)="openEditDiskSpDialog(user._id)">Edit</a>
       </td>
-      <td>{{ user.validity }}
-        <a (click)="openEditValDialog(user._id)">Edit</a>
+      <td>{{ user.endDate }}
+        <a class="edit-link" (click)="openEditValDialog(user._id)">Edit</a>
       </td>
       <td>{{ user.allowedUsersCount }}
-        <a (click)="openEditUserDialog(user._id)">Edit</a>
+        <a class="edit-link" (click)="openEditUserDialog(user._id)">Edit</a>
       </td>
-      <td>{{ user.expenses }}
+      <!-- <td>{{ user.expenses }}
         <a (click)="openEditExpDialog(user._id)">Edit</a>
-      </td>
+      </td> -->
       <td>{{ user.website }}
-        <a (click)="openEditWebDialog(user._id)">Edit</a>
+        <a class="edit-link" (click)="openEditWebDialog(user._id)">Edit</a>
       </td>
       <!-- <td><button>
         <a (click)="openEditDialog(user._id)">Edit</a>
@@ -137,13 +137,19 @@
 
       <td>
         <mat-menu #editMenu="matMenu">
-          <button mat-menu-item (click)="openEditDialog(user._id)">Edit</button>
-          <button mat-menu-item (click)="openAdminDialog(user._id)">Admin</button>
+          <button mat-menu-item (click)="openEditDialog(user._id)">Edit Tenant</button>
+          <button mat-menu-item (click)="openAdminDialog(user._id)">Add Admin</button>
+          <button mat-menu-item (click)="DeleteTenant(user._id)">Delete Tenant</button>
+          <button mat-menu-item (click)="toggleStatus(user._id)">{{ isTenantActive ? 'Deactivate Tenant' : 'Activate Tenant' }}</button>
         </mat-menu>
       
         <button mat-icon-button [matMenuTriggerFor]="editMenu">
           <mat-icon>more_vert</mat-icon>
         </button>
+
+        <!-- <button mat-icon-button (click)="DeleteTenant(user._id)">
+          <mat-icon>delete</mat-icon>
+        </button> -->
       </td>
 
       <!-- <td (click)="showUserDetail(user.id)" class="details-hover">Details</td> -->
@@ -156,6 +162,6 @@
   id="add-user-btn"
   matTooltip="Add new Tenant Account"
 >
-  <mat-icon>add</mat-icon>
+  <mat-icon class="add-icon">add</mat-icon>
 </button>
 

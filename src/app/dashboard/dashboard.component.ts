@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   events: Array<any>;
   dragging: boolean = false;
   noGeo: boolean = false;
+  storedUsername: string | null = null;
 
   /**
    * @param usersService The UsersService is injected to access client data and perform CRUD operations.
@@ -71,6 +72,16 @@ export class DashboardComponent implements OnInit {
     // this.getCurrentHour();
     // this.getCurrentWeather();
     // this.checkTutorial();
+    const storedUsername = localStorage.getItem('loggedInUsername');
+
+    if (storedUsername) {
+      // If available, set it to the component property
+      this.storedUsername = storedUsername;
+    } else {
+      // Otherwise, get it from the service and store it
+      this.storedUsername = this.loginService.currentlyLoggedInUsername;
+      localStorage.setItem('loggedInUsername', this.storedUsername);
+    }
   }
 
   /**

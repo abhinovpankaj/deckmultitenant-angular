@@ -44,7 +44,7 @@
           />
           <div class="color-dot"></div>
           <div class="userinfo-wrapper" *ngIf="userMenuOpen">
-            <h2>{{ usersService.currentlyLoggedInUserName }}</h2>
+            <h2>{{ storedUsername }}</h2>
             <div (click)="logout()"><mat-icon>logout</mat-icon>Logout</div>
           </div>
         </div>
