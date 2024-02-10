@@ -21,7 +21,8 @@ export class DialogEditValidityComponent {
     iconHeader: '',
     iconFooter: '',
     accountName: '',
-    connectionString: ''
+    connectionString: '',
+    endDate: '',
   };// Update data type as per your tenant model
 
   firstname: String = '';
@@ -48,8 +49,9 @@ export class DialogEditValidityComponent {
       this.isSaving = true;
 
       // Call the API for updating tenant validity date
-      const endDate = this.data.validity;
-
+      const endDate = this.data.endDate;
+      console.log(endDate);
+      
       this.tenantsService.updateValidityDate(this.data.id, endDate).subscribe(
         (response) => {
           console.log(response);

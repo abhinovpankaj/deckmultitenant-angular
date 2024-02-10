@@ -29,6 +29,7 @@ export class UserComponent {
   cityInput: boolean = false;
   genderInput: boolean = false;
   queryParam: string = '';
+  isTenantActive: boolean = true;
 
   /**
    *
@@ -398,6 +399,34 @@ export class UserComponent {
       //   )
       // );
     }
+  }
+
+  DeleteTenant(tenantId: string): void {
+    this.tenantsService.deleteTenantPermanently(tenantId).subscribe(
+      (response) => {
+        console.log('Tenant deleted successfully:', response);
+        window.location.reload();
+        // Handle success, if needed
+      },
+      (error) => {
+        console.error('Error deleting tenant:', error);
+        // Handle error, if needed
+      }
+    );
+  }
+
+  toggleStatus(tenantId: string) {
+    this.tenantsService.toggleAccessForTenant(tenantId, !this.isTenantActive).subscribe(
+      (response) => {
+        console.log('Tenant status toggled successfully:', response);
+        // Update the current status after successful toggle
+        this.isTenantActive = !this.isTenantActive;
+      },
+      (error) => {
+        console.error('Error toggling tenant status:', error);
+        // Handle error, e.g., show an error message
+      }
+    );
   }
 
   resetFilter() {

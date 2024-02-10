@@ -52,9 +52,9 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
+// input[type="number"] {
+//   -moz-appearance: textfield;
+// }
 
 .upload-file-icon {
   cursor: pointer;
@@ -102,4 +102,15 @@ input[type="number"] {
   &:hover {
     transform: scale(1.1);
   }
+}
+
+.validty-field h3
+{
+  margin-bottom: 5px;
+}
+
+.validty-field input
+{
+  height: 25px;
+  font-size: 15px;
 }
