@@ -5,69 +5,6 @@
   </div>
 
   <div class="search-items-wrapper">
-    <!-- <mat-card-content class="modified-mc-content">
-      <mat-expansion-panel id="filter-form">
-        <mat-expansion-panel-header>
-          <mat-icon>filter_list</mat-icon> Filter Tenants
-        </mat-expansion-panel-header>
-        <h3 style="font-weight: 600">Filter by</h3>
-        <div class="filter-option">
-          <p>Company</p>
-          <mat-checkbox
-            color="primary"
-            [(ngModel)]="companyInput"
-            (click)="onCheckboxClicked('company')"
-          ></mat-checkbox>
-        </div>
-        <mat-form-field *ngIf="companyInput" appearance="outline">
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="queryParam"
-            placeholder="Type in company name"
-          />
-        </mat-form-field>
-
-        <div class="filter-option">
-          <p>City</p>
-          <mat-checkbox
-            color="primary"
-            [(ngModel)]="cityInput"
-            (click)="onCheckboxClicked('city')"
-          ></mat-checkbox>
-        </div>
-        <mat-form-field *ngIf="cityInput" appearance="outline">
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="queryParam"
-            placeholder="Type in city name"
-          />
-        </mat-form-field>
-
-        <div class="filter-option">
-          <p>Gender</p>
-          <mat-checkbox
-            color="primary"
-            [(ngModel)]="genderInput"
-            (click)="onCheckboxClicked('gender')"
-          ></mat-checkbox>
-        </div>
-        <mat-form-field *ngIf="genderInput" appearance="outline">
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="queryParam"
-            placeholder="Type in gender"
-          />
-        </mat-form-field>
-        <div class="button-wrapper">
-          <button (click)="applyFilter()">Apply Filter</button>
-          <button (click)="resetFilter()">Reset Filter</button>
-        </div>
-      </mat-expansion-panel>
-    </mat-card-content> -->
-
     <mat-form-field
       appearance="outline"
       class="search-form-field"
@@ -87,15 +24,11 @@
   <table class="user-table">
     <tr>
       <th>No.</th>
-      <!-- <th>Firstname</th>
-      <th>Lastname</th> -->
       <th>Name</th>
-      <th>Company Description</th>
+      <!-- <th>Company Description</th> -->
       <th>Allowed Disk Space</th>
       <th>Validity</th>
       <th>Allowed Users</th>
-      <!-- <th>Zip Code</th> -->
-      <!-- <th>Expenses</th> -->
       <th>Website</th>
       <th></th>
     </tr>
@@ -103,37 +36,37 @@
       class="data-row"
       *ngFor="let user of users$; let i = index"
       #dataRow
+      (click)="openDetailsComponent(user._id)"
     >
       <td>{{ i + 1 }}</td>
-      <td>{{ user.name }}</td>
-      <!-- <td>{{ user.lastname }}</td> -->
-        
-        <td>{{ user.companyDescription}} 
-          <a class="edit-link" (click)="openEditDesDialog(user._id)">Edit</a>
-        </td>
-      <!-- <td>{{ user.birthday.toDate().toISOString().split("T")[0] }}</td> -->
+      <td class="name-sec">
+        <div class="name-div">
+          <div class="name-name">
+            {{ user.name }}
+          </div>
+          <div class="name-dis">
+            {{ user.companyDescription}} 
+            <a class="edit-link" (click)="openEditDesDialog(user._id); $event.stopPropagation()"><mat-icon>edit</mat-icon></a>
+          </div>
+        </div>
+        <!-- <td>
+        </td> -->
       <td class="send-mail">
         {{ user.allowedDiskSpace }}
-        <a class="edit-link" (click)="openEditDiskSpDialog(user._id)">Edit</a>
+        <a class="edit-link" (click)="openEditDiskSpDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
       <td>{{ user.endDate }}
-        <a class="edit-link" (click)="openEditValDialog(user._id)">Edit</a>
+        <a class="edit-link" (click)="openEditValDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
       <td>{{ user.allowedUsersCount }}
-        <a class="edit-link" (click)="openEditUserDialog(user._id)">Edit</a>
+        <a class="edit-link" (click)="openEditUserDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
-      <!-- <td>{{ user.expenses }}
-        <a (click)="openEditExpDialog(user._id)">Edit</a>
-      </td> -->
-      <td>{{ user.website }}
-        <a class="edit-link" (click)="openEditWebDialog(user._id)">Edit</a>
+      <td>
+        <a class="web-link" href="{{ user.website }}" target="_blank">{{ user.website }}</a>
+        <a class="edit-link" (click)="openEditWebDialog(user._id); $event.stopPropagation()">
+          <mat-icon class="edit-icon">edit</mat-icon>
+        </a>
       </td>
-      <!-- <td><button>
-        <a (click)="openEditDialog(user._id)">Edit</a>
-      </button></td>
-      <td><button>
-        <a (click)="openAdminDialog(user._id)">Admin</a>
-      </button></td> -->
 
       <td>
         <mat-menu #editMenu="matMenu">
@@ -143,16 +76,10 @@
           <button mat-menu-item (click)="toggleStatus(user._id)">{{ isTenantActive ? 'Deactivate Tenant' : 'Activate Tenant' }}</button>
         </mat-menu>
       
-        <button mat-icon-button [matMenuTriggerFor]="editMenu">
+        <button mat-icon-button [matMenuTriggerFor]="editMenu" (click)="$event.stopPropagation()">
           <mat-icon>more_vert</mat-icon>
         </button>
-
-        <!-- <button mat-icon-button (click)="DeleteTenant(user._id)">
-          <mat-icon>delete</mat-icon>
-        </button> -->
       </td>
-
-      <!-- <td (click)="showUserDetail(user.id)" class="details-hover">Details</td> -->
     </tr>
   </table>
 </mat-card>

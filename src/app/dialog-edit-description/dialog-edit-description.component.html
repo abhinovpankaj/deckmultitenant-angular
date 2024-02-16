@@ -12,7 +12,8 @@
     <div class="adress">
       <mat-form-field appearance="outline">
         <mat-label>Company Description</mat-label>
-        <input matInput placeholder="Company Description" [(ngModel)]="data.companyDescription" />
+        <textarea matInput placeholder="Company Description" [(ngModel)]="data.companyDescription">
+          </textarea>
         <mat-icon matSuffix>business</mat-icon>
       </mat-form-field>
     </div>

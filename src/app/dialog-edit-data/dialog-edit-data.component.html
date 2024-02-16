@@ -1,54 +1,17 @@
 <h1 mat-dialog-title class="mat-dialog-title">Edit Tenant</h1>
 <div mat-dialog-content class="mat-dialog-content">
-  <div>
+  <div class="icon-section">
     <div>
-      <div>
-        <span>Azure storage details</span>
-      </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Select</mat-label>
-          <mat-select>
-            <mat-option value="one">Dedicated storage</mat-option>
-            <mat-option value="two">Shared storage</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <mat-form-field appearance="outline">
-        <mat-label>Account Name</mat-label>
-        <input matInput placeholder="Account Name" [(ngModel)]="data.accountName" [disabled] ="isDisabled" />
-        <mat-icon matSuffix>perm_identity</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Connection string</mat-label>
-        <input matInput placeholder="Connection String" [(ngModel)]="data.connectionString" [disabled] ="isDisabled" />
-        <mat-icon matSuffix>language</mat-icon>
-      </mat-form-field>
+      <span>Icon details</span>
     </div>
+    <h6>Icon header</h6>
+    <input type="file" id="headerFileInput" (change)="onFileSelected('iconHeader', $event)" />
+    <h6>Icon footer</h6>
+    <input type="file" id="footerFileInput" (change)="onFileSelected('iconFooter', $event)" />
   </div>
-</div>
-
-<div class="icon-section">
-  <div>
-    <span>Icon details</span>
-  </div>
-  <h6>Icon header</h6>
-  <input type="file" id="docpicker"
-    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    placeholder="Icon header" [(ngModel)]="data.iconHeader" />
-
-  <!-- <input matInput placeholder="Icon header" [(ngModel)]="data.iconHeader" /> -->
-  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
-  <h6>Icon footer</h6>
-  <!-- <input matInput placeholder="Icon footer" [(ngModel)]="data.iconFooter" /> -->
-  <input type="file" id="docpicker"
-    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    placeholder="Icon footer" [(ngModel)]="data.iconFooter" />
-  <!-- <mat-icon matSuffix>perm_identity</mat-icon> -->
 </div>
 
 <div mat-dialog-actions>
-  <!-- <button mat-button>Ok</button> -->
   <button mat-button (click)="onNoClick()">Cancel</button>
   <button mat-button [disabled]="isSaving" (click)="submitData()">
     <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
