@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    const authToken = localStorage.getItem('authToken');
+    const authToken = JSON.parse(localStorage.getItem('authToken')!);
     //commented only for development purpose
     //don't push in production without auth validation
     // if (authToken) {
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     if(!authToken) {
       this.router.navigateByUrl('/login');
     }
-    const storedUsername = localStorage.getItem('loggedInUsername');
+    const storedUsername = authToken.name;
 
     if (storedUsername) {
       // If available, set it to the component property
