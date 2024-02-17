@@ -4,11 +4,69 @@
     <select id="tenantSelect" [(ngModel)]="selectedTenant" (change)="onTenantChange()">
       <option *ngFor="let tenant of tenants" [ngValue]="tenant">{{ tenant.name }}</option>
     </select>
-  
+    
+    <!-- Per GB Charge -->
+  <div class="input-group">
+    <label for="perGbCharge">Per GB Charge ($):</label>
+    <input type="number" id="perGbCharge" [(ngModel)]="perGbCharge" (input)="calculateExpenses()">
+  </div>
+
+  <!-- Per User Charge -->
+  <div class="input-group">
+    <label for="perUserCharge">Per User Charge ($):</label>
+    <input type="number" id="perUserCharge" [(ngModel)]="perUserCharge" (input)="calculateExpenses()">
+  </div>
+
+  <!-- Per Image Charge -->
+  <div class="input-group">
+    <label for="perImageCharge">Per Image Charge ($):</label>
+    <input type="number" id="perImageCharge" [(ngModel)]="perImageCharge" (input)="calculateExpenses()">
+  </div>
+
+  <!-- Per Report Charge -->
+  <div class="input-group">
+    <label for="perReportCharge">Per Report Charge ($):</label>
+    <input type="number" id="perReportCharge" [(ngModel)]="perReportCharge" (input)="calculateExpenses()">
+  </div>
     <div *ngIf="selectedTenant">
-      <h3>Usage of Space: {{ selectedTenant.allowedDiskSpace }}%</h3>
-      <h3>Allowed Users: {{ selectedTenant.allowedUsersCount }}</h3>
-      <h3>Total Expenses: ${{ selectedTenant.expenses }}</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Expense Type</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Space Usage</td>
+              <td>{{spaceUsage}} (GB)</td>
+              <td>${{ spaceUsageExpense }}</td>
+            </tr>
+            <tr>
+              <td>Allowed Users</td>
+              <td>{{users}}</td>
+              <td>${{ allowedUsersExpense }}</td>
+            </tr>
+            <tr>
+              <td>Image Count</td>
+              <td>{{images}}</td>
+              <td>${{ imageCountExpense }}</td>
+            </tr>
+            <tr>
+              <td>Reports Count</td>
+              <td>{{reports}}</td>
+              <td>${{ reportsCountExpense }}</td>
+            </tr>
+            <tr>
+              <td colspan="2"><strong>Total Expenses</strong></td>
+              <td><strong>${{ totalExpenses }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    
   </div>
   
