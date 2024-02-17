@@ -80,12 +80,13 @@ export class DialogEditDataComponent {
 
       console.log("Header", dataHeader);
       console.log("Footer", dataFooter);
-
+      const iconsData: any = {};
       // Upload icon header
       const headerUpload = this.headerFile
         ? this.tenantsService.uploadFile(dataHeader).subscribe(
           (response) => {
             console.log(response.url); // Close the dialog after a successful update
+            iconsData["iconHeader"] = response.url;
           },
           (error) => {
             console.log("Header error", error);
@@ -99,6 +100,7 @@ export class DialogEditDataComponent {
        ? this.tenantsService.uploadFile(dataFooter).subscribe(
           (response) => {
             console.log(response.url); // Close the dialog after a successful update
+            iconsData["iconFooter"] = response.url;
           },
           (error) => {
             console.log("Footer error", error);
@@ -107,34 +109,20 @@ export class DialogEditDataComponent {
         )
         : null;
 
-      // Wait for both uploads to complete
-      Promise.all([headerUpload, footerUpload])
-        .then((uploadResults) => {
-          console.log("Results", uploadResults);
-          const iconsData = {
-            iconHeader: uploadResults[0],
-            iconFooter: uploadResults[1],
-          };
-
-          // Call the API for updating or adding icons for a tenant
-          this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
-            (response) => {
-              console.log(response);
-              this.isSaving = false;
-              this.dialogRef.close(); // Close the dialog after a successful update
-            },
-            (error) => {
-              console.log(error);
-              this.isSaving = false;
-              alert('Failed to update or add icons for the tenant!');
-            }
-          );
-        })
-        .catch((error) => {
-          console.error('Error uploading files:', error);
+      
+      // Call the API for updating or adding icons for a tenant
+      this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
+        (response) => {
+          console.log(response);
           this.isSaving = false;
-          alert('Failed to upload files!');
-        });
+          this.dialogRef.close(); // Close the dialog after a successful update
+        },
+        (error) => {
+          console.log(error);
+          this.isSaving = false;
+          alert('Failed to update or add icons for the tenant!');
+        }
+      );
     } else {
       this.toast.error('Please complete the form with valid data!');
     }

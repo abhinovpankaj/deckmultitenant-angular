@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { LoginComponent } from './login/login.component';
+import { ExpensesComponent } from './expenses/expenses.component';
 // import { InfoComponent } from './info/info.component';
 // import { NewsComponent } from './news/news.component';
 // import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'users', component: UserComponent },
+  { path: 'expenses', component: ExpensesComponent },
   { path: 'users/:id', component: UserDetailComponent },
   { path: 'login', component: LoginComponent },
   // { path: 'info', component: InfoComponent },

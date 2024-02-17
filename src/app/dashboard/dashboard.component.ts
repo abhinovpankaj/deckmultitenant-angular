@@ -72,7 +72,8 @@ export class DashboardComponent implements OnInit {
     // this.getCurrentHour();
     // this.getCurrentWeather();
     // this.checkTutorial();
-    const storedUsername = localStorage.getItem('loggedInUsername');
+    const authData: any = JSON.parse(localStorage.getItem('authToken')!);
+    const storedUsername = authData.name;
 
     if (storedUsername) {
       // If available, set it to the component property
