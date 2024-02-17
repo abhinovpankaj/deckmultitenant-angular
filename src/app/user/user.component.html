@@ -30,13 +30,14 @@
       <th>Validity</th>
       <th>Allowed Users</th>
       <th>Website</th>
+      <th>Status</th>
       <th></th>
     </tr>
     <tr
       class="data-row"
       *ngFor="let user of users$; let i = index"
       #dataRow
-      (click)="openDetailsComponent(user._id)"
+      [routerLink]="['/details', user._id]"
     >
       <td>{{ i + 1 }}</td>
       <td class="name-sec">
@@ -52,10 +53,10 @@
         <!-- <td>
         </td> -->
       <td class="send-mail">
-        {{ user.allowedDiskSpace }}
+        {{ user.allowedDiskSpace }} GB
         <a class="edit-link" (click)="openEditDiskSpDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
-      <td>{{ user.endDate }}
+      <td>{{ user.endDate | date:'shortDate' }}
         <a class="edit-link" (click)="openEditValDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
       <td>{{ user.allowedUsersCount }}
@@ -67,10 +68,13 @@
           <mat-icon class="edit-icon">edit</mat-icon>
         </a>
       </td>
+      <td>
+        <p> {{ user?.isActive ? 'Active' : 'Inactive' }}</p>
+      </td>
 
       <td>
         <mat-menu #editMenu="matMenu">
-          <button mat-menu-item (click)="openEditDialog(user._id)">Edit Tenant</button>
+          <button mat-menu-item (click)="openEditDialog(user._id)">Add Logo</button>
           <button mat-menu-item (click)="openAdminDialog(user._id)">Add Admin</button>
           <button mat-menu-item (click)="DeleteTenant(user._id)">Delete Tenant</button>
           <button mat-menu-item (click)="toggleStatus(user._id)">{{ isTenantActive ? 'Deactivate Tenant' : 'Activate Tenant' }}</button>

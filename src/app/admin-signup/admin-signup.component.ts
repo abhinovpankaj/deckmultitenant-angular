@@ -28,8 +28,12 @@ export class AdminSignupComponent {
     private tenantsService: TenantsService,
     private toast: HotToastService,
   ) {
-    console.log(dialogData.companyIdentifier);
+    console.log("admin-comp", dialogData.companyIdentifier);
+    // this.adminData.companyIdentifier = dialogData.companyIdentifier.replace(/^"|"$/g, '');
     this.adminData.companyIdentifier = dialogData.companyIdentifier;
+
+    // console.log(this.adminData.companyIdentifier);
+
   } // Replace ApiService with your actual service
 
   onNoClick() {
