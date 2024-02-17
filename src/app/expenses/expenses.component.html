@@ -1,0 +1,14 @@
+<div>
+    <h2>Tenant Expenses</h2>
+    <label for="tenantSelect">Select Tenant:</label>
+    <select id="tenantSelect" [(ngModel)]="selectedTenant" (change)="onTenantChange()">
+      <option *ngFor="let tenant of tenants" [ngValue]="tenant">{{ tenant.name }}</option>
+    </select>
+  
+    <div *ngIf="selectedTenant">
+      <h3>Usage of Space: {{ selectedTenant.allowedDiskSpace }}%</h3>
+      <h3>Allowed Users: {{ selectedTenant.allowedUsersCount }}</h3>
+      <h3>Total Expenses: ${{ selectedTenant.expenses }}</h3>
+    </div>
+  </div>
+  

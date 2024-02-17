@@ -72,6 +72,7 @@ import { DialogEditAllowedUserComponent } from './dialog-edit-allowed-user/dialo
 import { DialogEditExpensesComponent } from './dialog-edit-expenses/dialog-edit-expenses.component';
 import { DialogEditWebsiteComponent } from './dialog-edit-website/dialog-edit-website.component';
 import { AdminSignupComponent } from './admin-signup/admin-signup.component';
+import { ExpensesComponent } from './expenses/expenses.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { AdminSignupComponent } from './admin-signup/admin-signup.component';
     DialogEditExpensesComponent,
     DialogEditWebsiteComponent,
     AdminSignupComponent,
+    ExpensesComponent,
   ],
   imports: [
     BrowserModule,
