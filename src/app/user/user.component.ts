@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TenantsService } from '../tenants.service';
 import { DialogEditDataComponent } from '../dialog-edit-data/dialog-edit-data.component';
+import { TenantDetailComponent } from '../tenant-detail/tenant-detail.component';
 
 @Component({
   selector: 'app-user',
@@ -44,14 +45,14 @@ export class UserComponent {
     private tenantsService: TenantsService
   ) {
     this.tenantsService.getAllTenants().subscribe(
-      (res)=>{
+      (res) => {
         this.users$ = res.Tenants;
         console.log(res);
       },
-      (err)=>{
+      (err) => {
         console.log(err);
       }
-    )
+    );
   }
 
   /**
@@ -62,37 +63,34 @@ export class UserComponent {
     this.router.navigateByUrl(`/users/${id}`);
   }
 
-  /**
-   * Open Add New Client Dialog
-   */
-  // openEditDialog() {
-  //   const dialogRef = this.dialog.open(DialogEditDataComponent, {});
-
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.tenantsService.getAllTenants().subscribe(
-  //       (res)=>{
-  //         this.users$ = res.Tenants;
-  //       },
-  //       (err)=>{
-  //         console.log(err);
-  //       }
-  //     )
-  //   });
-  // }
+  openDetailsComponent(user: any): void {
+    // console.log("details", user);
+    
+    const dialogRef = this.dialog.open(TenantDetailComponent, {
+      width: '600px',
+      data: user
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The details dialog was closed');
+    });
+  }
 
   openAdminDialog(tenantId: string) {
     // Fetch the existing data for the selected tenant using tenantId
     // console.log(tenantId);
     this.tenantsService.getTenantById(tenantId).subscribe(
       (existingData) => {
-        // console.log(existingData);
+        console.log(existingData.Tenant.companyIdentifier);
         const dialogRef = this.dialog.open(AdminSignupComponent, {
           data: {
-            ...existingData.Tenant, // spread existing data properties
+            // ...existingData.Tenant,
+            companyIdentifier: JSON.stringify(
+              existingData.Tenant.companyIdentifier
+            ),
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -111,18 +109,16 @@ export class UserComponent {
   }
 
   openEditDialog(tenantId: string) {
-    // Fetch the existing data for the selected tenant using tenantId
-    // console.log(tenantId);
     this.tenantsService.getTenantById(tenantId).subscribe(
       (existingData) => {
-        // console.log(existingData);
+        // console.log(existingData.Tenant.companyIdentifier);
         const dialogRef = this.dialog.open(DialogEditDataComponent, {
           data: {
             ...existingData.Tenant, // spread existing data properties
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -152,7 +148,7 @@ export class UserComponent {
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -182,7 +178,7 @@ export class UserComponent {
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -212,7 +208,7 @@ export class UserComponent {
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -229,7 +225,7 @@ export class UserComponent {
       }
     );
   }
-  
+
   openEditUserDialog(tenantId: string) {
     // Fetch the existing data for the selected tenant using tenantId
     // console.log(tenantId);
@@ -242,7 +238,7 @@ export class UserComponent {
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -259,7 +255,7 @@ export class UserComponent {
       }
     );
   }
-  
+
   openEditExpDialog(tenantId: string) {
     // Fetch the existing data for the selected tenant using tenantId
     // console.log(tenantId);
@@ -272,7 +268,7 @@ export class UserComponent {
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -302,7 +298,7 @@ export class UserComponent {
             id: tenantId, // make sure 'id' is set in the data
           },
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           this.tenantsService.getAllTenants().subscribe(
             (res) => {
@@ -325,32 +321,32 @@ export class UserComponent {
 
     dialogRef.afterClosed().subscribe(() => {
       this.tenantsService.getAllTenants().subscribe(
-        (res)=>{
+        (res) => {
           this.users$ = res.Tenants;
         },
-        (err)=>{
+        (err) => {
           console.log(err);
         }
-      )
+      );
     });
   }
 
   /**
    * Function to search individual user
    */
-  // searchUser() {
-  //   this.users$ = this.users$.pipe(
-  //     map((users: any[]) =>
-  //       users.filter(
-  //         (user) =>
-  //           user.firstname
-  //             .toLowerCase()
-  //             .includes(this.searchText.toLowerCase()) ||
-  //           user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
-  //       )
-  //     )
-  //   );
-  // }
+  searchUser() {
+    this.users$ = this.users$.pipe(
+      map((users: any[]) =>
+        users.filter(
+          (user) =>
+            user.firstname
+              .toLowerCase()
+              .includes(this.searchText.toLowerCase()) ||
+            user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
+        )
+      )
+    );
+  }
 
   sendMail(mail: string) {
     window.location.href = `mailto:${mail}`;
@@ -416,17 +412,19 @@ export class UserComponent {
   }
 
   toggleStatus(tenantId: string) {
-    this.tenantsService.toggleAccessForTenant(tenantId, !this.isTenantActive).subscribe(
-      (response) => {
-        console.log('Tenant status toggled successfully:', response);
-        // Update the current status after successful toggle
-        this.isTenantActive = !this.isTenantActive;
-      },
-      (error) => {
-        console.error('Error toggling tenant status:', error);
-        // Handle error, e.g., show an error message
-      }
-    );
+    this.tenantsService
+      .toggleAccessForTenant(tenantId, !this.isTenantActive)
+      .subscribe(
+        (response) => {
+          console.log('Tenant status toggled successfully:', response);
+          // Update the current status after successful toggle
+          this.isTenantActive = !this.isTenantActive;
+        },
+        (error) => {
+          console.error('Error toggling tenant status:', error);
+          // Handle error, e.g., show an error message
+        }
+      );
   }
 
   resetFilter() {

@@ -53,22 +53,26 @@ th {
 }
 
 td {
-  text-align: center;
-  padding: 2rem 0 2rem 1rem;
+  // text-align: center;
+  padding: 2rem 0 3.2rem 1rem;
   font-size: 1rem;
-
+  // align-items: center;
   mat-icon {
-    // vertical-align: bottom;
+    vertical-align: bottom;
     color: #29abe2;
     // transform: rotate(-35deg);
     margin-left: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1rem;
   }
 }
 
 td a
 {
-  font-size: 11px;
-  margin-left: 8px;
+  font-size: 14px;
+  margin: 0px;
+  // margin-top: 10px;
 }
 
 .send-mail {
@@ -153,4 +157,42 @@ button.mat-icon-button {
 {
   cursor: pointer;
   color: #29abe2;
+  margin-top: 20px;
 }
+
+.edit-icon
+{
+  text-align: left;
+  margin-top: 10px;
+}
+
+.web-link
+{
+  font-size: 1rem;
+}
+
+.name-div
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.name-sec
+{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+}
+
+.name-name
+{
+  margin-bottom: 10px;
+}
+
+.name-dis
+{
+  margin-top: 10px;
+}
+
