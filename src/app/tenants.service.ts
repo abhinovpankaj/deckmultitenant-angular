@@ -100,4 +100,9 @@ export class TenantsService {
     const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/registerAdmin`;
     return this.httpClient.post<any>(apiUrl, adminDetails, this.options);
   }
+
+  uploadFile(data: any): Observable<any> {
+    const url = `${environment.apiUrl}/image/uploadlogos`;
+    return this.httpClient.post<any>(url, data, this.options);
+  }
 }

@@ -1,0 +1,45 @@
+<div class="tenant-detail-card">
+  <h2>Tenant Details</h2>
+  <mat-card>
+    <mat-card-content>
+      <p><strong>Name:</strong> {{ tenantDetails?.name }}</p>
+      <p><strong>Description:</strong> {{ tenantDetails?.companyDescription }}</p>
+      <p><strong>Website: </strong> <a href="{{ tenantDetails?.website }}" target="_blank">{{ tenantDetails?.website
+          }}</a></p>
+      <!-- <p><strong>Company Identifier:</strong> {{ tenantDetails?.companyIdentifier }}</p> -->
+      <p><strong>Registration Date:</strong> {{ tenantDetails?.registrationDate | date:'medium' }}</p>
+      <p><strong>End Date:</strong> {{ tenantDetails?.endDate | date:'medium' }}</p>
+
+      <div *ngIf="tenantDetails?.adminDetails && tenantDetails?.adminDetails.length > 0">
+        <p><strong>Admin Details:</strong></p>
+        <ul *ngFor="let admin of tenantDetails?.adminDetails; let i = index">
+          <li><strong>Admin {{ i + 1 }}:</strong></li>
+          <ul>
+            <li><strong>First Name:</strong> {{ admin.first_name }}</li>
+            <li><strong>Last Name:</strong> {{ admin.last_name }}</li>
+            <li><strong>Username:</strong> {{ admin.username }}</li>
+            <li><strong>Email:</strong> {{ admin.email }}</li>
+            <!-- <li><strong>Email:</strong> {{ admin.password }}</li> -->
+          </ul>
+        </ul>
+      </div>
+
+      <p><strong>Admin Details:</strong></p>
+      <ul>
+        <li><strong>First Name:</strong> {{ tenantDetails?.adminDetails?.first_name }}</li>
+        <li><strong>Last Name:</strong> {{ tenantDetails?.adminDetails?.last_name }}</li>
+        <li><strong>Username:</strong> {{ tenantDetails?.adminDetails?.username }}</li>
+        <li><strong>Email:</strong> {{ tenantDetails?.adminDetails?.email }}</li>
+      </ul>
+
+      <p><strong>Allowed Disk Space:</strong> {{ tenantDetails?.allowedDiskSpace }} GB</p>
+      <p><strong>Allowed Users Count:</strong> {{ tenantDetails?.allowedUsersCount }} GB</p>
+      <!-- <p><strong>Expenses:</strong> {{ tenantDetails?.expenses }}</p> -->
+      <p><strong>Active:</strong> {{ tenantDetails?.isActive ? 'Yes' : 'No' }}</p>
+      <!-- <p><strong>Deleted:</strong> {{ tenantDetails?.isDeleted ? 'Yes' : 'No' }}</p> -->
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" mat-dialog-close>Close</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

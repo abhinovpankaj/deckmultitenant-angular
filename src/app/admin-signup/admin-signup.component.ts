@@ -11,14 +11,12 @@ import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angula
 })
 export class AdminSignupComponent {
   adminData = {
-    id: '',
     first_name: '',
     last_name: '',
     username: '',
     email: '',
     password: '',
     companyIdentifier: '',
-    // Add other fields as needed
   };
 
   isSaving: boolean = false;
@@ -30,27 +28,17 @@ export class AdminSignupComponent {
     private tenantsService: TenantsService,
     private toast: HotToastService,
   ) {
-    this.adminData = { ...dialogData };
+    console.log(dialogData.companyIdentifier);
+    this.adminData.companyIdentifier = dialogData.companyIdentifier;
   } // Replace ApiService with your actual service
 
   onNoClick() {
     this.dialogRef.close();
   }
 
-  // email = new FormControl('', [Validators.required, Validators.email]);
-
-  // getErrorMessage() {
-  //   if (this.email.hasError('required')) {
-  //     return 'You must enter a value';
-  //   }
-
-  //   return this.email.hasError('email') ? 'Not a valid email' : '';
-  // }
-
   submitForm() {
-    const tenantId = this.adminData.id
-    // console.log(tenantId);
-    
+    const tenantId = this.dialogData.id
+    console.log(this.adminData);
     this.tenantsService.registerAdmin(tenantId, this.adminData).subscribe(
       (response) => {
         console.log(response);
