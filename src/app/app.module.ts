@@ -72,11 +72,8 @@ import { DialogEditAllowedUserComponent } from './dialog-edit-allowed-user/dialo
 import { DialogEditExpensesComponent } from './dialog-edit-expenses/dialog-edit-expenses.component';
 import { DialogEditWebsiteComponent } from './dialog-edit-website/dialog-edit-website.component';
 import { AdminSignupComponent } from './admin-signup/admin-signup.component';
-<<<<<<< HEAD
 import { ExpensesComponent } from './expenses/expenses.component';
-=======
 import { TenantDetailComponent } from './tenant-detail/tenant-detail.component';
->>>>>>> 49ec1a2c5d793aafcf822c182758e42b848b72e2
 
 @NgModule({
   declarations: [
@@ -105,11 +102,8 @@ import { TenantDetailComponent } from './tenant-detail/tenant-detail.component';
     DialogEditExpensesComponent,
     DialogEditWebsiteComponent,
     AdminSignupComponent,
-<<<<<<< HEAD
     ExpensesComponent,
-=======
     TenantDetailComponent,
->>>>>>> 49ec1a2c5d793aafcf822c182758e42b848b72e2
   ],
   imports: [
     BrowserModule,

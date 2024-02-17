@@ -103,6 +103,15 @@ export class TenantsService {
 
   uploadFile(data: any): Observable<any> {
     const url = `${environment.apiUrl}/image/uploadlogos`;
-    return this.httpClient.post<any>(url, data, this.options);
+
+    const formData = new FormData();
+    formData.append('picture',data.picture, data.picture.name);
+    console.log(data)
+    formData.append('containerName', data.containerName.replace(/\s+/g, '').toLowerCase());
+    formData.append('uploader', 'deck');
+    formData.append('entityName', data.entityName);
+    const headers = this.options.headers;
+    headers.append('Content-Type', 'multipart/form-data'); // Set the correct Content-Type
+    return this.httpClient.post<any>(url, formData, this.options);
   }
 }
