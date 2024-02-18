@@ -1,10 +1,41 @@
+.dialog-card {
+  max-height: 800px; /* Adjust the value as needed */
+  overflow-y: auto; /* Add a scrollbar if content exceeds the max height */
+}
+
 .tenant-detail-card {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
+  .mat-card-content {
+    max-height: 60vh;  // Adjust the value as needed
+    overflow-y: auto;
+  }
+}
+
+.tenant-detail-card {
+  position: relative;
+}
+
+.top-right-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+}
+
+/* Optional: Add some styling to the close button */
+.top-right-actions mat-icon {
+  background-color: transparent;
+  color: #000;
+  cursor: pointer; 
+}
+
+
+.tenant-detail-card {
+  max-width: 1000px;
+  margin: 10px auto;
+  padding: 10px 20px;
 
   h2 {
-    font-size: 28px;
+    font-size: 20px;
     margin-bottom: 20px;
     color: #333; /* Dark text color */
   }
@@ -18,7 +49,7 @@
 
       p {
         margin: 0 0 15px;
-        font-size: 18px;
+        font-size: 15px;
         color: #555; /* Medium-dark text color */
 
         strong {
@@ -33,7 +64,7 @@
 
         li {
           margin-bottom: 8px;
-          font-size: 16px;
+          font-size: 14px;
           color: #666; /* Medium text color */
         }
       }
@@ -43,21 +74,67 @@
       display: flex;
       justify-content: flex-end;
       padding: 10px;
-
-      button {
-        margin-left: 10px;
-        color: #fff; /* White text color */
-        background-color: #007bff; /* Primary button color */
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-          background-color: #0056b3; /* Darker shade on hover */
-        }
       }
     }
   }
+
+
+.table-wrapper {
+  max-height: 300px; /* Set the maximum height you prefer */
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+table {
+  width: 100%; /* Make the table fill the container */
+  border-collapse: collapse;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  text-align: center;
+  padding: 8px; /* Adjust the padding as needed */
+}
+
+.user-table th {
+  background-color: #f2f2f2; /* Add a background color to the table header if desired */
+}
+
+.user-table td button {
+  display: flex;
+  justify-content: center;
+}
+
+.password-td
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icons-list
+{
+  display: flex;
+  justify-content: space-around;
+}
+
+.icon-list-img 
+{
+  height: 150px;
+  width: 150px;
+}
+
+.icon-list-txt
+{
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }

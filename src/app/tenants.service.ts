@@ -106,7 +106,7 @@ export class TenantsService {
 
     const formData = new FormData();
     formData.append('picture',data.picture, data.picture.name);
-    console.log(data)
+    // console.log(data)
     formData.append('containerName', data.containerName.replace(/\s+/g, '').toLowerCase());
     formData.append('uploader', 'deck');
     formData.append('entityName', data.entityName);
