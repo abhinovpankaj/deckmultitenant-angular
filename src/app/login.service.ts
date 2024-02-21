@@ -10,6 +10,6 @@ export class LoginService {
   constructor(private httpClient: HttpClient) {}
 
   login(data: any): Observable<any> {
-    return this.httpClient.post<any>(`${environment.apiUrl}/user/loginSuperUser`, data);
+    return this.httpClient.post<any>(`${environment.apiUrl}/login/loginSuperUser`, data);
   }
 }
