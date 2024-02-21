@@ -63,16 +63,20 @@ export class UserComponent {
     this.router.navigateByUrl(`/users/${id}`);
   }
 
-  openDetailsComponent(user: any): void {
-    // console.log("details", user);
+  // openDetailsComponent(user: any): void {
+  //   // console.log("details", user);
     
-    const dialogRef = this.dialog.open(TenantDetailComponent, {
-      width: '600px',
-      data: user
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The details dialog was closed');
-    });
+  //   const dialogRef = this.dialog.open(TenantDetailComponent, {
+  //     width: '1000px',
+  //     data: user
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The details dialog was closed');
+  //   });
+  // }
+
+  openDetailsComponent(user: any) {
+    this.router.navigateByUrl(`/details/${user}`);
   }
 
   openAdminDialog(tenantId: string) {
@@ -84,9 +88,7 @@ export class UserComponent {
         const dialogRef = this.dialog.open(AdminSignupComponent, {
           data: {
             // ...existingData.Tenant,
-            companyIdentifier: JSON.stringify(
-              existingData.Tenant.companyIdentifier
-            ),
+            companyIdentifier: existingData.Tenant.companyIdentifier,
             id: tenantId, // make sure 'id' is set in the data
           },
         });

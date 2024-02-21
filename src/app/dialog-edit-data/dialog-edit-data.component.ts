@@ -17,6 +17,7 @@ export class DialogEditDataComponent {
     companyIdentifier: '',
   };
 
+  logoFile: File | null = null;
   headerFile: File | null = null;
   footerFile: File | null = null;
   storedUsername: string | null = null;
@@ -52,9 +53,13 @@ export class DialogEditDataComponent {
   onFileSelected(type: string, event: any) {
     // const file = event.target.files && event.target.files[0];
     const file: File = event.target.files && event.target.files[0];
-    if (type === 'iconHeader') {
+    if (type === 'companyLogo')
+    {
+      this.logoFile = file
+    }
+    else if (type === 'reportHeader') {
       this.headerFile = file;
-    } else if (type === 'iconFooter') {
+    } else if (type === 'reportFooter') {
       this.footerFile = file;
     }
   }
@@ -78,54 +83,48 @@ export class DialogEditDataComponent {
         'id': this.data.id,
       }
 
-      console.log("Header", dataHeader);
-      console.log("Footer", dataFooter);
-      const iconsData: any = {};
-      // Upload icon header
-      const headerUpload = this.headerFile
-        ? this.tenantsService.uploadFile(dataHeader).subscribe(
-          (response) => {
-            console.log(response.url); // Close the dialog after a successful update
-            iconsData["iconHeader"] = response.url;
-          },
-          (error) => {
-            console.log("Header error", error);
-            // alert('Failed to update or add icons for the tenant!');
-          }
-        )
-        : null;
-
-      // Upload icon footer
-      const footerUpload = this.footerFile
-       ? this.tenantsService.uploadFile(dataFooter).subscribe(
-          (response) => {
-            console.log(response.url); // Close the dialog after a successful update
-            iconsData["iconFooter"] = response.url;
-          },
-          (error) => {
-            console.log("Footer error", error);
-            // alert('Failed to update or add icons for the tenant!');
-          }
-        )
-        : null;
-
+      let dataLogo = {
+        'entityName': "logo",
+        'uploader': "anshgr",
+        'containerName': this.data.companyIdentifier.replace(/\s+/g, '').toLowerCase(),
+        'picture': this.logoFile,
+        'id': this.data.id,
+      }
       
+      const iconsData: any = {};
+
+    try {
+      if (this.footerFile) {
+        const response = await this.tenantsService.uploadFile(dataFooter).toPromise();
+        iconsData['footer'] = response.url;
+      }
+      
+      if (this.headerFile) {
+        const response = await this.tenantsService.uploadFile(dataHeader).toPromise();
+        iconsData['header'] = response.url;
+      }
+
+      if (this.logoFile) {
+        const response = await this.tenantsService.uploadFile(dataLogo).toPromise();
+        iconsData['logoUrl'] = response.url;
+      }
+
+      // console.log('URL', iconsData);
+
       // Call the API for updating or adding icons for a tenant
-      this.tenantsService.upsertIcons(this.data.id, iconsData).subscribe(
-        (response) => {
-          console.log(response);
-          this.isSaving = false;
-          this.dialogRef.close(); // Close the dialog after a successful update
-        },
-        (error) => {
-          console.log(error);
-          this.isSaving = false;
-          alert('Failed to update or add icons for the tenant!');
-        }
-      );
-    } else {
-      this.toast.error('Please complete the form with valid data!');
+      const apiResponse = await this.tenantsService.upsertIcons(this.data.id, iconsData).toPromise();
+      console.log(apiResponse);
+
+      this.isSaving = false;
+      this.dialogRef.close(); // Close the dialog after a successful update
+    } catch (error) {
+      console.error('Error during file uploads or upsertIcons:', error);
+      this.isSaving = false;
+      alert('Failed to update or add icons for the tenant!');
     }
+  } else {
+    this.toast.error('Please complete the form with valid data!');
+  }
   }
 
   formValidator() {
