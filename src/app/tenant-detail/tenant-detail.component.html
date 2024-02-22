@@ -23,30 +23,32 @@
       <!-- <p><strong>Expenses:</strong> {{ tenantDetails?.expenses }}</p> -->
       <p>Active: <strong>{{ tenantDetails?.isActive ? 'Yes' : 'No' }}</strong> </p>
 
-      <p><strong>Icons:</strong></p>
-      <div class="icons-list">
-        <div>
-          <p class="icon-list-txt">Report footer:</p> 
-          <img class="icon-list-img" src="{{ tenantDetails?.icons.footer }}" alt="">
-        </div>
-        <div>
-          <p class="icon-list-txt">
-            Report header: 
-          </p>
-          <img class="icon-list-img" src="{{ tenantDetails?.icons.header }}" alt="">
-        </div>
-        <div>
-          <p class="icon-list-txt">
-            Company logo:
-          </p>
-           <img class="icon-list-img" src="{{ tenantDetails?.icons.logoUrl }}" alt="">
+      <div *ngIf="tenantDetails?.icons">
+        <p><strong>Icons:</strong></p>
+        <div class="icons-list">
+          <div>
+            <p class="icon-list-txt">Report footer:</p> 
+            <img class="icon-list-img" src="{{ tenantDetails?.icons.footer }}" alt="">
+          </div>
+          <div>
+            <p class="icon-list-txt">
+              Report header: 
+            </p>
+            <img class="icon-list-img" src="{{ tenantDetails?.icons.header }}" alt="">
+          </div>
+          <div>
+            <p class="icon-list-txt">
+              Company logo:
+            </p>
+             <img class="icon-list-img" src="{{ tenantDetails?.icons.logoUrl }}" alt="">
+          </div>
         </div>
       </div>
 
       <!-- <p><strong>Used Disk Space:</strong> {{tenantDetails?.usedDiskSpace}} GB</p> -->
 
-      <p><strong>Admin Details:</strong></p>
       <div *ngIf="tenantDetails?.adminDetails && tenantDetails?.adminDetails.length > 0">
+        <p><strong>Admin Details:</strong></p>
         <mat-card class="table-wrapper">
           <table class="user-table">
             <tr>

@@ -413,14 +413,15 @@ export class UserComponent {
     );
   }
 
-  toggleStatus(tenantId: string) {
+  toggleStatus(tenantId: string, status: boolean) {
     this.tenantsService
-      .toggleAccessForTenant(tenantId, !this.isTenantActive)
+      .toggleAccessForTenant(tenantId, !status)
       .subscribe(
         (response) => {
           console.log('Tenant status toggled successfully:', response);
           // Update the current status after successful toggle
-          this.isTenantActive = !this.isTenantActive;
+          this.isTenantActive = !status;
+          window.location.reload();
         },
         (error) => {
           console.error('Error toggling tenant status:', error);

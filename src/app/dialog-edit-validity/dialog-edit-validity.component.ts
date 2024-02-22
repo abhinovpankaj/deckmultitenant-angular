@@ -6,24 +6,13 @@ import { TenantsService } from '../tenants.service';
 @Component({
   selector: 'app-dialog-edit-validity',
   templateUrl: './dialog-edit-validity.component.html',
-  styleUrls: ['./dialog-edit-validity.component.scss']
+  styleUrls: ['./dialog-edit-validity.component.scss'],
 })
 export class DialogEditValidityComponent {
   data = {
-    name: '',
-    companyDescription: '',
-    expenses: '',
-    validity: '',
-    allowedUsersCount: '',
     id: '',
-    allowedDiskSpace: '',
-    website: '',
-    iconHeader: '',
-    iconFooter: '',
-    accountName: '',
-    connectionString: '',
-    endDate: '',
-  };// Update data type as per your tenant model
+    endDate: new Date(),
+  }; // Update data type as per your tenant model
 
   firstname: String = '';
   lastname: String = '';
@@ -44,15 +33,31 @@ export class DialogEditValidityComponent {
     this.dialogRef.close();
   }
 
+  // formatDateAndConvertToISO(date: Date): string {
+  //   // Assuming you have a function to format the date
+  //   const formattedDate = this.formatDate(date);
+  
+  //   // Converting to ISO format
+  //   const isoFormattedDate = formattedDate ? new Date(formattedDate).toISOString() : "";
+  
+  //   return isoFormattedDate;
+  // }
+  
+  // formatDate(date: Date): string {
+  //   // Implement your own date formatting logic here
+  //   // Example: 'MM-dd-yyyy'
+  //   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  //   return date.toLocaleDateString('en-US', options);
+  // }
+
   async submitData() {
     if (this.formValidator()) {
       this.isSaving = true;
 
-      // Call the API for updating tenant validity date
-      const endDate = this.data.endDate;
+      const endDate = this.data.endDate.toISOString();
       console.log(endDate);
-      
-      this.tenantsService.updateValidityDate(this.data.id, endDate).subscribe(
+
+      this.tenantsService.updateValidityDate(this.data.id, {endDate}).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;

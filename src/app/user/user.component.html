@@ -77,7 +77,7 @@
           <button mat-menu-item (click)="openEditDialog(user._id)">Add Logo</button>
           <button mat-menu-item (click)="openAdminDialog(user._id)">Add Admin</button>
           <button mat-menu-item (click)="DeleteTenant(user._id)">Delete Tenant</button>
-          <button mat-menu-item (click)="toggleStatus(user._id)">{{ isTenantActive ? 'Deactivate Tenant' : 'Activate Tenant' }}</button>
+          <button mat-menu-item (click)="toggleStatus(user._id, user.isActive)">Toggle Status</button>
         </mat-menu>
       
         <button mat-icon-button [matMenuTriggerFor]="editMenu" (click)="$event.stopPropagation()">
