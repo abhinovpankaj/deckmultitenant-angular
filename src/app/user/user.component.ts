@@ -23,14 +23,15 @@ import { TenantDetailComponent } from '../tenant-detail/tenant-detail.component'
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent {
-  users$: any | null[];
-  searchText: string;
+  users$: any[];
+  searchText!: string;
   numberOfClients: number = 0;
   companyInput: boolean = false;
   cityInput: boolean = false;
   genderInput: boolean = false;
   queryParam: string = '';
   isTenantActive: boolean = true;
+  filteredUsers: any[] = [];
 
   /**
    *
@@ -47,6 +48,7 @@ export class UserComponent {
     this.tenantsService.getAllTenants().subscribe(
       (res) => {
         this.users$ = res.Tenants;
+        this.filteredUsers = [...this.users$]
         console.log(res);
       },
       (err) => {
@@ -336,19 +338,19 @@ export class UserComponent {
   /**
    * Function to search individual user
    */
-  searchUser() {
-    this.users$ = this.users$.pipe(
-      map((users: any[]) =>
-        users.filter(
-          (user) =>
-            user.firstname
-              .toLowerCase()
-              .includes(this.searchText.toLowerCase()) ||
-            user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
-        )
-      )
-    );
-  }
+  // searchUser() {
+  //   this.users$ = this.users$.pipe(
+  //     map((users: any[]) =>
+  //       users.filter(
+  //         (user) =>
+  //           user.firstname
+  //             .toLowerCase()
+  //             .includes(this.searchText.toLowerCase()) ||
+  //           user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
+  //       )
+  //     )
+  //   );
+  // }
 
   sendMail(mail: string) {
     window.location.href = `mailto:${mail}`;
@@ -376,27 +378,35 @@ export class UserComponent {
     }
   }
 
-  applyFilter() {
-    if (this.queryParam != '') {
-      let paramType: string;
-      if (this.companyInput) {
-        paramType = 'company';
-      } else if (this.cityInput) {
-        paramType = 'city';
-      } else if (this.genderInput) {
-        paramType = 'gender';
-      }
+  // applyFilter() {
+  //   if (this.queryParam != '') {
+  //     let paramType: string;
+  //     if (this.companyInput) {
+  //       paramType = 'company';
+  //     } else if (this.cityInput) {
+  //       paramType = 'city';
+  //     } else if (this.genderInput) {
+  //       paramType = 'gender';
+  //     }
 
-      // this.users$ = this.users$.pipe(
-      //   map((users: any[]) =>
-      //     users.filter((user) =>
-      //       user[`${paramType}`]
-      //         .toLowerCase()
-      //         .includes(this.queryParam.toLowerCase())
-      //     )
-      //   )
-      // );
-    }
+  //     // this.users$ = this.users$.pipe(
+  //     //   map((users: any[]) =>
+  //     //     users.filter((user) =>
+  //     //       user[`${paramType}`]
+  //     //         .toLowerCase()
+  //     //         .includes(this.queryParam.toLowerCase())
+  //     //     )
+  //     //   )
+  //     // );
+  //   }
+  // }
+
+  applyFilter() {
+    this.filteredUsers = this.users$.filter(user =>
+      user.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      user.companyDescription.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      user.website.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   DeleteTenant(tenantId: string): void {
