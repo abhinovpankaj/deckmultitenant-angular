@@ -12,9 +12,27 @@
   </div>
 
   <!-- Per User Charge -->
-  <div class="input-group">
+  <!-- <div class="input-group">
     <label for="perUserCharge">Per User Charge ($):</label>
     <input type="number" id="perUserCharge" [(ngModel)]="perUserCharge" (input)="calculateExpenses()">
+  </div> -->
+
+  <!-- Per Mobile User Charge -->
+  <div class="input-group">
+    <label for="perMobileUserCharge">Per Mobile User Charge ($):</label>
+    <input type="number" id="perMobileUserCharge" [(ngModel)]="perMobileUsersCountCharge" (input)="calculateExpenses()">
+  </div>
+
+  <!-- Per Web User Charge -->
+  <div class="input-group">
+    <label for="perUserWebCharge">Per Web User Charge ($):</label>
+    <input type="number" id="perWebUserCharge" [(ngModel)]="perWebUsersCountCharge" (input)="calculateExpenses()">
+  </div>
+
+  <!-- Per Both User Charge -->
+  <div class="input-group">
+    <label for="perBothUserCharge">Per Both User Charge ($):</label>
+    <input type="number" id="perBothUserCharge" [(ngModel)]="perBothUsersCountCharge" (input)="calculateExpenses()">
   </div>
 
   <!-- Per Image Charge -->
@@ -45,10 +63,25 @@
               <td>${{ spaceUsageExpense }}</td>
             </tr>
             <tr>
+              <td>Allowed Mobile Users</td>
+              <td>{{mobileUsersCount}}</td>
+              <td>${{ mobileUsersCountExpense }}</td>
+            </tr>
+            <tr>
+              <td>Allowed Web Users</td>
+              <td>{{webUsersCount}}</td>
+              <td>${{ webUsersCountExpense }}</td>
+            </tr>
+            <tr>
+              <td>Allowed Both Users</td>
+              <td>{{bothUsersCount}}</td>
+              <td>${{ bothUsersCountExpense }}</td>
+            </tr>
+            <!-- <tr>
               <td>Allowed Users</td>
               <td>{{users}}</td>
               <td>${{ allowedUsersExpense }}</td>
-            </tr>
+            </tr> -->
             <tr>
               <td>Image Count</td>
               <td>{{images}}</td>
