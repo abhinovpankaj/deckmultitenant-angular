@@ -50,6 +50,9 @@ export class ExpensesComponent {
   }
 
   async fetchUsersCount(){
+    this.mobileUsersCount = 0;
+    this.webUsersCount = 0;
+    this.bothUsersCount = 0;
     const data = await this.tenantUserService.getAllUsers(this.selectedTenant.companyIdentifier);
       data.forEach((user: any) =>{
         if (user.access_type === "mobile"){
