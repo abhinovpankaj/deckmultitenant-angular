@@ -60,7 +60,7 @@
       <td>{{ user.endDate | date:'shortDate' }}
         <a class="edit-link" (click)="openEditValDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
-      <td>{{ user.allowedUsersCount }}
+      <td>{{ (user.mobileUserCount + user.webUserCount + user.bothUserCount) || '0' }}
         <a class="edit-link" (click)="openEditUserDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
       </td>
       <td>

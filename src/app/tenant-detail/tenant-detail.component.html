@@ -19,7 +19,10 @@
       <p>Image Count: <strong>{{ tenantDetails?.imageCount ?? 0 }}</strong> </p>
       <p>Report Count: <strong>{{ tenantDetails?.reportsCount ?? 0 }}</strong> </p>
       
-      <p>Allowed User Count: <strong>{{ tenantDetails?.allowedUsersCount }}</strong> </p>
+      <p>Allowed Mobile User Count: <strong>{{ tenantDetails?.mobileUserCount ?? '0' }}</strong> </p>
+      <p>Allowed Web User Count: <strong>{{ tenantDetails?.webUserCount ?? '0' }}</strong> </p>
+      <p>Allowed Both User Count: <strong>{{ tenantDetails?.bothUserCount ?? '0' }}</strong> </p>
+
       <!-- <p><strong>Expenses:</strong> {{ tenantDetails?.expenses }}</p> -->
       <p>Active: <strong>{{ tenantDetails?.isActive ? 'Yes' : 'No' }}</strong> </p>
 

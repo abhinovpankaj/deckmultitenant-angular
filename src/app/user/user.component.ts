@@ -335,30 +335,10 @@ export class UserComponent {
     });
   }
 
-  /**
-   * Function to search individual user
-   */
-  // searchUser() {
-  //   this.users$ = this.users$.pipe(
-  //     map((users: any[]) =>
-  //       users.filter(
-  //         (user) =>
-  //           user.firstname
-  //             .toLowerCase()
-  //             .includes(this.searchText.toLowerCase()) ||
-  //           user.lastname.toLowerCase().includes(this.searchText.toLowerCase())
-  //       )
-  //     )
-  //   );
-  // }
-
   sendMail(mail: string) {
     window.location.href = `mailto:${mail}`;
   }
 
-  /**
-   * Logic to filter clients according to certain criteria.
-   */
 
   /**
    * @param clickedCheckbox string; Checks which filter has been chosen by the user. Toggles the display of the corresponding input fields.
@@ -377,29 +357,6 @@ export class UserComponent {
       this.cityInput = false;
     }
   }
-
-  // applyFilter() {
-  //   if (this.queryParam != '') {
-  //     let paramType: string;
-  //     if (this.companyInput) {
-  //       paramType = 'company';
-  //     } else if (this.cityInput) {
-  //       paramType = 'city';
-  //     } else if (this.genderInput) {
-  //       paramType = 'gender';
-  //     }
-
-  //     // this.users$ = this.users$.pipe(
-  //     //   map((users: any[]) =>
-  //     //     users.filter((user) =>
-  //     //       user[`${paramType}`]
-  //     //         .toLowerCase()
-  //     //         .includes(this.queryParam.toLowerCase())
-  //     //     )
-  //     //   )
-  //     // );
-  //   }
-  // }
 
   applyFilter() {
     this.filteredUsers = this.users$.filter(user =>
