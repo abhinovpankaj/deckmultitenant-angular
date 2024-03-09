@@ -48,20 +48,28 @@ export class DialogEditAllowedUserComponent {
   async submitData() {
     if (this.formValidator()) {
       this.isSaving = true;
-
-      // Call the API for increasing the number of allowed users
-      const count = this.data.allowedUsersCount/* Set the desired count value */
-
-      this.tenantsService.increaseTenantUsers(this.data.id, count).subscribe(
+  
+      // Prepare the data to be sent to the server
+      const updateData = {
+        name: this.data.name,
+        companyDescription: this.data.companyDescription,
+        mobileUserCount: this.data.mobileUserCount,
+        webUserCount: this.data.webUserCount,
+        bothUserCount: this.data.bothUserCount
+        // Add other properties as needed based on your API
+      };
+  
+      // Call the editTenant method for updating an existing tenant
+      this.tenantsService.editTenant(this.data.id, updateData).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;
-          this.dialogRef.close(); // Close the dialog after a successful increase
+          this.dialogRef.close(); // Close the dialog after successful edit
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to increase allowed users!');
+          alert('Editing tenant failed!');
         }
       );
     } else {
