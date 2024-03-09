@@ -18,12 +18,12 @@
     </div>
     <div class="input-row">
       <mat-form-field appearance="outline">
-        <mat-label>Allowed Disk Space</mat-label>
+        <mat-label>Allowed Disk Space (GB)</mat-label>
         <input type="number" matInput placeholder="Allowed Disk Space" [(ngModel)]="data.allowedDiskSpace" />
         <mat-icon matSuffix>storage</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Choose a date</mat-label>
+        <mat-label>Valid Upto</mat-label>
         <input matInput [matDatepicker]="picker" [(ngModel)]="data.endDate">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -32,16 +32,31 @@
     </div>
 
     <div class="input-row">
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Allowed Users</mat-label>
         <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.allowedUsersCount" />
         <mat-icon matSuffix>group</mat-icon>
+      </mat-form-field> -->
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed Mobile Users</mat-label>
+        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.mobileUserCount" />
+        <mat-icon matSuffix>group</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
+        <mat-label>Allowed Web Users</mat-label>
+        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.webUserCount" />
+        <mat-icon matSuffix>group</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed Both Users</mat-label>
+        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.bothUserCount" />
+        <mat-icon matSuffix>group</mat-icon>
+      </mat-form-field>
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Expenses</mat-label>
         <input matInput placeholder="Expenses" [(ngModel)]="data.expenses" />
         <mat-icon matSuffix>payment</mat-icon>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
     <div class="input-row company">
       <mat-form-field appearance="outline">

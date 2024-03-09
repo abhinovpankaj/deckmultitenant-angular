@@ -1,15 +1,23 @@
 <h1 mat-dialog-title class="mat-dialog-title">Edit Tenant</h1>
 <div mat-dialog-content class="mat-dialog-content">
   <div>
-    <div class="input-row">
+    <div class="user-input">
       <mat-form-field appearance="outline">
-        <mat-label>Allowed Users</mat-label>
-        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.allowedUsersCount" />
+        <mat-label>Allowed Mobile Users</mat-label>
+        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.mobileUserCount" />
+        <mat-icon matSuffix>group</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed Web Users</mat-label>
+        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.webUserCount" />
+        <mat-icon matSuffix>group</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed Both Users</mat-label>
+        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.bothUserCount" />
         <mat-icon matSuffix>group</mat-icon>
       </mat-form-field>
     </div>
-
-
   </div>
 </div>
 <div mat-dialog-actions>

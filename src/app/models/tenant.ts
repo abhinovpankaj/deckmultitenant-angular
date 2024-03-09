@@ -4,6 +4,8 @@ export interface Tenant{
     website: String,
     validity: String,
     allowedDiskSpace: String,
-    allowedUsersCount: String,
+    mobileUserCount: String,
+    webUserCount: String,
+    bothUserCount: String,
     expenses: String
 }
