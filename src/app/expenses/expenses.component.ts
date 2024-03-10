@@ -72,7 +72,7 @@ export class ExpensesComponent {
   }
 
   bytesToGB(bytes: any) {
-    return bytes / Math.pow(1024, 3);
+    return bytes / Math.pow(1000, 3);
 }
 
 
