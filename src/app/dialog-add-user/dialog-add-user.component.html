@@ -4,27 +4,26 @@
     <div class="input-row adress">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" [(ngModel)]="data.name" />
+        <input matInput placeholder="Name" [(ngModel)]="data.name" required />
         <mat-icon matSuffix>perm_identity</mat-icon>
       </mat-form-field>
     </div>
     <div class="input-row adress">
       <mat-form-field appearance="outline">
         <mat-label>Company Description</mat-label>
-        <textarea matInput placeholder="Company Description" [(ngModel)]="data.companyDescription">
-        </textarea>
+        <textarea matInput placeholder="Company Description" [(ngModel)]="data.companyDescription" required></textarea>
         <mat-icon matSuffix>business</mat-icon>
       </mat-form-field>
     </div>
     <div class="input-row">
       <mat-form-field appearance="outline">
         <mat-label>Allowed Disk Space (GB)</mat-label>
-        <input type="number" matInput placeholder="Allowed Disk Space" [(ngModel)]="data.allowedDiskSpace" />
+        <input type="number" matInput placeholder="Allowed Disk Space" [(ngModel)]="data.allowedDiskSpace" required />
         <mat-icon matSuffix>storage</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Valid Upto</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="data.endDate">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="data.endDate" required>
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -32,36 +31,26 @@
     </div>
 
     <div class="input-row">
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Allowed Users</mat-label>
-        <input type="number" matInput placeholder="Allowed Users" [(ngModel)]="data.allowedUsersCount" />
-        <mat-icon matSuffix>group</mat-icon>
-      </mat-form-field> -->
       <mat-form-field appearance="outline">
         <mat-label>Allowed Mobile Users</mat-label>
-        <input type="number" matInput placeholder="Allowed Mobile Users" [(ngModel)]="data.mobileUserCount" />
+        <input type="number" matInput placeholder="Allowed Mobile Users" [(ngModel)]="data.mobileUserCount" required />
         <mat-icon matSuffix>group</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Allowed Web Users</mat-label>
-        <input type="number" matInput placeholder="Allowed Web Users" [(ngModel)]="data.webUserCount" />
+        <input type="number" matInput placeholder="Allowed Web Users" [(ngModel)]="data.webUserCount" required />
         <mat-icon matSuffix>group</mat-icon>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Allowed Both Users</mat-label>
-        <input type="number" matInput placeholder="Allowed Both Users" [(ngModel)]="data.bothUserCount" />
+        <input type="number" matInput placeholder="Allowed Both Users" [(ngModel)]="data.bothUserCount" required />
         <mat-icon matSuffix>group</mat-icon>
       </mat-form-field>
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Expenses</mat-label>
-        <input matInput placeholder="Expenses" [(ngModel)]="data.expenses" />
-        <mat-icon matSuffix>payment</mat-icon>
-      </mat-form-field> -->
     </div>
     <div class="input-row company">
       <mat-form-field appearance="outline">
         <mat-label>Company Website</mat-label>
-        <input matInput placeholder="Company" [(ngModel)]="data.website" />
+        <input matInput placeholder="Company" [(ngModel)]="data.website" required />
         <mat-icon matSuffix>language</mat-icon>
       </mat-form-field>
     </div>
@@ -71,7 +60,6 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <!-- <button mat-button (click)="submitData()">Ok</button> -->
   <button mat-button [disabled]="isSaving" (click)="submitData()">
     <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
     <span *ngIf="!isSaving">Ok</span>
