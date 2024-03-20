@@ -46,6 +46,12 @@
     <label for="perReportCharge">Per Report Charge ($):</label>
     <input type="number" id="perReportCharge" [(ngModel)]="perReportCharge" (input)="calculateExpenses()">
   </div>
+
+  <!-- Per Report Charge -->
+  <div class="input-group">
+    <label for="perReportSpaceCharge">Per GB Report Charge ($):</label>
+    <input type="number" id="perReportSpaceCharge" [(ngModel)]="perReportSpaceCharge" (input)="calculateExpenses()">
+  </div>
     <div *ngIf="selectedTenant">
       <div class="table-container">
         <table>
@@ -91,6 +97,11 @@
               <td>Reports Count</td>
               <td>{{reports}}</td>
               <td>${{ reportsCountExpense }}</td>
+            </tr>
+            <tr>
+              <td>Reports Space</td>
+              <td>{{usedReportSpace}} (GB)</td>
+              <td>${{ reportSpaceExpense }}</td>
             </tr>
             <tr>
               <td colspan="2"><strong>Total Expenses</strong></td>

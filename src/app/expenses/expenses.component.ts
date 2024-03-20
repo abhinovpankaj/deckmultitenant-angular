@@ -17,6 +17,7 @@ export class ExpensesComponent {
   perMobileUsersCountCharge: number = 1;
   perWebUsersCountCharge: number = 1;
   perBothUsersCountCharge: number = 2;
+  perReportSpaceCharge: number = 5;
   spaceUsageExpense: number = 0;
   // allowedUsersExpense: number = 0;
   imageCountExpense: number = 0;
@@ -24,14 +25,16 @@ export class ExpensesComponent {
   mobileUsersCountExpense: number = 0;
   webUsersCountExpense: number = 0;
   bothUsersCountExpense: number = 0;
+  reportSpaceExpense: any = 0;
 
-  spaceUsage: number = 0;
+  spaceUsage: any = 0;
   // users: number = 0;
   reports: number = 0;
   images: number = 0;
   mobileUsersCount: number = 0;
   webUsersCount: number = 0;
   bothUsersCount: number = 0;
+  usedReportSpace: any = 0;
 
   totalExpenses: number = 0;
 
@@ -79,10 +82,12 @@ export class ExpensesComponent {
   async calculateExpenses() {
     if (this.selectedTenant && this.perGbCharge) {
       const spaceUsed = this.selectedTenant.usedDiskSpace? parseFloat(this.selectedTenant.usedDiskSpace) : 0;
+      const reportSpace = this.selectedTenant.usedReportSpace? parseFloat(this.selectedTenant.usedReportSpace) : 0;
       // this.users = this.selectedTenant.allowedUsersCount? parseInt(this.selectedTenant.allowedUsersCount): 0;
       this.reports = this.selectedTenant.reportsCount? parseInt(this.selectedTenant.reportsCount) : 0;
       this.images = this.selectedTenant.imageCount? parseInt(this.selectedTenant.imageCount) : 0;
-      this.spaceUsage = parseFloat(this.bytesToGB(spaceUsed).toFixed(8));
+      this.spaceUsage = Number(parseFloat(this.bytesToGB(spaceUsed).toString())).toFixed(8);
+      this.usedReportSpace = Number(parseFloat(this.bytesToGB(reportSpace).toString())).toFixed(8);
       // console.log(spaceUsageInGB, users, reports, images);
       await this.fetchUsersCount();
       this.mobileUsersCountExpense = this.mobileUsersCount * this.perMobileUsersCountCharge;
@@ -93,6 +98,8 @@ export class ExpensesComponent {
       this.spaceUsageExpense = parseFloat(this.spaceUsageExpense.toFixed(6))
       // this.allowedUsersExpense = this.users * this.perUserCharge;
       this.reportsCountExpense = this.reports * this.perReportCharge;
+      this.reportSpaceExpense = this.usedReportSpace * this.perReportSpaceCharge;
+      this.reportSpaceExpense = parseFloat(this.reportSpaceExpense.toString()).toFixed(8);
       this.imageCountExpense = this.images * this.perImageCharge;
       const total = this.spaceUsageExpense + this.reportsCountExpense + this.imageCountExpense 
       + this.mobileUsersCountExpense + this.webUsersCountExpense + this.bothUsersCountExpense;
