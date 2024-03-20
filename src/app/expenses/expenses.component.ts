@@ -84,7 +84,7 @@ export class ExpensesComponent {
       const spaceUsed = this.selectedTenant.usedDiskSpace? parseFloat(this.selectedTenant.usedDiskSpace) : 0;
       const reportSpace = this.selectedTenant.usedReportSpace? parseFloat(this.selectedTenant.usedReportSpace) : 0;
       // this.users = this.selectedTenant.allowedUsersCount? parseInt(this.selectedTenant.allowedUsersCount): 0;
-      this.reports = this.selectedTenant.reportsCount? parseInt(this.selectedTenant.reportsCount) : 0;
+      this.reports = this.selectedTenant.reportCount? parseInt(this.selectedTenant.reportCount) : 0;
       this.images = this.selectedTenant.imageCount? parseInt(this.selectedTenant.imageCount) : 0;
       this.spaceUsage = Number(parseFloat(this.bytesToGB(spaceUsed).toString())).toFixed(8);
       this.usedReportSpace = Number(parseFloat(this.bytesToGB(reportSpace).toString())).toFixed(8);
