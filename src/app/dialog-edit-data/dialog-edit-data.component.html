@@ -4,12 +4,28 @@
     <div>
       <span>Icon details</span>
     </div>
-    <h6>Company Logo</h6>
-    <input type="file" id="footerFileInput" (change)="onFileSelected('companyLogo', $event)" />
-    <h6>Report header</h6>
-    <input type="file" id="headerFileInput" (change)="onFileSelected('reportHeader', $event)" />
-    <h6>Report footer</h6>
-    <input type="file" id="footerFileInput" (change)="onFileSelected('reportFooter', $event)" />
+    <div>
+      <h6>Company Logo</h6>
+      <input type="file" id="footerFileInput" (change)="onFileSelected('companyLogo', $event)" />
+      <div *ngIf="logoPreviewUrl" class="image-preview">
+        <img [src]="logoPreviewUrl" alt="Image Preview" class="preview-image">
+      </div>
+    </div>
+
+    <div>
+      <h6>Report header</h6>
+      <input type="file" id="headerFileInput" (change)="onFileSelected('reportHeader', $event)" />
+      <div *ngIf="headerPreviewUrl" class="image-preview">
+        <img [src]="headerPreviewUrl" alt="Image Preview" class="preview-image">
+      </div>
+    </div>
+    <div>
+      <h6>Report footer</h6>
+      <input type="file" id="footerFileInput" (change)="onFileSelected('reportFooter', $event)" />
+      <div *ngIf="footerPreviewUrl" class="image-preview">
+        <img [src]="footerPreviewUrl" alt="Image Preview" class="preview-image">
+      </div>
+    </div>
   </div>
 </div>
 
