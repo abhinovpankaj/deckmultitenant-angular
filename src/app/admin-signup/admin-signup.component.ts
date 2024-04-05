@@ -51,6 +51,7 @@ export class AdminSignupComponent {
       },
       (error) => {
         console.error(error);
+        alert('Error: ' + error.error)
         // Handle errors as needed
       }
     );
