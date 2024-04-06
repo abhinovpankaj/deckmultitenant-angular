@@ -12,8 +12,8 @@ export class DialogAddUserComponent {
   data = {
     name: '',
     companyDescription: '',
-    expenses: '',
-    validity: '',
+    
+    
     mobileUserCount: '',
     webUserCount: '',
     bothUserCount: '',
