@@ -12,15 +12,13 @@ export class DialogAddUserComponent {
   data = {
     name: '',
     companyDescription: '',
-    
-    
     mobileUserCount: '',
     webUserCount: '',
     bothUserCount: '',
     id: '',
     allowedDiskSpace: '',
     website: '',
-    endDate: '',
+    endDate: ''
   };
 
   firstname: String = '';
