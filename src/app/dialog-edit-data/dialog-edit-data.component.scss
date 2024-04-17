@@ -1,16 +1,18 @@
-.mat-dialog-content {
-    padding: 1rem;
-}
+// .mat-dialog-content {
+//     padding: 1rem;
+// }
 
-mat-form-field {
-    margin-right: 1rem;
-}
+// mat-form-field {
+//     margin-right: 1rem;
+// }
 
 /* Add your own styles here */
 .icon-section {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px;
+    display: flex;
+    justify-content: space-between;
   }
   
   .icon-section div {
@@ -45,4 +47,10 @@ mat-form-field {
     object-fit: contain; /* Adjusts the image to fit within the given dimensions */
   }
   
+
+.mat-dialog-content {
+  width: 1075px; /* Adjust width as needed */
+}
+
+
   

@@ -153,10 +153,6 @@ export class DialogEditDataComponent {
           iconsData['logoUrl'] = response.url;
         }
 
-      // console.log(iconsData, "Icond-data-after");
-        
-        // console.log('URL', iconsData);
-
         // Call the API for updating or adding icons for a tenant
         const apiResponse = await this.tenantsService
           .upsertIcons(this.data.id, iconsData)
@@ -176,6 +172,6 @@ export class DialogEditDataComponent {
   }
 
   formValidator() {
-    return true; // Implement your validation logic
+    return this.logoFile || this.headerFile || this.footerFile; 
   }
 }
