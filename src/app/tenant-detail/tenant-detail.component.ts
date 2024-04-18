@@ -26,7 +26,7 @@ export class TenantDetailComponent {
   formatBytesToGB(bytes: number): string {
     if (bytes === 0) return '0 GB';
 
-    const gigabytes = bytes / (1024 ** 2); // Convert bytes to gigabytes
+    const gigabytes = bytes / (1024 ** 3); // Convert bytes to gigabytes
     return gigabytes.toFixed(2);
   }
 
@@ -41,6 +41,23 @@ export class TenantDetailComponent {
         // Handle the error (e.g., show an error message)
       }
     );
+  }
+
+  toggleStatus(tenantId: string, status: boolean) {
+    this.tenantsService
+      .toggleShowFooterLogo(tenantId, !status)
+      .subscribe(
+        (response) => {
+          console.log('Footer logo status toggled successfully:', response);
+          // Update the current status after successful toggle
+          this.tenantDetails.showFooterlogo = !status;
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Handle error, e.g., show an error message
+        }
+      );
   }
 
   // getTenantDetails(tenantId: string): void {

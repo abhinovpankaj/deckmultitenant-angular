@@ -138,3 +138,31 @@ table {
   display: flex;
   justify-content: center;
 }
+
+.footer-logo-button {
+  border: none; 
+  margin-right: 10px;
+  border-radius: 4px; 
+  padding: 6px 10px; 
+  background-color: transparent; 
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.footer-logo-button:hover {
+  background-color: #f0f0f0; 
+}
+
+.footer-logo-button:active {
+  background-color: #e0e0e0; 
+}
+
+.footer-logo-button:focus {
+  outline: none; 
+}
+
+.footer-logo-container {
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Center items vertically */
+}
+

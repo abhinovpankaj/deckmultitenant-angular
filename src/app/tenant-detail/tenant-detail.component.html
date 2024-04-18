@@ -23,8 +23,14 @@
       <p>Allowed Web User Count: <strong>{{ tenantDetails?.webUserCount ?? '0' }}</strong> </p>
       <p>Allowed Both User Count: <strong>{{ tenantDetails?.bothUserCount ?? '0' }}</strong> </p>
 
+      <p>Footer Text: <strong>{{ tenantDetails?.footerText }}</strong> </p>
+
       <!-- <p><strong>Expenses:</strong> {{ tenantDetails?.expenses }}</p> -->
       <p>Active: <strong>{{ tenantDetails?.isActive ? 'Yes' : 'No' }}</strong> </p>
+
+      <div class="footer-logo-container">
+        <p>Show Footer logo: <strong>{{ tenantDetails?.showFooterlogo ? 'Yes' : 'No' }}</strong><button class="footer-logo-button" mat-menu-item (click)="toggleStatus(tenantDetails?._id, tenantDetails?.showFooterlogo)">Change</button></p>
+      </div>
 
       <div *ngIf="tenantDetails?.icons">
         <p><strong>Icons:</strong></p>

@@ -46,6 +46,11 @@ export class TenantsService {
     return this.httpClient.post<any>(url, {}, this.options);
   }
 
+  toggleShowFooterLogo(tenantId: string, state: boolean): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/toggleShowFooterLogoStatus/${state ? 1 : 0}`;
+    return this.httpClient.post<any>(url, {}, this.options);
+  }
+
   updateValidityDate(tenantId: string, endDate: any): Observable<any> {
     const url = `${environment.apiUrl}/tenants/${tenantId}/updatevaliditydate`;
     return this.httpClient.post<any>(url, endDate, this.options);

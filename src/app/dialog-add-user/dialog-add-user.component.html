@@ -55,8 +55,23 @@
       </mat-form-field>
     </div>
 
+    <div class="input-row adress">
+      <mat-form-field appearance="outline">
+        <mat-label>Footer text</mat-label>
+        <textarea matInput placeholder="Footer text" [(ngModel)]="data.footerText" required></textarea>
+        <mat-icon matSuffix>business</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <section class="example-section">
+        <mat-checkbox class="show-footer-logo" [(ngModel)]="data.showFooterlogo">Show Footer Logo</mat-checkbox>
+      </section>
+    </div>
   </div>
+
 </div>
+
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
