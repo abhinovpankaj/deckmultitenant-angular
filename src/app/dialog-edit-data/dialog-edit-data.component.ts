@@ -92,86 +92,90 @@ export class DialogEditDataComponent {
   }
 
   async submitData() {
-    if (this.formValidator()) {
-      this.isSaving = true;
-      let dataHeader = {
-        entityName: 'header',
-        uploader: 'anshgr',
-        containerName: this.data.companyIdentifier
-          .replace(/\s+/g, '')
-          .toLowerCase(),
-        picture: this.headerFile,
-        id: this.data.id,
-      };
+    this.isSaving = true;
+    let dataHeader = {
+      entityName: 'header',
+      uploader: 'anshgr',
+      containerName: this.data.companyIdentifier
+        .replace(/\s+/g, '')
+        .toLowerCase(),
+      picture: this.headerFile,
+      id: this.data.id,
+    };
 
-      let dataFooter = {
-        entityName: 'footer',
-        uploader: 'anshgr',
-        containerName: this.data.companyIdentifier
-          .replace(/\s+/g, '')
-          .toLowerCase(),
-        picture: this.footerFile,
-        id: this.data.id,
-      };
+    let dataFooter = {
+      entityName: 'footer',
+      uploader: 'anshgr',
+      containerName: this.data.companyIdentifier
+        .replace(/\s+/g, '')
+        .toLowerCase(),
+      picture: this.footerFile,
+      id: this.data.id,
+    };
 
-      let dataLogo = {
-        entityName: 'logo',
-        uploader: 'anshgr',
-        containerName: this.data.companyIdentifier
-          .replace(/\s+/g, '')
-          .toLowerCase(),
-        picture: this.logoFile,
-        id: this.data.id,
-      };
+    let dataLogo = {
+      entityName: 'logo',
+      uploader: 'anshgr',
+      containerName: this.data.companyIdentifier
+        .replace(/\s+/g, '')
+        .toLowerCase(),
+      picture: this.logoFile,
+      id: this.data.id,
+    };
 
-      const iconsData: any = {};
-      iconsData['logoUrl'] = this.logoPreviewUrl
-      iconsData['footer'] = this.footerPreviewUrl
-      iconsData['header'] = this.headerPreviewUrl
+    const iconsData: any = {};
+    iconsData['logoUrl'] = this.logoPreviewUrl;
+    iconsData['footer'] = this.footerPreviewUrl;
+    iconsData['header'] = this.headerPreviewUrl;
 
-      // console.log(iconsData, "Icond-data-before");
+    // console.log(iconsData, "Icond-data-before");
 
-      try {
-        if (this.footerFile) {
-          const response = await this.tenantsService
-            .uploadFile(dataFooter)
-            .toPromise();
-          iconsData['footer'] = response.url;
+    if((iconsData['logoUrl'] !== null || this.logoFile !== null) && (iconsData['footer'] !== null || this.footerFile !== null) && (iconsData['header'] !== null || this.headerFile !== null))
+      {
+        try {
+          if (this.footerFile) {
+            const response = await this.tenantsService
+              .uploadFile(dataFooter)
+              .toPromise();
+            iconsData['footer'] = response.url;
+          }
+    
+          if (this.headerFile) {
+            const response = await this.tenantsService
+              .uploadFile(dataHeader)
+              .toPromise();
+            iconsData['header'] = response.url;
+          }
+    
+          if (this.logoFile) {
+            const response = await this.tenantsService
+              .uploadFile(dataLogo)
+              .toPromise();
+            iconsData['logoUrl'] = response.url;
+          }
+    
+          // Call the API for updating or adding icons for a tenant
+            const apiResponse = await this.tenantsService
+              .upsertIcons(this.data.id, iconsData)
+              .toPromise();
+            console.log(apiResponse);
+    
+            this.isSaving = false;
+            this.dialogRef.close(); // Close the dialog after a successful update
+          
+        } catch (error) {
+          console.error('Error during file uploads or upsertIcons:', error);
+          this.isSaving = false;
+          alert('Failed to update or add icons for the tenant!');
         }
-
-        if (this.headerFile) {
-          const response = await this.tenantsService
-            .uploadFile(dataHeader)
-            .toPromise();
-          iconsData['header'] = response.url;
-        }
-
-        if (this.logoFile) {
-          const response = await this.tenantsService
-            .uploadFile(dataLogo)
-            .toPromise();
-          iconsData['logoUrl'] = response.url;
-        }
-
-        // Call the API for updating or adding icons for a tenant
-        const apiResponse = await this.tenantsService
-          .upsertIcons(this.data.id, iconsData)
-          .toPromise();
-        console.log(apiResponse);
-
+      } else {
+        alert('Please upload all files!');
         this.isSaving = false;
-        this.dialogRef.close(); // Close the dialog after a successful update
-      } catch (error) {
-        console.error('Error during file uploads or upsertIcons:', error);
-        this.isSaving = false;
-        alert('Failed to update or add icons for the tenant!');
+        return;
       }
-    } else {
-      this.toast.error('Please complete the form with valid data!');
-    }
   }
 
   formValidator() {
-    return this.logoFile || this.headerFile || this.footerFile; 
+    return false;
   }
 }

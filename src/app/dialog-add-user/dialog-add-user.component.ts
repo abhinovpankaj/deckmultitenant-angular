@@ -18,7 +18,9 @@ export class DialogAddUserComponent {
     id: '',
     allowedDiskSpace: '',
     website: '',
-    endDate: ''
+    endDate: '',
+    footerText: '',
+    showFooterlogo: false,
   };
 
   firstname: String = '';
@@ -83,7 +85,7 @@ export class DialogAddUserComponent {
   formValidator() {
     let valid = true;
     for (const key in this.data) {
-      if (key !== 'id' && !this.data[key as keyof typeof this.data]) {
+      if (key !== 'id' && key !== 'showFooterlogo' && !this.data[key as keyof typeof this.data]) {
         valid = false;
         break;
       }
