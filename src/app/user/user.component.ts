@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 import { TenantsService } from '../tenants.service';
 import { DialogEditDataComponent } from '../dialog-edit-data/dialog-edit-data.component';
 import { TenantDetailComponent } from '../tenant-detail/tenant-detail.component';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-user',
@@ -43,7 +44,8 @@ export class UserComponent {
     public usersService: UsersService,
     private router: Router,
     private dialog: MatDialog,
-    private tenantsService: TenantsService
+    private tenantsService: TenantsService,
+    private toast: HotToastService
   ) {
     this.tenantsService.getAllTenants().subscribe(
       (res) => {
@@ -369,12 +371,16 @@ export class UserComponent {
   DeleteTenant(tenantId: string): void {
     this.tenantsService.deleteTenantPermanently(tenantId).subscribe(
       (response) => {
-        console.log('Tenant deleted successfully:', response);
-        window.location.reload();
+        // console.log('Tenant deleted successfully:', response);
+        this.toast.success('Tenant deleted successfully')
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
         // Handle success, if needed
       },
       (error) => {
-        console.error('Error deleting tenant:', error);
+        // console.error('Error deleting tenant:', error);
+        this.toast.error(`Failed to delete the Tenant`)
         // Handle error, if needed
       }
     );
@@ -385,13 +391,18 @@ export class UserComponent {
       .toggleAccessForTenant(tenantId, !status)
       .subscribe(
         (response) => {
-          console.log('Tenant status toggled successfully:', response);
+          // console.log('Tenant status toggled successfully:', response);
+          this.toast.success('Tenant status toggled successfully')
           // Update the current status after successful toggle
           this.isTenantActive = !status;
-          window.location.reload();
+          // window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
-          console.error('Error toggling tenant status:', error);
+          // console.error('Error toggling tenant status:', error);
+          this.toast.error(`Failed to toggle tenant status`);
           // Handle error, e.g., show an error message
         }
       );

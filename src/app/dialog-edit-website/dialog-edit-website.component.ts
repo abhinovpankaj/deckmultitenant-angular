@@ -10,18 +10,8 @@ import { TenantsService } from '../tenants.service';
 })
 export class DialogEditWebsiteComponent {
   data = {
-    name: '',
-    companyDescription: '',
-    expenses: '',
-    validity: '',
-    allowedUsersCount: '',
     id: '',
-    allowedDiskSpace: '',
     website: '',
-    iconHeader: '',
-    iconFooter: '',
-    accountName: '',
-    connectionString: ''
   };// Update data type as per your tenant model
 
   firstname: String = '';
@@ -55,11 +45,15 @@ export class DialogEditWebsiteComponent {
           console.log(response);
           this.isSaving = false;
           this.dialogRef.close(); // Close the dialog after a successful update
+          this.toast.success('The website has been updated');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to update tenant website!');
+          this.toast.error('Failed to update tenant website!');
         }
       );
     } else {

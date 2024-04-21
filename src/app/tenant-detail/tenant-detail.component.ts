@@ -1,19 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TenantsService } from '../tenants.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-tenant-detail',
   templateUrl: './tenant-detail.component.html',
-  styleUrls: ['./tenant-detail.component.scss']
+  styleUrls: ['./tenant-detail.component.scss'],
 })
 export class TenantDetailComponent {
   tenantDetails: any; // Adjust the type based on your tenant model
   showPassword: boolean[]; // Declare the array
-  tenantId: string; 
+  tenantId: string;
 
-  constructor(private route: ActivatedRoute, private tenantsService: TenantsService) {
-    this.showPassword = Array(this.tenantDetails?.adminDetails.length).fill(false);
+  constructor(
+    private route: ActivatedRoute,
+    private tenantsService: TenantsService,
+    private toast: HotToastService
+  ) {
+    this.showPassword = Array(this.tenantDetails?.adminDetails.length).fill(
+      false
+    );
   }
 
   ngOnInit(): void {
@@ -26,7 +33,7 @@ export class TenantDetailComponent {
   formatBytesToGB(bytes: number): string {
     if (bytes === 0) return '0 GB';
 
-    const gigabytes = bytes / (1024 ** 3); // Convert bytes to gigabytes
+    const gigabytes = bytes / 1024 ** 3; // Convert bytes to gigabytes
     return gigabytes.toFixed(2);
   }
 
@@ -34,7 +41,7 @@ export class TenantDetailComponent {
     this.tenantsService.getTenantById(tenantId).subscribe(
       (tenantDetails) => {
         this.tenantDetails = tenantDetails.Tenant;
-        console.log("tenant", this.tenantDetails);
+        console.log('tenant', this.tenantDetails);
       },
       (error) => {
         console.error('Error fetching tenant details:', error);
@@ -44,20 +51,23 @@ export class TenantDetailComponent {
   }
 
   toggleStatus(tenantId: string, status: boolean) {
-    this.tenantsService
-      .toggleShowFooterLogo(tenantId, !status)
-      .subscribe(
-        (response) => {
-          console.log('Footer logo status toggled successfully:', response);
-          // Update the current status after successful toggle
-          this.tenantDetails.showFooterlogo = !status;
+    this.tenantsService.toggleShowFooterLogo(tenantId, !status).subscribe(
+      (response) => {
+        // console.log('Footer logo status toggled successfully:', response);
+        // Update the current status after successful toggle
+        this.tenantDetails.showFooterlogo = !status;
+        this.toast.success('Footer Logo Status Toggled Successfully');
+        // window.location.reload();
+        setTimeout(() => {
           window.location.reload();
-        },
-        (error) => {
-          console.error('Error:', error);
-          // Handle error, e.g., show an error message
-        }
-      );
+        }, 1500);
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.toast.error('Failed to Toggle Footer Logo Status! Please try again later.');
+        // Handle error, e.g., show an error message
+      }
+    );
   }
 
   // getTenantDetails(tenantId: string): void {

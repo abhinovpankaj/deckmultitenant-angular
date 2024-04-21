@@ -59,11 +59,15 @@ export class DialogEditDescriptionComponent {
           console.log(response);
           this.isSaving = false;
           this.dialogRef.close(); // Close the dialog after successful edit
+          this.toast.success('Successfully updated')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Editing tenant failed!');
+          this.toast.error('Editing tenant failed!');
         }
       );
     } else {

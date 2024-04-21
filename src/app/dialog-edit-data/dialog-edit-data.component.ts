@@ -162,14 +162,18 @@ export class DialogEditDataComponent {
     
             this.isSaving = false;
             this.dialogRef.close(); // Close the dialog after a successful update
+            this.toast.success('Files updated successfully!')
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
           
         } catch (error) {
           console.error('Error during file uploads or upsertIcons:', error);
           this.isSaving = false;
-          alert('Failed to update or add icons for the tenant!');
+          this.toast.error('Failed to update or add icons for the tenant!');
         }
       } else {
-        alert('Please upload all files!');
+        this.toast.error('Please upload all files!');
         this.isSaving = false;
         return;
       }

@@ -28,9 +28,37 @@
       <!-- <p><strong>Expenses:</strong> {{ tenantDetails?.expenses }}</p> -->
       <p>Active: <strong>{{ tenantDetails?.isActive ? 'Yes' : 'No' }}</strong> </p>
 
+      <!-- <div class="footer-logo-container">
+        <label for="isFooterLogoVisible" class="qstn-txt">Show Footer logo:</label>
+        <div class="can-toggle">
+          <input (change)="toggleStatus(tenantDetails?._id, tenantDetails?.showFooterlogo)"  type="checkbox"
+            id="isFooterLogoVisible" name="isFooterLogoVisible" #footerLogoVisible>
+          <label for="isFooterLogoVisible">
+            <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
+          </label>
+        </div>
+      </div> -->
+
       <div class="footer-logo-container">
-        <p>Show Footer logo: <strong>{{ tenantDetails?.showFooterlogo ? 'Yes' : 'No' }}</strong><button class="footer-logo-button" mat-menu-item (click)="toggleStatus(tenantDetails?._id, tenantDetails?.showFooterlogo)">Change</button></p>
+        <label for="isFooterLogoVisible" class="qstn-txt">Show Footer logo:</label>
+        <div class="can-toggle">
+          <input 
+            type="checkbox"
+            id="isFooterLogoVisible" 
+            name="isFooterLogoVisible" 
+            (change)="toggleStatus(tenantDetails?._id, tenantDetails?.showFooterlogo)" 
+            #footerLogoVisible
+            [checked]="tenantDetails?.showFooterlogo" 
+          />
+          <label for="isFooterLogoVisible">
+            <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
+          </label>
+        </div>
       </div>
+      
+      
+      
+    
 
       <div *ngIf="tenantDetails?.icons">
         <p><strong>Icons:</strong></p>

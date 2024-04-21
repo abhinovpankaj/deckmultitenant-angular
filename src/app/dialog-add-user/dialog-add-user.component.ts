@@ -55,12 +55,16 @@ export class DialogAddUserComponent {
           console.log(response);
           this.isSaving = false;
           this.dialog.closeAll();
+          this.toast.success('tenant added successfully!')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         
         (error) =>{
           console.log(error);
           this.isSaving = false;
-          alert('Adding tenant failed!');
+          this.toast.error('Adding tenant failed!');
         }
       );
     } else {
@@ -69,18 +73,6 @@ export class DialogAddUserComponent {
       );
     }
   }
-
-
-  // onFileSelected(event: any) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.customImage = file;
-  //   }
-  // }
-
-  // resetCustomImage() {
-  //   this.customImage = null;
-  // }
 
   formValidator() {
     let valid = true;
