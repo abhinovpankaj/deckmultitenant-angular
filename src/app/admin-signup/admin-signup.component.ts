@@ -48,10 +48,14 @@ export class AdminSignupComponent {
         console.log(response);
         this.dialogRef.close(); // Close the dialog after a successful increase
         // Handle the response as needed
+        this.toast.success('Admin added successfully!')
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       },
       (error) => {
         console.error(error);
-        alert('Error: ' + error.error)
+        this.toast.error('Error: ' + error.error)
         // Handle errors as needed
       }
     );

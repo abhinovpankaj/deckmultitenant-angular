@@ -10,18 +10,8 @@ import { TenantsService } from '../tenants.service';
 })
 export class DialogEditDiskSpaceComponent {
   data = {
-    name: '',
-    companyDescription: '',
-    expenses: '',
-    validity: '',
-    allowedUsersCount: '',
     id: '',
     allowedDiskSpace: '',
-    website: '',
-    iconHeader: '',
-    iconFooter: '',
-    accountName: '',
-    connectionString: ''
   };// Update data type as per your tenant model
 
   firstname: String = '';
@@ -55,11 +45,15 @@ export class DialogEditDiskSpaceComponent {
           console.log(response);
           this.isSaving = false;
           this.dialogRef.close(); // Close the dialog after a successful addition
+          this.toast.success('The disk space has been updated!');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to add disk space!');
+          this.toast.error('Failed to add disk space!');
         }
       );
     } else {

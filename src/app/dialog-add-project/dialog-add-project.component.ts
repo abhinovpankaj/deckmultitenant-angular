@@ -1,24 +1,29 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from '../users.service';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { Location } from '@angular/common';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-dialog-add-project',
   templateUrl: './dialog-add-project.component.html',
-  styleUrls: ['./dialog-add-project.component.scss']
+  styleUrls: ['./dialog-add-project.component.scss'],
 })
 export class DialogAddProjectComponent {
-  
-  url:any;
+  url: any;
 
-  title:string='';
-  description:string= '';
-  deadline:any= null;
-  selected: boolean= false;
+  title: string = '';
+  description: string = '';
+  deadline: any = null;
+  selected: boolean = false;
 
-  constructor(private usersService: UsersService, private location: Location, private dialog: MatDialog) {
+  constructor(
+    private usersService: UsersService,
+    private location: Location,
+    private dialog: MatDialog,
+    private toast: HotToastService
+  ) {
     this.url = this.location.path().split('/')[2];
   }
 
@@ -29,8 +34,8 @@ export class DialogAddProjectComponent {
         title: this.title,
         description: this.description,
         deadline: this.deadline.toISOString().slice(0, 10),
-        selected: this.selected
-      })
+        selected: this.selected,
+      }),
     });
     this.dialog.closeAll();
   }
@@ -38,5 +43,4 @@ export class DialogAddProjectComponent {
   onNoClick() {
     this.dialog.closeAll();
   }
-
 }
