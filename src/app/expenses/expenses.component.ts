@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { TenantsService } from '../tenants.service';
 import { TenantUserService } from '../tenant-user.service';
+import { LoginService } from '../login.service';
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-expenses',
@@ -38,11 +41,20 @@ export class ExpensesComponent {
 
   totalExpenses: number = 0;
 
-  constructor(private tenantService: TenantsService, private tenantUserService: TenantUserService) { }
+  constructor(private tenantService: TenantsService, private tenantUserService: TenantUserService, private router: Router, public loginService: LoginService) { }
 
   ngOnInit(): void {
     this.fetchTenants();
     this.calculateExpenses();
+    this.performUserLoginSteps();
+  }
+
+  private performUserLoginSteps() {
+    if (this.loginService.isLoggedIn()) {
+      this.fetchTenants();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   fetchTenants() {

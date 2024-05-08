@@ -17,6 +17,8 @@ import { TenantsService } from '../tenants.service';
 import { DialogEditDataComponent } from '../dialog-edit-data/dialog-edit-data.component';
 import { TenantDetailComponent } from '../tenant-detail/tenant-detail.component';
 import { HotToastService } from '@ngneat/hot-toast';
+import { LoginService } from '../login.service';
+
 
 @Component({
   selector: 'app-user',
@@ -45,8 +47,21 @@ export class UserComponent {
     private router: Router,
     private dialog: MatDialog,
     private tenantsService: TenantsService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    public loginService: LoginService
   ) {
+    if (this.loginService.isLoggedIn()) {
+      // If logged in, fetch all tenants
+      this.fetchAllTenants();
+    } else {
+      // If not logged in, redirect to the login page
+      this.router.navigate(['/login']);
+    }
+  }
+
+
+  private fetchAllTenants() {
+    // Call the getAllTenants function
     this.tenantsService.getAllTenants().subscribe(
       (res) => {
         this.users$ = res.Tenants;
