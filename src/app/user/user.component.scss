@@ -68,8 +68,7 @@ td {
   }
 }
 
-td a
-{
+td a {
   font-size: 14px;
   margin: 0px;
   // margin-top: 10px;
@@ -119,7 +118,6 @@ td a
   }
 }
 
-
 .modified-mc-content {
   height: 0;
   padding-top: 0 !important;
@@ -148,54 +146,48 @@ button.mat-icon-button {
   border: none;
 }
 
-.add-icon
-{
+.add-icon {
   color: #fcfbfb;
 }
 
-.edit-link
-{
+.edit-link {
   cursor: pointer;
   color: #29abe2;
   margin-top: 20px;
 }
 
-.edit-icon
-{
+.edit-icon {
   text-align: left;
   margin-top: 10px;
 }
 
-.web-link
-{
+.web-link {
   font-size: 1rem;
 }
 
-.name-div
-{
+.name-div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
 }
 
-.name-sec
-{
+.name-sec {
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 20px;
 }
 
-.name-name
-{
+.name-name {
   margin-bottom: 12px;
   font-weight: bold;
 }
 
-.name-dis
-{
+.name-dis {
   margin-top: 10px;
 }
 
-
-
+.table-scroll {
+  max-height: auto; /* Adjust the height as needed */
+  overflow-y: auto;
+}
