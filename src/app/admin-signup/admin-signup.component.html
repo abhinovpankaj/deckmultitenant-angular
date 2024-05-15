@@ -15,17 +15,25 @@
       </mat-form-field>
     </div>
 
-
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input matInput placeholder="First Name" [(ngModel)]="adminData.username" required />
-      <mat-icon matSuffix>perm_identity</mat-icon>
-    </mat-form-field>
-
     <div class="input-row">
       <mat-form-field appearance="outline">
         <mat-label>Enter your email</mat-label>
         <input matInput placeholder="pat@example.com" [(ngModel)]="adminData.email" required>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your mobile number</mat-label>
+        <input matInput placeholder="14******42" [(ngModel)]="adminData.mobile" required>
+      </mat-form-field>
+
+    </div>
+    
+    
+    <div class="input-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="adminData.username" required />
+        <mat-icon matSuffix>perm_identity</mat-icon>
       </mat-form-field>
 
       <mat-form-field appearance="outline">

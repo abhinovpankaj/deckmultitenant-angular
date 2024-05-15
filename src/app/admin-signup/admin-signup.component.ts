@@ -15,6 +15,7 @@ export class AdminSignupComponent {
     last_name: '',
     username: '',
     email: '',
+    mobile: '',
     password: '',
     companyIdentifier: '',
   };
