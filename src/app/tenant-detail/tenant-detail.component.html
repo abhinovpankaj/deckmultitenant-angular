@@ -22,6 +22,8 @@
       <p>Allowed Mobile User Count: <strong>{{ tenantDetails?.mobileUserCount ?? '0' }}</strong> </p>
       <p>Allowed Web User Count: <strong>{{ tenantDetails?.webUserCount ?? '0' }}</strong> </p>
       <p>Allowed Both User Count: <strong>{{ tenantDetails?.bothUserCount ?? '0' }}</strong> </p>
+      <p>Allowed Custom Form Count: <strong>{{ tenantDetails?.allowedCustomFormCount ?? '0' }}</strong> <a class="edit-link" (click)="openEditCustomFormDialog(tenantDetails._id); $event.stopPropagation()"><mat-icon>edit</mat-icon></a> </p>
+
 
       <p>Footer Text: <strong>{{ tenantDetails?.footerText }}</strong> </p>
 
