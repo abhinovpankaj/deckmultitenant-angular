@@ -21,6 +21,7 @@ export class DialogAddUserComponent {
     endDate: '',
     footerText: '',
     showFooterlogo: false,
+    allowedCustomForms: ''
   };
 
   firstname: String = '';

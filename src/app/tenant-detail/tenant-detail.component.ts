@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TenantsService } from '../tenants.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { MatDialog } from '@angular/material/dialog';
+import { UsersService } from '../users.service';
+import { DialogEditCustomFormComponent } from '../dialog-edit-custom-form/dialog-edit-custom-form.component';
+
 
 @Component({
   selector: 'app-tenant-detail',
@@ -9,14 +13,24 @@ import { HotToastService } from '@ngneat/hot-toast';
   styleUrls: ['./tenant-detail.component.scss'],
 })
 export class TenantDetailComponent {
+  users$: any[];
   tenantDetails: any; // Adjust the type based on your tenant model
   showPassword: boolean[]; // Declare the array
   tenantId: string;
 
+    /**
+   *
+   * @param usersService The UsersService is injected to access client data and perform CRUD operations.
+   * @param dialog The MatDialog service is injected to open pre-styled material design dialogs.
+   * @param router Router gets injected to enable direct URL navigation.
+   */
+
   constructor(
+    public usersService: UsersService,
     private route: ActivatedRoute,
     private tenantsService: TenantsService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private dialog: MatDialog,
   ) {
     this.showPassword = Array(this.tenantDetails?.adminDetails.length).fill(
       false
@@ -66,6 +80,36 @@ export class TenantDetailComponent {
         console.error('Error:', error);
         this.toast.error('Failed to Toggle Footer Logo Status! Please try again later.');
         // Handle error, e.g., show an error message
+      }
+    );
+  }
+
+  openEditCustomFormDialog(tenantId: string) {
+    // Fetch the existing data for the selected tenant using tenantId
+    // console.log(tenantId);
+    this.tenantsService.getTenantById(tenantId).subscribe(
+      (existingData) => {
+        // console.log(existingData);
+        const dialogRef = this.dialog.open(DialogEditCustomFormComponent, {
+          data: {
+            ...existingData.Tenant, // spread existing data properties
+            id: tenantId, // make sure 'id' is set in the data
+          },
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+          this.tenantsService.getAllTenants().subscribe(
+            (res) => {
+              this.users$ = res.Tenants;
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error(error);
       }
     );
   }
