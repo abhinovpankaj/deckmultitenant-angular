@@ -6,6 +6,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { LoginComponent } from './login/login.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { TenantDetailComponent } from './tenant-detail/tenant-detail.component';
+import { CustomFormsComponent } from './custom-forms/custom-forms.component';
 // import { InfoComponent } from './info/info.component';
 // import { NewsComponent } from './news/news.component';
 // import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'users', component: UserComponent },
   { path: 'expenses', component: ExpensesComponent },
+  { path: 'custom-forms', component: CustomFormsComponent },
   { path: 'users/:id', component: UserDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'details/:id', component: TenantDetailComponent },

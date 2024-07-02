@@ -1,0 +1,49 @@
+<h1 mat-dialog-title class="mat-dialog-title">Add New Form</h1>
+<div mat-dialog-content class="mat-dialog-content">
+  <div>
+    <form >
+          <div class="input-row" *ngFor="let item of items; let i=index">
+            <div class="question-row">
+                <mat-form-field appearance="outline">
+                    <input matInput name="question {{i}}" [(ngModel)]="item.question" type="text" placeholder="Question {{i + 1}}">
+                </mat-form-field>
+                
+                <select name="i" [(ngModel)]="item.type">
+                    <option>text</option>
+                    <option>radio</option>
+                    <option>checkbox</option>
+                    <option>dropdown</option>
+                </select>
+            </div>
+            <div class="option-container" *ngIf="item.type !== 'text'">
+                <div class="input-row option-input" *ngFor="let option of item.options; let j=index; trackBy: trackByFn">
+                    <mat-form-field appearance="outline">
+                        <input matInput name="option {{i}} {{j}}" [(ngModel)]="item.options[j]" type="text" placeholder="Option {{j + 1}}">
+                    </mat-form-field>
+
+                    <button (click)="addOption(i,j)" mat-mini-fab id="add-option-btn" matTooltip="Add new Option"> 
+                        <mat-icon class="add-icon">add</mat-icon>
+                    </button>
+
+                    <button (click)="removeOption(i,j)" mat-mini-fab id="add-option-btn" matTooltip="Remove Option"> 
+                        <mat-icon class="remove-icon">remove</mat-icon>
+                    </button>
+                
+                </div>
+            </div>
+            <div class="btn">
+                <button class="form-btn" type="button" (click)="removeItem(i)">Remove</button>
+                <button class="form-btn" type="button" (click)="addItem(i)">Add Question</button>
+            </div>
+          </div>
+      </form>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="isSaving" (click)="submitData()">
+    <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
+    <span *ngIf="!isSaving">Ok</span>
+  </button>
+</div>

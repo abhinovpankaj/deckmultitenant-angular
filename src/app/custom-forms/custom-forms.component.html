@@ -1,0 +1,15 @@
+<div>
+    <h2>Tenant Expenses</h2>
+    <label for="tenantSelect">Select Tenant:</label>
+    <select id="tenantSelect" [(ngModel)]="selectedTenant">
+      <option *ngFor="let tenant of tenants" [ngValue]="tenant">{{ tenant.name }}</option>
+    </select>
+    
+    <div *ngIf="selectedTenant">
+      <div class="btn">
+        <button class="form-btn" (click)="openDialog()">Create New Form</button>
+      </div>
+    </div>
+    
+  </div>
+  

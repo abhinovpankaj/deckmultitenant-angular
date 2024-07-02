@@ -74,6 +74,8 @@ import { DialogEditWebsiteComponent } from './dialog-edit-website/dialog-edit-we
 import { AdminSignupComponent } from './admin-signup/admin-signup.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { TenantDetailComponent } from './tenant-detail/tenant-detail.component';
+import { CustomFormsComponent } from './custom-forms/custom-forms.component';
+import { DialogAddFormComponent } from './dialog-add-form/dialog-add-form.component';
 import { DialogEditCustomFormComponent } from './dialog-edit-custom-form/dialog-edit-custom-form.component';
 
 @NgModule({
@@ -105,6 +107,8 @@ import { DialogEditCustomFormComponent } from './dialog-edit-custom-form/dialog-
     AdminSignupComponent,
     ExpensesComponent,
     TenantDetailComponent,
+    CustomFormsComponent,
+    DialogAddFormComponent,
     DialogEditCustomFormComponent,
   ],
   imports: [
