@@ -15,6 +15,7 @@ export class AdminSignupComponent {
     last_name: '',
     username: '',
     email: '',
+    mobile: '',
     password: '',
     companyIdentifier: '',
   };
@@ -43,16 +44,42 @@ export class AdminSignupComponent {
   submitForm() {
     const tenantId = this.dialogData.id
     console.log(this.adminData);
-    this.tenantsService.registerAdmin(tenantId, this.adminData).subscribe(
-      (response) => {
-        console.log(response);
-        this.dialogRef.close(); // Close the dialog after a successful increase
-        // Handle the response as needed
-      },
-      (error) => {
-        console.error(error);
-        // Handle errors as needed
+    if(this.formValidator())
+      {
+        this.tenantsService.registerAdmin(tenantId, this.adminData).subscribe(
+          (response) => {
+            console.log(response);
+            this.dialogRef.close(); // Close the dialog after a successful increase
+            // Handle the response as needed
+            this.toast.success('Admin added successfully!')
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          },
+          (error) => {
+            console.error(error);
+            this.toast.error('Error: ' + error.error)
+            // Handle errors as needed
+          }
+        );
       }
-    );
+      else 
+      {
+        this.toast.error('Error: All fields are mandatory!')
+      }
   }
+
+  formValidator() {
+    let valid = true;
+    for (const key in this.adminData) {
+      if (this.adminData.hasOwnProperty(key) && key !== 'id' && key !== 'showFooterlogo') {
+        if (typeof this.adminData[key as keyof typeof this.adminData] === 'string' && this.adminData[key as keyof typeof this.adminData].trim() === '') {
+          valid = false;
+          break;
+        }
+      }
+    }
+    return valid;
+  }
+  
 }

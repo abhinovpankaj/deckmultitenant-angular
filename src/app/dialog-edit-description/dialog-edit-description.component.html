@@ -1,7 +1,7 @@
 <h1 mat-dialog-title class="mat-dialog-title">Edit Tenant</h1>
 <div mat-dialog-content class="mat-dialog-content">
   <div>
-    <div class="input-row">
+    <div class="input-row adress">
       <mat-form-field appearance="outline">
         <mat-label>Company Name</mat-label>
         <input matInput placeholder="Company Name" [(ngModel)]="data.name" [disabled]="isDisabled" />
@@ -9,11 +9,19 @@
       </mat-form-field>
       
     </div>
-    <div class="adress">
+    <div class="input-row adress">
       <mat-form-field appearance="outline">
         <mat-label>Company Description</mat-label>
         <textarea matInput placeholder="Company Description" [(ngModel)]="data.companyDescription">
           </textarea>
+        <mat-icon matSuffix>business</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row adress">
+      <mat-form-field appearance="outline">
+        <mat-label>Footer text</mat-label>
+        <textarea matInput placeholder="Footer text" [(ngModel)]="data.footerText" required></textarea>
         <mat-icon matSuffix>business</mat-icon>
       </mat-form-field>
     </div>

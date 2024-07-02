@@ -14,6 +14,7 @@ import { NewsService } from '../news.service';
 import { DialogWalkthroughComponent } from '../dialog-walkthrough/dialog-walkthrough.component';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from '../login.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -45,7 +46,8 @@ export class DashboardComponent implements OnInit {
     private dialog: MatDialog,
     public newsService: NewsService,
     private toast: HotToastService,
-    public loginService: LoginService
+    public loginService: LoginService,
+    private router: Router
   ) {
     this.notes$ = this.usersService.notes;
     this.notes$.subscribe((notes) => {
@@ -72,6 +74,7 @@ export class DashboardComponent implements OnInit {
     // this.getCurrentHour();
     // this.getCurrentWeather();
     // this.checkTutorial();
+    this.performUserLoginSteps();
     const authData: any = JSON.parse(localStorage.getItem('authToken')!);
     const storedUsername = authData.name;
 
@@ -94,6 +97,14 @@ export class DashboardComponent implements OnInit {
     if (!tutorial) {
       this.dialog.open(DialogWalkthroughComponent);
       localStorage.setItem('tutorialSeen', 'true');
+    }
+  }
+
+  private performUserLoginSteps() {
+    if (this.loginService.isLoggedIn()) {
+      this.getCurrentHour();
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 

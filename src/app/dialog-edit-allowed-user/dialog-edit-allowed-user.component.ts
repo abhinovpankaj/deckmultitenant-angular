@@ -12,18 +12,12 @@ export class DialogEditAllowedUserComponent {
   data = {
     name: '',
     companyDescription: '',
-    expenses: '',
-    validity: '',
     allowedUsersCount: '',
     id: '',
     mobileUserCount: '',
     webUserCount: '',
     bothUserCount: '',
-    website: '',
-    iconHeader: '',
-    iconFooter: '',
-    accountName: '',
-    connectionString: ''
+    footerText: '',
   };// Update data type as per your tenant model
 
   firstname: String = '';
@@ -55,7 +49,8 @@ export class DialogEditAllowedUserComponent {
         companyDescription: this.data.companyDescription,
         mobileUserCount: this.data.mobileUserCount,
         webUserCount: this.data.webUserCount,
-        bothUserCount: this.data.bothUserCount
+        bothUserCount: this.data.bothUserCount,
+        footerText: this.data.footerText
         // Add other properties as needed based on your API
       };
   
@@ -65,11 +60,15 @@ export class DialogEditAllowedUserComponent {
           console.log(response);
           this.isSaving = false;
           this.dialogRef.close(); // Close the dialog after successful edit
+          this.toast.success('Allowed user count has been successfully updated');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Editing tenant failed!');
+          this.toast.error('Editing tenant failed!');
         }
       );
     } else {

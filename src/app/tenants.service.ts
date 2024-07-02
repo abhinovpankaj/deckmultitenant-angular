@@ -46,6 +46,11 @@ export class TenantsService {
     return this.httpClient.post<any>(url, {}, this.options);
   }
 
+  toggleShowFooterLogo(tenantId: string, state: boolean): Observable<any> {
+    const url = `${environment.apiUrl}/tenants/${tenantId}/toggleShowFooterLogoStatus/${state ? 1 : 0}`;
+    return this.httpClient.post<any>(url, {}, this.options);
+  }
+
   updateValidityDate(tenantId: string, endDate: any): Observable<any> {
     const url = `${environment.apiUrl}/tenants/${tenantId}/updatevaliditydate`;
     return this.httpClient.post<any>(url, endDate, this.options);
@@ -101,6 +106,11 @@ export class TenantsService {
     return this.httpClient.post<any>(apiUrl, adminDetails, this.options);
   }
 
+  increaseCustomFormCount(tenantId: string, count: string): Observable<any> {
+    const apiUrl = `${environment.apiUrl}/tenants/${tenantId}/increasecustomformcount/${count}`;
+    return this.httpClient.post<any>(apiUrl, {}, this.options);
+  }
+
   uploadFile(data: any): Observable<any> {
     const url = `${environment.apiUrl}/image/uploadlogos`;
 
@@ -112,4 +122,5 @@ export class TenantsService {
     formData.append('entityName', data.entityName);
     return this.httpClient.post<any>(url, formData, this.options);
   }
+
 }

@@ -12,16 +12,11 @@ export class DialogEditDescriptionComponent {
   data = {
     name: '',
     companyDescription: '',
-    expenses: '',
-    validity: '',
-    allowedUsersCount: '',
     id: '',
-    allowedDiskSpace: '',
-    website: '',
-    iconHeader: '',
-    iconFooter: '',
-    accountName: '',
-    connectionString: ''
+    footerText: '',
+    mobileUserCount: '',
+    webUserCount: '',
+    bothUserCount: '',
   };// Update data type as per your tenant model
 
   firstname: String = '';
@@ -50,7 +45,11 @@ export class DialogEditDescriptionComponent {
       // Prepare the data to be sent to the server
       const updateData = {
         name: this.data.name,
-        companyDescription: this.data.companyDescription
+        companyDescription: this.data.companyDescription,
+        footerText: this.data.footerText,
+        mobileUserCount: this.data.mobileUserCount,
+        webUserCount: this.data.webUserCount,
+        bothUserCount: this.data.bothUserCount,
         // Add other properties as needed based on your API
       };
   
@@ -60,11 +59,15 @@ export class DialogEditDescriptionComponent {
           console.log(response);
           this.isSaving = false;
           this.dialogRef.close(); // Close the dialog after successful edit
+          this.toast.success('Successfully updated')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Editing tenant failed!');
+          this.toast.error('Editing tenant failed!');
         }
       );
     } else {

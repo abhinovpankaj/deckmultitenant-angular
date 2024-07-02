@@ -1,17 +1,17 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HotToastService } from '@ngneat/hot-toast';
 import { TenantsService } from '../tenants.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
-  selector: 'app-dialog-edit-disk-space',
-  templateUrl: './dialog-edit-disk-space.component.html',
-  styleUrls: ['./dialog-edit-disk-space.component.scss']
+  selector: 'app-dialog-edit-custom-form',
+  templateUrl: './dialog-edit-custom-form.component.html',
+  styleUrls: ['./dialog-edit-custom-form.component.scss']
 })
-export class DialogEditDiskSpaceComponent {
+export class DialogEditCustomFormComponent {
   data = {
     id: '',
-    allowedDiskSpace: '',
+    allowedCustomFormCount: ''
   };// Update data type as per your tenant model
 
   firstname: String = '';
@@ -20,7 +20,7 @@ export class DialogEditDiskSpaceComponent {
   isDisabled: boolean = true;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogEditDiskSpaceComponent>,
+    public dialogRef: MatDialogRef<DialogEditCustomFormComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private tenantsService: TenantsService,
     private toast: HotToastService
@@ -36,30 +36,33 @@ export class DialogEditDiskSpaceComponent {
   async submitData() {
     if (this.formValidator()) {
       this.isSaving = true;
-
-      // Call the API for adding disk space
-      const diskSpace = this.data.allowedDiskSpace/* Set the desired disk space value */
-
-      this.tenantsService.addDiskSpace(this.data.id, diskSpace).subscribe(
+  
+      // Prepare the data to be sent to the server
+      const allowedCustomForms = this.data.allowedCustomFormCount
+        // Add other properties as needed based on your API
+  
+      // Call the editTenant method for updating an existing tenant
+      this.tenantsService.increaseCustomFormCount(this.data.id, allowedCustomForms).subscribe(
         (response) => {
           console.log(response);
           this.isSaving = false;
-          this.dialogRef.close(); // Close the dialog after a successful addition
-          this.toast.success('The disk space has been updated!');
+          this.dialogRef.close(); // Close the dialog after successful edit
+          this.toast.success('Allowed cutom form count has been successfully updated');
           setTimeout(() => {
             window.location.reload();
-          }, 1500);
+          }, 1500); 
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          this.toast.error('Failed to add disk space!');
+          this.toast.error('Editing tenant failed!');
         }
       );
     } else {
       this.toast.error('Please complete the form with valid data!');
     }
   }
+
 
   formValidator() {
     let valid = true;

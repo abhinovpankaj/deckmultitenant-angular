@@ -12,8 +12,6 @@ export class DialogAddUserComponent {
   data = {
     name: '',
     companyDescription: '',
-    expenses: '',
-    validity: '',
     mobileUserCount: '',
     webUserCount: '',
     bothUserCount: '',
@@ -21,6 +19,8 @@ export class DialogAddUserComponent {
     allowedDiskSpace: '',
     website: '',
     endDate: '',
+    footerText: '',
+    showFooterlogo: false,
   };
 
   firstname: String = '';
@@ -55,12 +55,16 @@ export class DialogAddUserComponent {
           console.log(response);
           this.isSaving = false;
           this.dialog.closeAll();
+          this.toast.success('tenant added successfully!')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         
         (error) =>{
           console.log(error);
           this.isSaving = false;
-          alert('Adding tenant failed!');
+          this.toast.error('Adding tenant failed!');
         }
       );
     } else {
@@ -70,22 +74,10 @@ export class DialogAddUserComponent {
     }
   }
 
-
-  // onFileSelected(event: any) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.customImage = file;
-  //   }
-  // }
-
-  // resetCustomImage() {
-  //   this.customImage = null;
-  // }
-
   formValidator() {
     let valid = true;
     for (const key in this.data) {
-      if (key !== 'id' && !this.data[key as keyof typeof this.data]) {
+      if (key !== 'id' && key !== 'showFooterlogo' && !this.data[key as keyof typeof this.data]) {
         valid = false;
         break;
       }

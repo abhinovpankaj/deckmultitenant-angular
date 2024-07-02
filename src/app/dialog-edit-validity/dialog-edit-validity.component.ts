@@ -62,11 +62,15 @@ export class DialogEditValidityComponent {
           console.log(response);
           this.isSaving = false;
           this.dialogRef.close(); // Close the dialog after a successful update
+          this.toast.success('Tenant validity date updated successfully!')
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-          alert('Failed to update tenant validity date!');
+          this.toast.error('Failed to update tenant validity date!');
         }
       );
     } else {

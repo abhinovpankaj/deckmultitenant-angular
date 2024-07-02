@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Material Design
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -76,6 +76,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { TenantDetailComponent } from './tenant-detail/tenant-detail.component';
 import { CustomFormsComponent } from './custom-forms/custom-forms.component';
 import { DialogAddFormComponent } from './dialog-add-form/dialog-add-form.component';
+import { DialogEditCustomFormComponent } from './dialog-edit-custom-form/dialog-edit-custom-form.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { DialogAddFormComponent } from './dialog-add-form/dialog-add-form.compon
     TenantDetailComponent,
     CustomFormsComponent,
     DialogAddFormComponent,
+    DialogEditCustomFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +133,7 @@ import { DialogAddFormComponent } from './dialog-add-form/dialog-add-form.compon
     MatDialogModule,
     MatCheckboxModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,

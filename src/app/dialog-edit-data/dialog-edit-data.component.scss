@@ -1,16 +1,18 @@
-.mat-dialog-content {
-    padding: 1rem;
-}
+// .mat-dialog-content {
+//     padding: 1rem;
+// }
 
-mat-form-field {
-    margin-right: 1rem;
-}
+// mat-form-field {
+//     margin-right: 1rem;
+// }
 
 /* Add your own styles here */
 .icon-section {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px;
+    display: flex;
+    justify-content: space-between;
   }
   
   .icon-section div {
@@ -30,4 +32,25 @@ mat-form-field {
   .icon-section span {
     font-weight: bold;
   }
+
+  .image-preview {
+    position: relative; /* Add position relative to the container */
+    width: 300px; /* Set the desired width */
+    height: 200px; /* Set the desired height */
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+
+  .preview-image {
+    width: 100%; /* Image will fit within the container width */
+    height: 100%; /* Image will fit within the container height */
+    object-fit: contain; /* Adjusts the image to fit within the given dimensions */
+  }
+  
+
+.mat-dialog-content {
+  width: 1075px; /* Adjust width as needed */
+}
+
+
   
