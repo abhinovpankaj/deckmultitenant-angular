@@ -10,23 +10,32 @@ import { HotToastService } from '@ngneat/hot-toast';
 })
 export class DialogAddFormComponent {
   isSaving: boolean = false;
+  multiValueComponents = ["Dropdown", "Radiobutton", "Checkbox"];
   form: any;
-
+  
   constructor(private dialog: MatDialog, private toast: HotToastService){
     this.form = {
-      items: [
-        {
-          id: 1233,
-          question: 'Question text',
-          type: 'text',
-          options: ["Option 1", "Option 2", "Option 3", "Option 4"]
+      questions: [
+        {         
+          name: '',
+          type: 'Text',
+          answer:'',
+          allowedValues:[],
+          answers:[],
+          isMandatory:true,    
         }
       ]
     };
   }
-
-  get items(){
-    return this.form.items;
+  onChange(event: any) {
+    //remove last question and add new
+    this.form.questions.pop();
+    var questionType =event.target.value;
+    this.addquestion(this.form.questions.length,questionType);
+    
+  }
+  get questions(){
+    return this.form.questions;
   }
 
   onNoClick() {
@@ -37,19 +46,7 @@ export class DialogAddFormComponent {
     if (this.formValidator()) {
       this.isSaving = true;
       console.log(this.form);
-      // this.tenantsService.addTenant(this.data).subscribe(
-      //   (response) =>{
-      //     console.log(response);
-      //     this.isSaving = false;
-      //     this.dialog.closeAll();
-      //   },
-        
-      //   (error) =>{
-      //     console.log(error);
-      //     this.isSaving = false;
-      //     alert('Adding tenant failed!');
-      //   }
-      // );
+     
     } else {
       this.toast.error(
         'Please complete form with valid data! All fields need to contain a value.'
@@ -61,28 +58,33 @@ export class DialogAddFormComponent {
     return true;
   }
 
-  addItem(index: any){
-    this.form.items.splice(index + 1, 0, {
-      id: 1234,
-      question: 'Question text',
-      type: 'text',
-      options: ["Option 1", "Option 2", "Option 3", "Option 4"]
-    })
+  addquestion(index: any,questionType: string){
+    console.log(questionType);
+    var question = {          
+      name: '',
+      type: questionType,
+      isMandatory:false,
+      allowedValues:this.multiValueComponents.includes(questionType)? ['']:[],
+      answers:[],
+      answer:''
+    } 
+    
+    this.form.questions.splice(index + 1, 0, question );
   }
 
-  removeItem(index: any){
-    if (this.form.items.length > 1){
-      this.form.items.splice(index, 1);
+  removequestion(index: any){
+    if (this.form.questions.length > 1){
+      this.form.questions.splice(index, 1);
     }
   }
 
   addOption(itemIndex: any, optionIndex: any){
-    this.form.items[itemIndex]?.options?.splice(optionIndex + 1, 0, `Option ${optionIndex+1}`)
+    this.form.questions[itemIndex]?.allowedValues?.splice(optionIndex + 1, 0, `Option ${optionIndex+1}`)
   }
 
   removeOption(itemIndex: any, optionIndex: any){
-    if (this.form.items[itemIndex]?.options?.length > 1){
-      this.form.items[itemIndex]?.options?.splice(optionIndex, 1);
+    if (this.form.questions[itemIndex]?.allowedValues?.length > 1){
+      this.form.questions[itemIndex]?.allowedValues?.splice(optionIndex, 1);
     }
   }
 

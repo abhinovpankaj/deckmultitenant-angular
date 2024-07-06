@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCalendarComponent } from '../dialog-calendar/dialog-calendar.component';
 import { Observable } from 'rxjs';
 import { DialogNotepadComponent } from '../dialog-notepad/dialog-notepad.component';
-import { NewsService } from '../news.service';
+
 import { DialogWalkthroughComponent } from '../dialog-walkthrough/dialog-walkthrough.component';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from '../login.service';
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     public usersService: UsersService,
     private dialog: MatDialog,
-    public newsService: NewsService,
+    
     private toast: HotToastService,
     public loginService: LoginService,
     private router: Router

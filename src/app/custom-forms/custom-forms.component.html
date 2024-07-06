@@ -1,7 +1,7 @@
 <div>
-    <h2>Tenant Expenses</h2>
+    <h2>Create New Location Form</h2>
     <label for="tenantSelect">Select Tenant:</label>
-    <select id="tenantSelect" [(ngModel)]="selectedTenant">
+    <select id="tenantSelect" [(ngModel)]="selectedTenant" (change)="onTenantSelected($event)">
       <option *ngFor="let tenant of tenants" [ngValue]="tenant">{{ tenant.name }}</option>
     </select>
     
@@ -10,6 +10,14 @@
         <button class="form-btn" (click)="openDialog()">Create New Form</button>
       </div>
     </div>
-    
+    <h2>Added Location Forms</h2>
+    <ul class="locationForms">
+      <li *ngFor="let form of forms">
+        <button [class.selected]="form === selectedForm" type="button" (click)="onSelect(form)">
+          <span class="badge">{{form.name}}</span>
+          <span class="name">{{form.name}}</span>
+        </button>
+      </li>
+    </ul>
   </div>
   
