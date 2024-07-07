@@ -1,19 +1,19 @@
-<h1 mat-dialog-title class="mat-dialog-title">Add New Form</h1>
+<h1 mat-dialog-title class="mat-dialog-title">{{isForEdit ? 'Edit' : 'Add New'}} Form</h1>
 <div mat-dialog-content class="mat-dialog-content">
   <div>
-    <form >
+    <form class="input-row font-size-14">
           <div class="input-row" *ngFor="let question of questions; let i=index">
             <div class="question-row">
-                <mat-form-field appearance="outline">
-                    <input matInput name="question {{i}}" [(ngModel)]="question.name" 
+                <mat-form-field appearance="outline" class="hide-hint">
+                    <input matInput name="question_{{i}}" [(ngModel)]="question.name"
                     type="Text" placeholder="Question {{i + 1}}">
                 </mat-form-field>
-                <div class="input-row option-input" >
-                    <span>Is Mandatory</span>
-                    <input type="checkbox" [checked]="question.isMandatory" 
+                <div class="input-row option-input flex-checkbox-center">
+                    <label>Is Mandatory</label>
+                    <input type="checkbox" [checked]="question.isMandatory"
                     (change)="question.isMandatory = !question.isMandatory">
                 </div>
-                <select name="i" [(ngModel)]="question.type" (change)="onChange($event)" >
+                <select name="type_{{i}}" [(ngModel)]="question.type" (change)="onChange($event, question, i)" >
                     <option value="Text">Single Line Text</option>
                     <option value="Textarea">Multi Line Text </option>
                     <option value="Checkbox">Multiple Choice</option>
@@ -21,37 +21,46 @@
                     <option value="Radiobutton">Radio Button</option>
                 </select>
             </div>
-            
-            <div class="option-container" *ngIf="question.type !== 'Text'|| question.type !== 'Textarea'">
-                
+
+            <div class="option-container input-row" *ngIf="question.type !== 'Text'|| question.type !== 'Textarea'">
                 <div class="input-row option-input" *ngFor="let option of question.allowedValues; let j=index; trackBy: trackByFn">
                     <mat-form-field appearance="outline">
-                        <input matInput name="option {{i}} {{j}}" [(ngModel)]="question.allowedValues[j]" type="text" placeholder="Option {{j + 1}}">
+                        <input matInput name="option_{{i}}_{{j}}" [(ngModel)]="question.allowedValues[j]" type="text" placeholder="Option {{j + 1}}">
                     </mat-form-field>
 
-                    <button (click)="addOption(i,j)" mat-mini-fab id="add-option-btn" matTooltip="Add new option"> 
-                        <mat-icon class="add-icon">add</mat-icon>
+                    <button (click)="addOption(i,j)" mat-mini-fab class="add-remove-btn" id="add-option-btn">
+                        <mat-icon class="add-icon flex-center">add</mat-icon>
                     </button>
 
-                    <button (click)="removeOption(i,j)" mat-mini-fab id="add-option-btn" matTooltip="Remove Option"> 
-                        <mat-icon class="remove-icon">remove</mat-icon>
+                    <button (click)="removeOption(i,j)" mat-mini-fab class="add-remove-btn" id="remove-option-btn">
+                        <mat-icon class="remove-icon flex-center">remove</mat-icon>
                     </button>
-                
+
                 </div>
             </div>
             <div class="btn">
-                <button class="form-btn" type="button" (click)="removequestion(i)">Remove</button>
-                <button class="form-btn" type="button" (click)="addquestion(i,question.type)">Add Question</button>
+                <button *ngIf="questions.length !== 1" mat-mini-fab class="form-btn add-remove-btn" type="button" (click)="removequestion(i)">
+                  <mat-icon class="remove-icon flex-center">delete_outline</mat-icon>
+                </button>
+<!--                <button class="form-btn" type="button" (click)="addquestion(question.type, i)">Add Question</button>-->
+                <button *ngIf="isForEdit" mat-mini-fab class="form-btn add-remove-btn ml-10" type="button" (click)="saveQuestion(i)">
+                  <mat-icon class="remove-icon flex-center">save</mat-icon>
+                </button>
             </div>
           </div>
       </form>
   </div>
 </div>
 
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button  [disabled]="isSaving" (click)="submitData()">
-    <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
-    <span *ngIf="!isSaving">Save</span>
-  </button>
+<div mat-dialog-actions class="flex-space-between">
+  <div>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button *ngIf="!isForEdit" mat-button [disabled]="isSaving" (click)="submitData()">
+      <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
+      <span *ngIf="!isSaving">Save</span>
+    </button>
+  </div>
+  <div>
+    <button class="form-btn p-10" type="button" (click)="addquestion()">Add Question</button>
+  </div>
 </div>

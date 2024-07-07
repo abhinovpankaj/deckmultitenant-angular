@@ -14,7 +14,7 @@ export class FormsService {
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem('authorization')!
     });
-  
+
     // Include the headers in the request
     this.options = { headers: headers };
   }
@@ -41,10 +41,15 @@ export class FormsService {
     const url = `${environment.apiUrl}/locationforms/${FormId}`;
     return this.httpClient.delete<any>(url, this.options);
   }
-  
+
   addQuestionsToForm(FormId:string,questions:Question []):Observable<any>{
     const url = `${environment.apiUrl}/locationforms/${FormId}/addquestions`;
     return this.httpClient.post<any>(url,questions, this.options);
+  }
+
+  addQuestionToForm(FormId: string, questionObj: Question):Observable<any>{
+    const url = `${environment.apiUrl}/locationforms/${FormId}/addquestion`;
+    return this.httpClient.post<any>(url, questionObj, this.options);
   }
 
   deleteQuestionToForm(FormId:string,QuestionId:string):Observable<any>{

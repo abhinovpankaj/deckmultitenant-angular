@@ -4,7 +4,7 @@
     <select id="tenantSelect" [(ngModel)]="selectedTenant" (change)="onTenantSelected($event)">
       <option *ngFor="let tenant of tenants" [ngValue]="tenant">{{ tenant.name }}</option>
     </select>
-    
+
     <div *ngIf="selectedTenant">
       <div class="btn">
         <button class="form-btn" (click)="openDialog()">Create New Form</button>
@@ -12,12 +12,14 @@
     </div>
     <h2>Added Location Forms</h2>
     <ul class="locationForms">
-      <li *ngFor="let form of forms">
-        <button [class.selected]="form === selectedForm" type="button" (click)="onSelect(form)">
+      <li *ngFor="let form of forms; let i = index">
+        <button class="height-auto" [class.selected]="form === selectedForm" type="button" (click)="onSelect(form, i)">
           <span class="badge">{{form.name}}</span>
           <span class="name">{{form.name}}</span>
         </button>
+        <a (click)="deleteForm(form._id, i)" mat-icon-button>
+          <mat-icon aria-label="Delete" color="warn">delete</mat-icon>
+        </a>
       </li>
     </ul>
   </div>
-  

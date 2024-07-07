@@ -2,11 +2,11 @@ h2 {
     color: #333;
     margin-bottom: 20px;
   }
-  
+
   label {
     font-weight: bold;
   }
-  
+
   select {
     width: 100%;
     padding: 10px;
@@ -15,7 +15,7 @@ h2 {
     border-radius: 5px;
     margin-bottom: 20px;
   }
-  
+
   h3 {
     margin-top: 20px;
   }
@@ -42,11 +42,11 @@ h2 {
     padding: 0;
     width: 25em;
   }
-  
+
   .locationForms li {
     display: flex;
   }
-  
+
   .locationForms button {
     flex: 1;
     cursor: pointer;
@@ -60,33 +60,33 @@ h2 {
     align-items: stretch;
     height: 1.8em;
   }
-  
+
   .locationForms button:hover {
     color: #2c3a41;
     background-color: #e6e6e6;
     left: .1em;
   }
-  
+
   .locationForms button:active {
     background-color: #525252;
     color: #fafafa;
   }
-  
+
   .locationForms button.selected {
     background-color: black;
     color: white;
   }
-  
+
   .locationForms button.selected:hover {
     background-color: #505050;
     color: white;
   }
-  
+
   .locationForms button.selected:active {
     background-color: black;
     color: white;
   }
-  
+
   .locationForms .badge {
     display: inline-block;
     font-size: small;
@@ -97,8 +97,11 @@ h2 {
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
-  
+
   .locationForms .name {
     align-self: center;
   }
-  
+
+  .height-auto {
+    height: auto !important;
+  }
