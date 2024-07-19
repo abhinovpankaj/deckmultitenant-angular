@@ -1,0 +1,54 @@
+<div class="searchbar-container">
+    <h2>Tenant Users</h2>
+    <label for="tenantSelect">Select Tenant:</label>
+    <select id="tenantSelect" [(ngModel)]="selectedTenant" (change)="onTenantChange()">
+        <option *ngFor="let tenant of tenants" [ngValue]="tenant">{{ tenant.name }}</option>
+    </select>
+  
+  </div>
+  
+  <mat-card class="table-wrapper">
+    <div class="table-scroll">
+      <table class="user-table" style="width: 100%;">
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <!-- <th>Company Description</th> -->
+          <th>Username</th>
+          <th>Email</th>
+          <th>Reset Device</th>
+          <th>Delete User</th>
+          <th></th>
+        </tr>
+    
+        <tr
+          class="data-row"
+          *ngFor="let user of filteredUsers; let i = index"
+          #dataRow
+        >
+          <td>{{ i + 1 }}</td>
+          <td class="name-sec">
+            <div class="name-div">
+              <div class="name-name">
+                {{ user.first_name }} {{user.last_name}}
+              </div>
+            </div>
+            </td>
+            <td>
+                <div class="name-dis"> {{ user.username }}</div>
+              </td>
+          <td class="send-mail">
+            {{ user.email }}
+          </td>
+          <td>
+            <a class="edit-link" (click)="resetDevice(user.username); $event.stopPropagation()">Reset</a>
+          </td>
+          <td>
+            <a class="edit-link" (click)="openDialog(user.username); $event.stopPropagation()"><mat-icon class="edit-icon">delete</mat-icon></a>
+          </td>
+        </tr>
+      </table>
+  
+    </div>
+  </mat-card>
+  

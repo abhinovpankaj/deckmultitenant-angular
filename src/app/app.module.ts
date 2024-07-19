@@ -77,6 +77,7 @@ import { TenantDetailComponent } from './tenant-detail/tenant-detail.component';
 import { CustomFormsComponent } from './custom-forms/custom-forms.component';
 import { DialogAddFormComponent } from './dialog-add-form/dialog-add-form.component';
 import { DialogEditCustomFormComponent } from './dialog-edit-custom-form/dialog-edit-custom-form.component';
+import { TenantUsersComponent } from './tenant-users/tenant-users.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { DialogEditCustomFormComponent } from './dialog-edit-custom-form/dialog-
     CustomFormsComponent,
     DialogAddFormComponent,
     DialogEditCustomFormComponent,
+    TenantUsersComponent,
   ],
   imports: [
     BrowserModule,

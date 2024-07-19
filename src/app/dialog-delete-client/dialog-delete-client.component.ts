@@ -1,10 +1,6 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { UsersService } from '../users.service';
-import { Location } from '@angular/common';
-import { doc, deleteDoc } from 'firebase/firestore';
-import { Storage } from '@angular/fire/storage';
-import { ref, list, deleteObject } from 'firebase/storage';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { TenantUserService } from '../tenant-user.service';
 
 @Component({
   selector: 'app-dialog-delete-client',
@@ -17,11 +13,9 @@ export class DialogDeleteClientComponent {
 
   constructor(
     private dialog: MatDialog,
-    private usersService: UsersService,
-    private location: Location,
-    public storage: Storage
+    private tenantUserService: TenantUserService,
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
-    this.url = this.location.path().split('/')[2];
   }
 
   onNoClick() {
@@ -29,17 +23,7 @@ export class DialogDeleteClientComponent {
   }
 
   async deleteClientAccount() {
-    let docRef= doc(this.usersService.collection, this.url);
-    await deleteDoc(docRef);
-
-    const userStorageRef = ref(this.storage, `avatarImages/${this.url}`);
-    const files = await list(userStorageRef);
-
-    if (files.items.length > 0) {
-      const filePath = files.items[0];
-      await deleteObject(filePath);
-    }
-
+    await this.tenantUserService.deleteUser(this.data.username);
     this.dialog.closeAll();
   }
 }
