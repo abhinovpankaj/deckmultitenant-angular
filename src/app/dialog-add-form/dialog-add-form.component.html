@@ -1,8 +1,18 @@
 <h1 mat-dialog-title class="mat-dialog-title">{{isForEdit ? 'Edit' : 'Add New'}} Form</h1>
-<div mat-dialog-content class="mat-dialog-content">
+<div mat-dialog-content class="mat-dialog-content" id="dialog-add-form">
   <div>
     <form class="input-row font-size-14">
-          <div class="input-row" *ngFor="let question of questions; let i=index">
+      <div class="input-row bottom-border">
+        <label>Form Name</label>
+        <div class="question-row">
+          <mat-form-field appearance="outline" class="hide-hint full-width">
+            <input matInput name="formName" [(ngModel)]="form.name" type="Text" placeholder="Form Name">
+          </mat-form-field>
+        </div>
+        <div *ngIf="isShowError && (!form.name || form.name == '')" class="form-errors">Form Name is required.</div>
+      </div>
+      <hr/>
+          <div class="input-row bottom-border" *ngFor="let question of questions; let i=index">
             <div class="question-row">
                 <mat-form-field appearance="outline" class="hide-hint">
                     <input matInput name="question_{{i}}" [(ngModel)]="question.name"
@@ -21,10 +31,12 @@
                     <option value="Radiobutton">Radio Button</option>
                 </select>
             </div>
+            <div *ngIf="isShowError && question.error" class="form-errors">Question {{i + 1}} is required.</div>
 
             <div class="option-container input-row" *ngIf="question.type !== 'Text'|| question.type !== 'Textarea'">
-                <div class="input-row option-input" *ngFor="let option of question.allowedValues; let j=index; trackBy: trackByFn">
-                    <mat-form-field appearance="outline">
+                <div class="" *ngFor="let option of question.allowedValues; let j=index; trackBy: trackByFn">
+                  <div class="input-row option-input">
+                    <mat-form-field appearance="outline" class="pr-5">
                         <input matInput name="option_{{i}}_{{j}}" [(ngModel)]="question.allowedValues[j]" type="text" placeholder="Option {{j + 1}}">
                     </mat-form-field>
 
@@ -35,18 +47,24 @@
                     <button (click)="removeOption(i,j)" mat-mini-fab class="add-remove-btn" id="remove-option-btn">
                         <mat-icon class="remove-icon flex-center">remove</mat-icon>
                     </button>
-
+                  </div>
                 </div>
             </div>
-            <div class="btn">
+            <div *ngIf="isShowError && question.optionError" class="form-errors">All Options is required.</div>
+
+            <div class="btn mb-0" *ngIf="questions.length !== 1 || isForEdit">
                 <button *ngIf="questions.length !== 1" mat-mini-fab class="form-btn add-remove-btn" type="button" (click)="removequestion(i)">
-                  <mat-icon class="remove-icon flex-center">delete_outline</mat-icon>
+                  <mat-spinner *ngIf="loadingObj[i]" diameter="20"></mat-spinner>
+                  <mat-icon *ngIf="!loadingObj[i]" class="remove-icon flex-center">delete_outline</mat-icon>
                 </button>
 <!--                <button class="form-btn" type="button" (click)="addquestion(question.type, i)">Add Question</button>-->
                 <button *ngIf="isForEdit" mat-mini-fab class="form-btn add-remove-btn ml-10" type="button" (click)="saveQuestion(i)">
-                  <mat-icon class="remove-icon flex-center">save</mat-icon>
+                  <mat-spinner *ngIf="loadingObj[i]" diameter="20"></mat-spinner>
+                  <mat-icon *ngIf="!loadingObj[i]" class="remove-icon flex-center">save</mat-icon>
                 </button>
             </div>
+
+            <hr *ngIf="i !== (questions.length - 1)"/>
           </div>
       </form>
   </div>
@@ -54,8 +72,8 @@
 
 <div mat-dialog-actions class="flex-space-between">
   <div>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button *ngIf="!isForEdit" mat-button [disabled]="isSaving" (click)="submitData()">
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-button [disabled]="isSaving" (click)="submitData()">
       <mat-spinner *ngIf="isSaving" diameter="25"></mat-spinner>
       <span *ngIf="!isSaving">Save</span>
     </button>

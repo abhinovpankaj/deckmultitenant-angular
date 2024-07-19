@@ -17,6 +17,8 @@ export class DialogAddFormComponent implements OnInit {
   selectedTenantObj: any = {};
   selectedFormObj: any = {};
   selectedForm: any = {};
+  loadingObj: any = {};
+  isShowError: boolean = false;
 
   constructor(private dialog: MatDialog, private toast: HotToastService, private formsService: FormsService,
               public dialogRef: MatDialogRef<DialogAddFormComponent>){
@@ -27,7 +29,7 @@ export class DialogAddFormComponent implements OnInit {
           type: 'Text',
           answer:'',
           allowedValues:[],
-          answers:[],
+          multipleAnswers:[],
           isMandatory:true,
         }
       ]
@@ -37,8 +39,8 @@ export class DialogAddFormComponent implements OnInit {
   ngOnInit() {
     const selectedTenant = JSON.parse(JSON.stringify(this.selectedTenantObj));
     this.selectedForm = JSON.parse(JSON.stringify(this.selectedFormObj));
+    this.form.name = (this.selectedForm && this.selectedForm.name) ? this.selectedForm.name : '';
     if (selectedTenant) {
-      this.form.name = selectedTenant.name;
       this.form.companyIdentifier = selectedTenant.companyIdentifier;
     }
     if (this.selectedForm && this.selectedForm._id) {
@@ -50,7 +52,7 @@ export class DialogAddFormComponent implements OnInit {
             type: 'Text',
             answer:'',
             allowedValues:[],
-            answers:[],
+            multipleAnswers:[],
             isMandatory:true,
           }
         ];
@@ -66,7 +68,7 @@ export class DialogAddFormComponent implements OnInit {
       type: questionType,
       isMandatory: question.isMandatory,
       allowedValues: this.multiValueComponents.includes(questionType) ? ((question.allowedValues && question.allowedValues.length) ? question.allowedValues : ['']) : [],
-      answers: [],
+      multipleAnswers: [],
       answer: ''
     };
     if (question._id) {
@@ -143,7 +145,45 @@ export class DialogAddFormComponent implements OnInit {
   }
 
   formValidator(){
-    return true;
+    let flag: boolean = true;
+    this.isShowError = false;
+    if (!this.form.name || this.form.name === '') {
+      this.isShowError = true;
+      flag = false;
+    }
+
+    this.form.questions.forEach((questionObj: any) => {
+      if (!questionObj.name || questionObj.name === '') {
+        this.isShowError = true;
+        flag = false;
+        questionObj.error = true;
+      } else {
+        delete questionObj.error;
+      }
+
+      if (questionObj.type !== 'Text' && questionObj.type !== 'Textarea') {
+        if (!questionObj.allowedValues.length) {
+          this.isShowError = true;
+          flag = false;
+        } else {
+          let subFlag: boolean = false;
+          questionObj.allowedValues.forEach((value: any) => {
+            if (!value || value === '') {
+              this.isShowError = true;
+              flag = false;
+              subFlag = true;
+            }
+          });
+          if (subFlag) {
+            questionObj.optionError = subFlag;
+          } else {
+            delete questionObj.optionError;
+          }
+        }
+      }
+    })
+
+    return flag;
   }
 
   async addquestion(){
@@ -152,7 +192,7 @@ export class DialogAddFormComponent implements OnInit {
       type: 'Text',
       isMandatory: false,
       allowedValues: [],
-      answers: [],
+      multipleAnswers: [],
       answer: ''
     };
     this.form.questions.push(newQuestionObj);
@@ -167,7 +207,11 @@ export class DialogAddFormComponent implements OnInit {
     }
   }
 
-  addQuestionToForm(newQuestionObj: any, index: number) {
+  addQuestionToForm(newQuestionObj: any, index: number): any {
+    if (this.loadingObj[index]) {
+      return false;
+    }
+    this.loadingObj[index] = true;
     this.formsService.addQuestionToForm(this.form._id, newQuestionObj).subscribe(
       (result)=>{
         if (result.success) {
@@ -178,17 +222,23 @@ export class DialogAddFormComponent implements OnInit {
         } else {
           this.toast.error(`Failed to add the question`);
         }
+        this.loadingObj[index] = false;
       },
       (error)=>{
         // this.toast.error((error as any).toString());
         this.toast.error(`Failed to add the question`);
+        this.loadingObj[index] = false;
       }
     );
   }
 
-  updateQuestionToForm(index: number) {
+  updateQuestionToForm(index: number): any {
     let question = JSON.parse(JSON.stringify(this.form.questions[index]));
     if (question._id) {
+      if (this.loadingObj[index]) {
+        return false;
+      }
+      this.loadingObj[index] = true;
       const questionId: string = question._id;
       delete question._id;
       this.formsService.updateQuestionToForm(this.form._id, questionId, question).subscribe(
@@ -198,20 +248,26 @@ export class DialogAddFormComponent implements OnInit {
           } else {
             this.toast.error(`Failed to update the question`);
           }
+          this.loadingObj[index] = false;
         },
         (error)=>{
           // this.toast.error((error as any).toString());
           this.toast.error(`Failed to update the question`);
+          this.loadingObj[index] = false;
         }
       );
     }
   }
 
-  removequestion(index: any){
+  removequestion(index: any): any{
     if (this.form.questions.length > 1){
       const question = this.form.questions[index];
 
       if (question._id) {
+        if (this.loadingObj[index]) {
+          return false;
+        }
+        this.loadingObj[index] = true;
         this.formsService.deleteQuestionToForm(this.form._id, question._id).subscribe(
           (result) => {
             if (result.success) {
@@ -220,10 +276,12 @@ export class DialogAddFormComponent implements OnInit {
             } else {
               this.toast.error(`Failed to remove the question`);
             }
+            this.loadingObj[index] = false;
           },
           (error) => {
             // this.toast.error((error as any).toString());
             this.toast.error(`Failed to remove the question`);
+            this.loadingObj[index] = false;
           }
         );
       } else {
@@ -233,7 +291,7 @@ export class DialogAddFormComponent implements OnInit {
   }
 
   addOption(itemIndex: any, optionIndex: any){
-    this.form.questions[itemIndex]?.allowedValues?.splice(optionIndex + 1, 0, `Option ${optionIndex+1}`)
+    this.form.questions[itemIndex]?.allowedValues?.splice(optionIndex + 1, 0, ``)
   }
 
   removeOption(itemIndex: any, optionIndex: any){
