@@ -34,6 +34,23 @@ export class TenantUserService {
     
   }
 
+  toggleUserStatus(username: string,status:boolean): Promise<any>{
+    return new Promise<any>(
+      (resolve, reject) =>{
+        const data = { isActive: status}
+        this.httpClient.put(`${environment.apiUrl}/user/${username}`,data, this.options).subscribe(
+          (user)=>{
+            resolve(user);
+            this.toast.success(`User status ${status?"activated":"deactivated"} successfully`);
+          },
+          (error)=>{
+            reject(error);
+            this.toast.error('User status update failed!');
+          }
+        )
+      }
+    );
+  }
   updateUserDeviceId(username: string): Promise<any>{
     return new Promise<any>(
       (resolve, reject) =>{

@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "deckmultitenant"
+  "defaultProject": "deckmultitenant",
+  "cli": {
+    "analytics": "ed92485d-2551-4a19-a0b7-093550888d3d"
+  }
 }

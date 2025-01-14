@@ -25,8 +25,20 @@ h2 {
     }
   }
   
-  table {
+  .user-table {
+    width: 100%;
     border-collapse: collapse;
+  }
+  
+  .user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    
+    font-weight: bold;
   }
   
   tr:nth-of-type(odd) {
@@ -153,6 +165,8 @@ h2 {
   .edit-icon {
     text-align: left;
     margin-top: 10px;
+    margin-left: 10px;
+    font-size: 24px !important;
   }
   
   .web-link {
@@ -184,5 +198,9 @@ h2 {
   .table-scroll {
     max-height: auto; /* Adjust the height as needed */
     overflow-y: auto;
+  }
+  .inactive-icon {
+     /* Change this to the desired color for deactivated users */
+    background-color: red !important;; /* Optional: change the background color */
   }
   

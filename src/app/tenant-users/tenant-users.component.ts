@@ -45,5 +45,10 @@ export class TenantUsersComponent {
       this.fetchUsers();
     });
   }
+  async toggleStatus(username: any, status: boolean) {
+    status= status===undefined?false:!status;
+    let user = await this.tenantUserService.toggleUserStatus(username,status);
+    this.fetchUsers();
+  }
 
 }

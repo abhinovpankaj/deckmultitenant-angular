@@ -9,7 +9,7 @@
   
   <mat-card class="table-wrapper">
     <div class="table-scroll">
-      <table class="user-table" style="width: 100%;">
+      <table class="user-table">
         <tr>
           <th>No.</th>
           <th>Name</th>
@@ -17,13 +17,14 @@
           <th>Username</th>
           <th>Email</th>
           <th>Reset Device</th>
+          <th>Inactive</th>
           <th>Delete User</th>
-          <th></th>
         </tr>
     
         <tr
           class="data-row"
-          *ngFor="let user of filteredUsers; let i = index"
+          *ngFor="let user of filteredUsers; let i = index" 
+          [ngClass]="{'inactive-icon': user.isActive===false}"
           #dataRow
         >
           <td>{{ i + 1 }}</td>
@@ -44,7 +45,14 @@
             <a class="edit-link" (click)="resetDevice(user.username); $event.stopPropagation()">Reset</a>
           </td>
           <td>
-            <a class="edit-link" (click)="openDialog(user.username); $event.stopPropagation()"><mat-icon class="edit-icon">delete</mat-icon></a>
+            <a class="edit-link" (click)="toggleStatus(user.username,user.isActive); $event.stopPropagation()">
+              <mat-icon class="edit-icon" >{{ user.isActive==null? 'toggle_off':user.isActive ? 'toggle_off' : 'toggle_on' }}</mat-icon>
+            </a>
+          </td>
+          <td>
+            <a class="edit-link" (click)="openDialog(user.username); $event.stopPropagation()">
+              <mat-icon class="edit-icon">delete</mat-icon>
+            </a>
           </td>
         </tr>
       </table>
