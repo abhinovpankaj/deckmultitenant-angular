@@ -40,7 +40,7 @@
         class="data-row"
         *ngFor="let user of filteredUsers; let i = index"
         #dataRow
-        [routerLink]="['/details', user._id]"
+        [routerLink]="['/details', user.id]"
       >
         <td>{{ i + 1 }}</td>
         <td class="name-sec">
@@ -50,24 +50,24 @@
             </div>
             <div class="name-dis">
               {{ user.companyDescription}} 
-              <a class="edit-link" (click)="openEditDesDialog(user._id); $event.stopPropagation()"><mat-icon>edit</mat-icon></a>
+              <a class="edit-link" (click)="openEditDesDialog(user.id); $event.stopPropagation()"><mat-icon>edit</mat-icon></a>
             </div>
           </div>
           <!-- <td>
           </td> -->
         <td class="send-mail">
           {{ user.allowedDiskSpace }} GB
-          <a class="edit-link" (click)="openEditDiskSpDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
+          <a class="edit-link" (click)="openEditDiskSpDialog(user.id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
         </td>
         <td>{{ user.endDate | date:'shortDate' }}
-          <a class="edit-link" (click)="openEditValDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
+          <a class="edit-link" (click)="openEditValDialog(user.id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
         </td>
         <td>{{ (user.mobileUserCount + user.webUserCount + user.bothUserCount) || '0' }}
-          <a class="edit-link" (click)="openEditUserDialog(user._id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
+          <a class="edit-link" (click)="openEditUserDialog(user.id); $event.stopPropagation()"><mat-icon class="edit-icon">edit</mat-icon></a>
         </td>
         <td>
           <a class="web-link" href="{{ user.website }}" target="_blank">{{ user.website }}</a>
-          <a class="edit-link" (click)="openEditWebDialog(user._id); $event.stopPropagation()">
+          <a class="edit-link" (click)="openEditWebDialog(user.id); $event.stopPropagation()">
             <mat-icon class="edit-icon">edit</mat-icon>
           </a>
         </td>
@@ -77,10 +77,10 @@
   
         <td>
           <mat-menu #editMenu="matMenu">
-            <button mat-menu-item (click)="openEditDialog(user._id)">Add Logo</button>
-            <button mat-menu-item (click)="openAdminDialog(user._id)">Add Admin</button>
-            <button mat-menu-item (click)="DeleteTenant(user._id)">Delete Tenant</button>
-            <button mat-menu-item (click)="toggleStatus(user._id, user.isActive)">Toggle Status</button>
+            <button mat-menu-item (click)="openEditDialog(user.id)">Add Logo</button>
+            <button mat-menu-item (click)="openAdminDialog(user.id)">Add Admin</button>
+            <button mat-menu-item (click)="DeleteTenant(user.id)">Delete Tenant</button>
+            <button mat-menu-item (click)="toggleStatus(user.id, user.isActive)">Toggle Status</button>
           </mat-menu>
         
           <button mat-icon-button [matMenuTriggerFor]="editMenu" (click)="$event.stopPropagation()">

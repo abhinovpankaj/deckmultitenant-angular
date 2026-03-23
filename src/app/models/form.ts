@@ -1,5 +1,5 @@
 export interface Form {
-    _id: string;
+    id: string;
     name: String,
     companyDescription: String,
     questions:string[]
