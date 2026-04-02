@@ -43,7 +43,7 @@ export class DialogAddFormComponent implements OnInit {
     if (selectedTenant) {
       this.form.companyIdentifier = selectedTenant.companyIdentifier;
     }
-    if (this.selectedForm && this.selectedForm._id) {
+    if (this.selectedForm && this.selectedForm.id) {
       this.form = this.selectedForm;
       if (!this.form.questions.length) {
         this.form.questions = [
@@ -71,8 +71,8 @@ export class DialogAddFormComponent implements OnInit {
       multipleAnswers: [],
       answer: ''
     };
-    if (question._id) {
-      newQuestionObj._id = question._id;
+    if (question.id) {
+      newQuestionObj.id = question.id;
     }
     this.form.questions.splice(index, 1, newQuestionObj);
   }
@@ -126,8 +126,8 @@ export class DialogAddFormComponent implements OnInit {
     }
     this.isSaving = true;
     let formObj = JSON.parse(JSON.stringify(this.form));
-    delete formObj._id;
-    this.formsService.editForm(this.form._id, formObj).subscribe(
+    delete formObj.id;
+    this.formsService.editForm(this.form.id, formObj).subscribe(
       (result)=>{
         if (result.success) {
           this.dialogRef.close(result.success);
@@ -200,7 +200,7 @@ export class DialogAddFormComponent implements OnInit {
 
   saveQuestion(index: number) {
     let question = JSON.parse(JSON.stringify(this.form.questions[index]));
-    if (question._id) {
+    if (question.id) {
       this.updateQuestionToForm(index);
     } else {
       this.addQuestionToForm(question, index);
@@ -212,10 +212,10 @@ export class DialogAddFormComponent implements OnInit {
       return false;
     }
     this.loadingObj[index] = true;
-    this.formsService.addQuestionToForm(this.form._id, newQuestionObj).subscribe(
+    this.formsService.addQuestionToForm(this.form.id, newQuestionObj).subscribe(
       (result)=>{
         if (result.success) {
-          newQuestionObj._id = result._id;
+          newQuestionObj.id = result.id;
           this.form.questions.splice(index, 1, newQuestionObj);
           // this.form.questions.push(newQuestionObj);
           this.toast.success('Question added successfully');
@@ -234,14 +234,14 @@ export class DialogAddFormComponent implements OnInit {
 
   updateQuestionToForm(index: number): any {
     let question = JSON.parse(JSON.stringify(this.form.questions[index]));
-    if (question._id) {
+    if (question.id) {
       if (this.loadingObj[index]) {
         return false;
       }
       this.loadingObj[index] = true;
-      const questionId: string = question._id;
-      delete question._id;
-      this.formsService.updateQuestionToForm(this.form._id, questionId, question).subscribe(
+      const questionId: string = question.id;
+      delete question.id;
+      this.formsService.updateQuestionToForm(this.form.id, questionId, question).subscribe(
         (result)=>{
           if (result.success) {
             this.toast.success('Question updated successfully');
@@ -263,12 +263,12 @@ export class DialogAddFormComponent implements OnInit {
     if (this.form.questions.length > 1){
       const question = this.form.questions[index];
 
-      if (question._id) {
+      if (question.id) {
         if (this.loadingObj[index]) {
           return false;
         }
         this.loadingObj[index] = true;
-        this.formsService.deleteQuestionToForm(this.form._id, question._id).subscribe(
+        this.formsService.deleteQuestionToForm(this.form.id, question.id).subscribe(
           (result) => {
             if (result.success) {
               this.form.questions.splice(index, 1);
