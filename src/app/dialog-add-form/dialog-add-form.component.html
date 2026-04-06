@@ -12,61 +12,67 @@
         <div *ngIf="isShowError && (!form.name || form.name == '')" class="form-errors">Form Name is required.</div>
       </div>
       <hr/>
-          <div class="input-row bottom-border" *ngFor="let question of questions; let i=index">
-            <div class="question-row">
-                <mat-form-field appearance="outline" class="hide-hint">
-                    <input matInput name="question_{{i}}" [(ngModel)]="question.name"
-                    type="Text" placeholder="Question {{i + 1}}">
-                </mat-form-field>
-                <div class="input-row option-input flex-checkbox-center">
-                    <label>Is Mandatory</label>
-                    <input type="checkbox" [checked]="question.isMandatory"
-                    (change)="question.isMandatory = !question.isMandatory">
+          <div cdkDropList (cdkDropListDropped)="drop($event)" class="questions-list-container">
+            <div class="draggable-question-card" *ngFor="let question of questions; let i=index; trackBy: trackByQuestion" cdkDrag>
+              <div class="question-card-content">
+                <span class="drag-handle-absolute" cdkDragHandle>
+                  <span class="question-seq-number">{{i + 1}}</span>
+                  <mat-icon class="drag-grip-icon">drag_indicator</mat-icon>
+                </span>
+                <div class="question-main-fields">
+                  <mat-form-field appearance="outline" class="question-name-field">
+                    <input matInput name="question_{{i}}" [(ngModel)]="question.name" type="Text" placeholder="Question {{i + 1}}">
+                  </mat-form-field>
+                    <div class="type-mandatory-actions-row">
+                      <mat-form-field appearance="outline" class="question-type-field">
+                        <mat-label>Type</mat-label>
+                        <mat-select id="type_{{i}}" name="type_{{i}}" [(ngModel)]="question.type" (selectionChange)="onChange($event, question, i)" title="Question Type">
+                          <mat-option value="Text">Single Line Text</mat-option>
+                          <mat-option value="Textarea">Multi Line Text</mat-option>
+                          <mat-option value="Checkbox">Multiple Choice</mat-option>
+                          <mat-option value="Dropdown">Dropdown</mat-option>
+                          <mat-option value="Radiobutton">Radio Button</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <div class="mandatory-checkbox">
+                        <label for="mandatory_{{i}}">Mandatory</label>
+                        <input id="mandatory_{{i}}" type="checkbox" [checked]="question.isMandatory" (change)="question.isMandatory = !question.isMandatory">
+                      </div>
+                      <div class="card-actions" *ngIf="questions.length !== 1 || isForEdit">
+                        <button *ngIf="questions.length !== 1" mat-mini-fab class="add-remove-btn" type="button" (click)="removequestion(i)">
+                          <mat-spinner *ngIf="loadingObj[i]" diameter="20"></mat-spinner>
+                          <mat-icon *ngIf="!loadingObj[i]" class="remove-icon flex-center">delete_outline</mat-icon>
+                        </button>
+                        <button *ngIf="isForEdit" mat-mini-fab class="add-remove-btn ml-10" type="button" (click)="saveQuestion(i)">
+                          <mat-spinner *ngIf="loadingObj[i]" diameter="20"></mat-spinner>
+                          <mat-icon *ngIf="!loadingObj[i]" class="remove-icon flex-center">save</mat-icon>
+                        </button>
+                      </div>
+                    </div>
                 </div>
-                <select name="type_{{i}}" [(ngModel)]="question.type" (change)="onChange($event, question, i)" >
-                    <option value="Text">Single Line Text</option>
-                    <option value="Textarea">Multi Line Text </option>
-                    <option value="Checkbox">Multiple Choice</option>
-                    <option value="Dropdown">Dropdown</option>
-                    <option value="Radiobutton">Radio Button</option>
-                </select>
-            </div>
+              </div>
             <div *ngIf="isShowError && question.error" class="form-errors">Question {{i + 1}} is required.</div>
 
-            <div class="option-container input-row" *ngIf="question.type !== 'Text'|| question.type !== 'Textarea'">
-                <div class="" *ngFor="let option of question.allowedValues; let j=index; trackBy: trackByFn">
-                  <div class="input-row option-input">
-                    <mat-form-field appearance="outline" class="pr-5">
-                        <input matInput name="option_{{i}}_{{j}}" [(ngModel)]="question.allowedValues[j]" type="text" placeholder="Option {{j + 1}}">
+              <div class="option-container" *ngIf="question.type !== 'Text' && question.type !== 'Textarea'">
+                <div class="option-list">
+                  <div class="option-row" *ngFor="let option of question.allowedValues; let j=index; trackBy: trackByFn">
+                    <mat-form-field appearance="outline" class="option-field">
+                      <input matInput name="option_{{i}}_{{j}}" [(ngModel)]="question.allowedValues[j]" type="text" placeholder="Option {{j + 1}}">
                     </mat-form-field>
-
-                    <button (click)="addOption(i,j)" mat-mini-fab class="add-remove-btn" id="add-option-btn">
-                        <mat-icon class="add-icon flex-center">add</mat-icon>
+                    <button type="button" (click)="addOption(i,j)" mat-mini-fab class="add-remove-btn" id="add-option-btn">
+                      <mat-icon class="add-icon flex-center">add</mat-icon>
                     </button>
-
-                    <button (click)="removeOption(i,j)" mat-mini-fab class="add-remove-btn" id="remove-option-btn">
-                        <mat-icon class="remove-icon flex-center">remove</mat-icon>
+                    <button type="button" (click)="removeOption(i,j)" mat-mini-fab class="add-remove-btn" id="remove-option-btn">
+                      <mat-icon class="remove-icon flex-center">remove</mat-icon>
                     </button>
                   </div>
                 </div>
-            </div>
+              </div>
             <div *ngIf="isShowError && question.optionError" class="form-errors">All Options is required.</div>
-
-            <div class="btn mb-0" *ngIf="questions.length !== 1 || isForEdit">
-                <button *ngIf="questions.length !== 1" mat-mini-fab class="form-btn add-remove-btn" type="button" (click)="removequestion(i)">
-                  <mat-spinner *ngIf="loadingObj[i]" diameter="20"></mat-spinner>
-                  <mat-icon *ngIf="!loadingObj[i]" class="remove-icon flex-center">delete_outline</mat-icon>
-                </button>
-<!--                <button class="form-btn" type="button" (click)="addquestion(question.type, i)">Add Question</button>-->
-                <button *ngIf="isForEdit" mat-mini-fab class="form-btn add-remove-btn ml-10" type="button" (click)="saveQuestion(i)">
-                  <mat-spinner *ngIf="loadingObj[i]" diameter="20"></mat-spinner>
-                  <mat-icon *ngIf="!loadingObj[i]" class="remove-icon flex-center">save</mat-icon>
-                </button>
-            </div>
-
             <hr *ngIf="i !== (questions.length - 1)"/>
+            </div>
           </div>
-      </form>
+    </form>
   </div>
 </div>
 

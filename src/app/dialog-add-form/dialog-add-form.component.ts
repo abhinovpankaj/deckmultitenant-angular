@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -36,6 +37,10 @@ export class DialogAddFormComponent implements OnInit {
     };
   }
 
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.form.questions, event.previousIndex, event.currentIndex);
+  }
+
   ngOnInit() {
     const selectedTenant = JSON.parse(JSON.stringify(this.selectedTenantObj));
     this.selectedForm = JSON.parse(JSON.stringify(this.selectedFormObj));
@@ -61,8 +66,12 @@ export class DialogAddFormComponent implements OnInit {
     }
   }
 
+  trackByQuestion(index: number, question: any) {
+    return question.id || index;
+  }
+
   onChange(event: any, question: any, index: number) {
-    const questionType = event.target.value;
+    const questionType = event.value !== undefined ? event.value : event.target?.value;
     const newQuestionObj: any = {
       name: question?.name || '',
       type: questionType,
@@ -105,9 +114,7 @@ export class DialogAddFormComponent implements OnInit {
     this.isSaving = true;
     this.formsService.addForm(this.form).subscribe(
       (result)=>{
-        if (result.success) {
-          this.dialogRef.close(result.success);
-        }
+        this.dialogRef.close(true);
       },
       (error)=>{
         if (error && error.error && error.error.message) {
@@ -129,9 +136,7 @@ export class DialogAddFormComponent implements OnInit {
     delete formObj.id;
     this.formsService.editForm(this.form.id, formObj).subscribe(
       (result)=>{
-        if (result.success) {
-          this.dialogRef.close(result.success);
-        }
+        this.dialogRef.close(true);
       },
       (error)=>{
         if (error && error.error && error.error.message) {
